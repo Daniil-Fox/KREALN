@@ -1,0 +1,42 @@
+.service-garant {
+  padding: 12rem 0;
+
+  &__title {
+    margin-bottom: 6rem;
+  }
+
+  &__text {
+    max-width: 84.5rem;
+    margin: 0 auto;
+
+    &:not(:last-child) {
+      margin-bottom: 10rem;
+    }
+  }
+
+  &__content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  &__capture {
+    font-weight: 600;
+    font-size: 2.4rem;
+    color: #141414;
+  }
+
+  &__subcapture {
+    font-size: 1.6rem;
+    margin-bottom: 2rem;
+  }
+
+  &__bottom {
+    max-width: 56rem;
+    margin: 0 auto;
+    text-align: center;
+  }
+}

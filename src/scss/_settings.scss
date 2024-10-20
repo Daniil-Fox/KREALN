@@ -1,0 +1,243 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: calc(100vw / 192);
+}
+
+.page {
+  height: 100%;
+  font-family: var(--font-family, sans-serif);
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+.page__body {
+  margin: 0;
+  min-width: 360px;
+  min-height: 100%;
+  font-size: 16px;
+}
+
+img {
+  height: auto;
+  max-width: 100%;
+  object-fit: cover;
+}
+
+a {
+  text-decoration: none;
+}
+
+.site-container {
+  overflow: hidden; // если используете на сайте position: sticky - уберите эту настройку
+}
+
+.is-hidden {
+  display: none !important;
+  /* stylelint-disable-line declaration-no-important */
+}
+
+.btn-reset {
+  border: none;
+  padding: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.list-reset {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.input-reset {
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
+  border-radius: 0;
+  background-color: #fff;
+
+  &::-webkit-search-decoration,
+  &::-webkit-search-cancel-button,
+  &::-webkit-search-results-button,
+  &::-webkit-search-results-decoration {
+    display: none;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  width: 1px;
+  height: 1px;
+  clip: rect(0 0 0 0);
+}
+
+.container {
+  margin: 0 auto;
+  padding-left: 30.5rem;
+  padding-right: 15rem;
+}
+
+.centered {
+  text-align: center;
+}
+
+.dis-scroll {
+  position: fixed;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 100vh;
+  overscroll-behavior: none;
+}
+
+.page--ios .dis-scroll {
+  position: relative;
+}
+
+.site-slider {
+  position: relative;
+  height: 100vh;
+
+  header {
+    position: absolute;
+    z-index: 10;
+    width: 30.5rem;
+    left: 0;
+    top: 0;
+    height: 100%;
+    border-right: 1px solid rgba(#141414, 0.25);
+
+    &::after {
+      content: "";
+      position: absolute;
+      z-index: 3;
+      top: 12rem;
+      left: 100%;
+      transform: translateX(-40%);
+      width: 0.3rem;
+      height: 8rem;
+      background: linear-gradient(180deg, #307fe2 0%, #cadcf2 100%);
+    }
+  }
+
+  aside {
+    position: absolute;
+    z-index: 10;
+    width: 15rem;
+    right: 0;
+    top: 0;
+    height: 100%;
+    border-left: 1px solid rgba(#141414, 0.25);
+  }
+
+}
+
+.site-wrapper,
+.site-screen {
+  height: 100%;
+}
+
+.site-wrapper {
+  position: relative;
+  height: 100%;
+}
+
+.site-screen {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 100%;
+    height: 0rem;
+    width: 100%;
+    background-color: #fff;
+    z-index: 122;
+    will-change: height;
+  }
+
+  &.active {
+    &::before {
+      animation: sizeup 1.25s ease-in-out 1;
+    }
+  }
+}
+
+.capture {
+  margin: 0;
+
+  font-weight: 400;
+  font-size: 2.4rem;
+  text-align: center;
+  color: #141414;
+  mix-blend-mode: difference;
+}
+
+.title2 {
+  margin: 0;
+  font-weight: 500;
+  font-size: 4.6rem;
+  color: #141414;
+  mix-blend-mode: difference;
+}
+
+.desc {
+  margin: 0;
+  font-weight: 300;
+  font-size: 2rem;
+  text-align: center;
+  color: #141414;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  border: 0.50px solid #141414;
+  padding: 1.4rem 2.5rem;
+
+  font-weight: 500;
+  font-size: 1.8rem;
+  color: #307fe2;
+
+  &--blue {
+    border-color: #307fe2;
+  }
+
+  svg {
+    width: 0.6rem;
+    height: 1.2rem;
+  }
+}
+
+
+@keyframes sizeup {
+  0% {
+    height: 0;
+  }
+
+  50% {
+    height: 40rem;
+  }
+
+  100% {
+    height: 0;
+  }
+}

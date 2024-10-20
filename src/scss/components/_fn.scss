@@ -1,0 +1,42 @@
+.fn {
+  display: flex;
+  flex-direction: column;
+  gap: 6rem;
+
+  &__top,
+  &__bottom {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem;
+  }
+
+  &__link {
+    &--capture {
+      display: inline-block;
+      margin-bottom: 2.7rem;
+      font-family: var(--font-family);
+      font-weight: 600;
+      font-size: 1.6rem;
+      color: #000;
+    }
+  }
+}
+
+
+.fn-b {
+  &__item {
+    max-width: 19rem;
+
+    &:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  &__link {
+    display: inline-block;
+    font-family: var(--font-family);
+    font-weight: 600;
+    font-size: 1.6rem;
+    color: #000;
+  }
+}

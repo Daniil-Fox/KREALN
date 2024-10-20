@@ -1,0 +1,17 @@
+// ваш код
+.header {
+  padding: 4rem;
+
+  &__logo {
+    display: block;
+    margin: 0 auto;
+    width: 10rem;
+    height: auto;
+
+    img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+  }
+}
