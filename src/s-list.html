@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru" class="page">
+  @include('partials/head.html')
+
+  <body class="page__body">
+    <div class="site-container">
+      <main class="main">
+        <div class="site-slider">
+          <div class="h-nav header">
+            <span></span>
+            <div class="header__container">
+              <a href="./" class="header__logo">
+                <img src="./img/logo.svg" alt="" />
+              </a>
+
+              <nav class="header__nav nav">
+                <ul>
+                  <li>Обследование очистных сооружений</li>
+                  <li>
+                    Разработка проектной и конструкторской документации для
+                    систем водоочистки
+                  </li>
+                  <li>Производство очистных сооружений</li>
+                  <li>Монтаж и пусконаладка систем водоочистки</li>
+                  <li>
+                    Сервисное обслуживание технологических процессов систем
+                    водоочистки
+                  </li>
+                  <li>Модернизация очистных сооружений</li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+          <div class="site-wrapper">
+            <div class="site-screen">@include('partials/research.html')</div>
+            <div class="site-screen no-scroll">
+              @include('partials/r-text.html')
+            </div>
+            <div class="site-screen">@include('partials/request.html')</div>
+            <div class="site-screen no-scroll">
+              @include('partials/cases.html')
+            </div>
+          </div>
+          @include('partials/aside.html')
+        </div>
+      </main>
+      @include('partials/footer.html')
+    </div>
+  </body>
+</html>

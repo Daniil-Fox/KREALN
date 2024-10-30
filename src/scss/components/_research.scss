@@ -1,0 +1,29 @@
+.research {
+  height: 100%;
+  background-color: #fff;
+  overflow: hidden;
+
+  &__desc {
+    &:not(:last-child) {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  &__title {
+    font-size: 3.2rem;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10rem;
+  }
+
+  &__btn {
+    width: 34rem;
+    height: 7rem;
+  }
+
+
+}

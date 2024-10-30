@@ -1,0 +1,124 @@
+.r-text {
+  height: 100%;
+  background: linear-gradient(180deg, #f4f4f4 0%, #ddecff 100%);
+  padding: 10rem;
+  padding-top: 12rem;
+  overflow: auto;
+  position: relative;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  -ms-overflow-style: none;
+
+  scrollbar-width: none;
+
+  &__title {
+    margin-bottom: 6rem;
+    color: #141414;
+    font-size: 3.2rem;
+  }
+
+  &__arrow {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 25rem;
+    height: 100vh;
+    width: 65rem;
+    overflow: hidden;
+    background-image: url('./../img/research/for-arrow.webp');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 80%;
+
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 100%, 50% 50%, 0% 0%);
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(#000, 0.3);
+    }
+  }
+
+  &__container {
+    display: flex;
+
+  }
+
+  &__left {}
+
+  &__wrapper {
+    overflow: hidden;
+  }
+
+  &__text,
+  &__blue {
+    &:not(:last-child) {
+      margin-bottom: 3rem;
+    }
+  }
+
+  &__content {
+    width: 56rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__desc {
+    text-align: left;
+    margin: 0;
+    font-family: var(--font-family);
+    font-weight: 300;
+    font-size: 16px;
+    color: #141414;
+  }
+
+  &__items {
+    flex-shrink: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  &__capture {
+    margin-bottom: 3rem;
+  }
+}
+
+.r-item {
+  box-shadow: 0 -4px 15px 0 rgba(48, 127, 226, 0.15);
+  background: #fff;
+  padding: 3rem 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  &::after {
+    content: attr(data-fig);
+    position: absolute;
+    top: 0.7rem;
+    right: 1.6rem;
+    font-weight: 400;
+    font-size: 2.4rem;
+    color: #dcecff;
+  }
+
+  &:nth-child(3n + 3) {
+    grid-column: 2 span;
+  }
+
+
+  p {
+    font-weight: 300;
+    text-align: center;
+    line-height: 140%;
+  }
+}

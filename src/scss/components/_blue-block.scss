@@ -1,0 +1,37 @@
+.blue-block {
+  background-color: rgba(48, 127, 226, 0.7);
+  padding: 2.4rem;
+  padding-left: 4rem;
+  clip-path: polygon(0 0, 100% 0, 100% 75%, 65% 75%, 40% 100%, 0 100%);
+  position: relative;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    left: 1.8rem;
+    top: 1.8rem;
+    width: 5.4rem;
+    height: 4.4rem;
+    background-image: url('./../img/white-comma.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  &::after {
+    transform: rotate(180deg);
+    left: unset;
+    top: 50%;
+    right: 3.5rem;
+  }
+
+  &__desc {
+    margin: 0;
+    margin-bottom: 2.4rem;
+    font-family: var(--font-family);
+    font-weight: 600;
+    font-size: 16px;
+    color: #fff;
+  }
+}

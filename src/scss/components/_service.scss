@@ -32,7 +32,7 @@
     z-index: 10;
     width: 100vw;
     height: 100vh;
-    mask-image: url(./../img/arr.svg);
+    mask-image: url(./../img/arr.webp);
     mask-size: 90rem 100%;
     mask-position: var(--pos) 100%;
     mask-repeat: no-repeat;
@@ -142,7 +142,7 @@
 
   &__fig {
     display: block;
-    margin-bottom: 4rem;
+    margin-bottom: 4.5rem;
     font-weight: 700;
     font-size: 12rem;
     line-height: 50%;

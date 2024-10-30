@@ -1,0 +1,62 @@
+.block {
+  padding-top: 12rem;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+
+
+  .container {
+    flex-grow: 1;
+    min-width: 0;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__container {
+    flex-grow: 1;
+    height: 100%;
+    padding-left: 10rem;
+    padding-right: 6rem;
+  }
+
+  &__slider {
+    min-width: 0;
+    max-width: 100%;
+    height: 65.4rem;
+
+    .swiper-slide {
+      width: 115.8rem;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8rem;
+  }
+
+  &__desc {
+    max-width: 65rem;
+  }
+
+  &__title {
+    &:not(:last-child) {
+      margin-bottom: 4rem;
+    }
+
+    span {
+      color: #307fe2;
+    }
+  }
+
+  &__desc {
+    text-align: left;
+  }
+}

@@ -1,0 +1,149 @@
+.request {
+  background: linear-gradient(180deg, #deecff 0%, #fff 100%);
+  height: 100%;
+  overflow: hidden;
+
+  &__container {
+    display: flex;
+    min-height: 100%;
+  }
+
+  &__left,
+  &__right {
+    padding-top: 12rem;
+    padding-bottom: 12rem;
+  }
+
+  &__left {
+    flex: 2.3;
+    padding-left: 7rem;
+    padding-right: 7rem;
+
+    border-right: 1px solid rgba(#141414, 0.1);
+  }
+
+  &__right {
+    flex: 1.2;
+    padding-right: 4rem;
+    padding-left: 4rem;
+  }
+
+  &__arrow {
+    margin-top: auto;
+    width: 100%;
+    height: auto;
+
+    img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+  }
+
+  &__info {
+    box-shadow: 0 -4px 15px 0 rgba(48, 127, 226, 0.15);
+    background: #fff;
+    padding: 2rem 7rem;
+    margin-bottom: 2rem;
+
+    p {
+      margin: 0;
+      font-family: var(--font-family);
+      font-weight: 300;
+      font-size: 18px;
+      text-align: center;
+      color: #141414;
+
+      span {
+        display: block;
+        font-weight: 600;
+      }
+    }
+  }
+
+  &__row {
+    display: flex;
+    gap: 2.2rem;
+
+    margin-bottom: 15rem;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    gap: .7rem;
+    align-items: center;
+    flex: 1;
+    padding: 1.2rem 0;
+    box-shadow: 0 -4px 15px 0 rgba(48, 127, 226, 0.15);
+    background: #fff;
+
+    font-weight: 300;
+    font-size: 1.8rem;
+    text-align: center;
+    color: #141414;
+
+    span {
+      width: 5rem;
+      height: 5rem;
+      border-radius: 100%;
+      background-color: #307fe2;
+    }
+  }
+
+  &__title {
+    text-align: center;
+    margin-bottom: 6rem;
+    font-size: 3.2rem;
+
+    span {
+      display: block;
+    }
+  }
+}
+
+.req-equip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15rem;
+
+  &__title {
+    margin: 0;
+    margin-bottom: 2rem;
+    font-weight: 400;
+    font-size: 2.4rem;
+    text-align: center;
+    color: #141414;
+
+    span {
+      color: #307fe2;
+    }
+  }
+
+  &__desc {
+    margin-bottom: 1rem;
+    text-align: center;
+    font-weight: 400;
+    line-height: 144%;
+  }
+
+  &__list {
+    padding: 0;
+    padding-left: 2rem;
+    margin: 0;
+    columns: 2;
+    line-height: 144%;
+    font-weight: 300;
+    font-size: 1.6rem;
+    color: #141414;
+
+    a {
+      color: inherit;
+    }
+
+    &--nowrap {
+      columns: unset;
+    }
+  }
+}
