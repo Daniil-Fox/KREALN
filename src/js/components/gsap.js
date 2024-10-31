@@ -8,7 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 let currentIndex = -1;
 let animating;
 let swipePanels = gsap.utils.toArray(".site-screen");
-let pagination = gsap.utils.toArray('.nav li')
+let pagination = gsap.utils.toArray('.header__nav:not(.no-active) li')
 
 let scrollEnd = 1
 // set second panel two initial 100%
@@ -64,25 +64,42 @@ function gotoPanel(index, isScrollingDown) {
   animating = true;
   let scrollFinish = true;
 
-  if(index != swipePanels.length){
+  if(pagination && pagination.length > 0 && index != swipePanels.length){
     activeNav(index)
   }
   if(swipePanels[index]?.classList.contains('no-scroll')){
     animating = true;
     intentObserver.disable();
-
     let sec = swipePanels[index].querySelector('.scroll-section')
+    console.log(sec.scrollHeight)
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      if(entries[0].isIntersecting){
+        if(((sec.scrollTop == 0 && !isScrollingDown) || (sec.scrollHeight - sec.scrollTop >= sec.clientHeight == 0 && isScrollingDown))){
+          animating = false
+          scrollFinish = true
+          intentObserver.enable();
+          console.log('int')
+        } else {
+          scrollFinish = false
+          animating = true;
+    intentObserver.disable();
+        }
+      }
+    }, {
+      threshold: 0.8
+    })
+
+    observer.observe(sec)
     // console.log(sec)
-    if((sec.scrollTop == 0 && !isScrollingDown) || (sec.scrollHeight - sec.scrollTop === sec.clientHeight && isScrollingDown)){
-      animating = false
-      scrollFinish = true
-      intentObserver.enable();
-    }
+
     sec.addEventListener('scroll', e => {
+      console.log(sec.scrollHeight - sec.scrollTop)
+      console.log(sec.clientHeight)
       intentObserver.disable();
       animating = true;
         e.preventDefault()
-        if((sec.scrollTop == 0 && !isScrollingDown) || (sec.scrollHeight - sec.scrollTop === sec.clientHeight && isScrollingDown)){
+        if(((sec.scrollTop == 0 && !isScrollingDown) || (sec.scrollHeight - sec.scrollTop === sec.clientHeight && isScrollingDown))){
           animating = false
           scrollFinish = true
           intentObserver.enable();
@@ -117,7 +134,6 @@ function gotoPanel(index, isScrollingDown) {
       if(!target.classList.contains('no-scroll')){
         return isScrollingDown ? 0 : 100
       } else if(scrollFinish && target.classList.contains('no-scroll')){
-        console.log('asldkasld')
         return isScrollingDown ? 0 : 100
       }
 
@@ -125,13 +141,14 @@ function gotoPanel(index, isScrollingDown) {
     duration: 1.25,
     delay: 0.25,
     onEnter: () => {
-      if(target.classList.contains('no-scroll')){
         scrollFinish = false
-      }
     },
     onComplete: () => {
-
-      animating = false;
+      if(!swipePanels[index]?.classList.contains('no-scroll')){
+        animating = false;
+        // isScrollingDown && intentObserver.disable();
+      }
+      // animating = false;
       target.classList.remove('active')
 
 

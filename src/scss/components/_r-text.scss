@@ -1,7 +1,8 @@
 .r-text {
   height: 100%;
+  max-height: 100%;
   background: linear-gradient(180deg, #f4f4f4 0%, #ddecff 100%);
-  padding: 10rem;
+  padding: 10rem 0;
   padding-top: 12rem;
   overflow: auto;
   position: relative;
@@ -18,13 +19,24 @@
     margin-bottom: 6rem;
     color: #141414;
     font-size: 3.2rem;
+
+    max-width: 72rem;
+  }
+
+  &__subtitle {
+    text-align: left;
+    font-size: 1.8rem;
+
+    &:not(:last-child) {
+      margin-bottom: 3.5rem;
+    }
   }
 
   &__arrow {
     position: fixed;
     top: 50%;
     transform: translateY(-50%);
-    right: 25rem;
+    right: 22rem;
     height: 100vh;
     width: 65rem;
     overflow: hidden;
@@ -48,6 +60,7 @@
 
   &__container {
     display: flex;
+    padding: 0 10rem;
 
   }
 
@@ -64,10 +77,47 @@
     }
   }
 
+  &__flex {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 5rem;
+    justify-content: space-between;
+
+    .r-text__col {
+      &:nth-child(odd) {
+        grid-column: 3 span;
+      }
+
+      &:nth-child(even) {
+        grid-column: 2 span;
+      }
+    }
+  }
+
   &__content {
-    width: 56rem;
+    width: 61rem;
     display: flex;
     flex-direction: column;
+
+    &:not(:last-child) {
+      margin-bottom: 6rem;
+    }
+
+    &--long {
+      width: 79rem;
+    }
+  }
+
+  &__list {
+    margin: 0;
+    padding-left: 2rem;
+    color: rgba(#141414, 0.8);
+
+    li {
+      &:not(:last-child) {
+        margin-bottom: 1rem;
+      }
+    }
   }
 
   &__desc {
@@ -75,19 +125,60 @@
     margin: 0;
     font-family: var(--font-family);
     font-weight: 300;
-    font-size: 16px;
-    color: #141414;
+    font-size: 1.6rem;
+    line-height: 144%;
+    color: rgba(20, 20, 20, 0.7);
   }
 
   &__items {
     flex-shrink: 0;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     gap: 1rem;
+
+    &--wide {
+      gap: 2.5rem 5rem;
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 6rem;
+    }
+  }
+
+  &__item {
+
+    &:nth-child(3n + 3) {
+      grid-column: 6 span;
+    }
   }
 
   &__capture {
     margin-bottom: 3rem;
+
+    &--bold {
+      font-weight: 500;
+    }
+  }
+
+  &__col {
+    p {
+      text-align: left;
+      font-weight: 500;
+      margin-bottom: 3rem;
+    }
+  }
+
+  &--center {
+    .container {
+      height: 100%;
+    }
+
+    .r-text__container {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
   }
 }
 
@@ -100,6 +191,8 @@
   justify-content: center;
   align-items: center;
   position: relative;
+  font-size: 1.6rem;
+  grid-column: 3 span;
 
   &::after {
     content: attr(data-fig);
@@ -111,14 +204,39 @@
     color: #dcecff;
   }
 
-  &:nth-child(3n + 3) {
-    grid-column: 2 span;
-  }
 
 
   p {
     font-weight: 300;
     text-align: center;
     line-height: 140%;
+    font-size: 1.6rem;
+  }
+
+  &--gray {
+    box-shadow: 0 -4px 15px 0 rgba(48, 127, 226, 0.15);
+    background: rgba(255, 255, 255, 0.5);
+  }
+
+  &--once {
+
+    text-align: center;
+    min-height: 15rem;
+
+    &:not(:last-child) {
+      &::after {
+        content: "";
+        position: absolute;
+        left: calc(100% + 2.5rem);
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 1rem;
+        height: 1.5rem;
+        background-image: url('./../img/arr-blue.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+    }
   }
 }

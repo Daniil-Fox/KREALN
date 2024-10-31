@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru" class="page">
+  @include('partials/head.html')
+
+  <body class="page__body">
+    <div class="site-container">
+      <main class="main">
+        <div class="site-slider">
+          <div class="h-nav header">
+            <span></span>
+            <div class="header__container">
+              <a href="./" class="header__logo">
+                <img src="./img/logo.svg" alt="" />
+              </a>
+
+              <nav class="header__nav nav no-active">
+                <ul>
+                  <li>
+                    <a href="#"> Обследование очистных сооружений </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      Разработка проектной и конструкторской документации для
+                      систем водоочистки
+                    </a>
+                  </li>
+                  <li class="active">
+                    <a href="#">Производство очистных сооружений</a>
+                  </li>
+                  <li>
+                    <a href="#">Монтаж и пусконаладка систем водоочистки</a>
+                  </li>
+                  <li>
+                    <a href="#"
+                      >Сервисное обслуживание технологических процессов систем
+                      водоочистки</a
+                    >
+                  </li>
+                  <li><a href="#">Модернизация очистных сооружений</a></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+          <div class="site-wrapper">
+            <div class="site-screen">@include('partials/s-design.html')</div>
+            <div class="site-screen no-scroll">
+              @include('partials/r-text-design.html')
+            </div>
+            <div class="site-screen">@include('partials/request.html')</div>
+            <div class="site-screen no-scroll">
+              @include('partials/cases.html')
+            </div>
+          </div>
+          @include('partials/aside.html')
+        </div>
+      </main>
+      @include('partials/footer.html')
+    </div>
+  </body>
+</html>
