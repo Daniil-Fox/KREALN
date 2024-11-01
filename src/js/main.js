@@ -17,5 +17,3 @@ if(service.length > 0){
 
 }
 
-
-
