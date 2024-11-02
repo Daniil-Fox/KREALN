@@ -34,7 +34,8 @@ let anim = false;
 let pause = false;
 let checkTopScreen = false;
 document.body.style.overflow = 'hidden';
-const navItems = document.querySelectorAll('.header__nav:not(.no-active) .nav__item');
+const navItems = document.querySelectorAll('.header__nav:not(.no-active) li');
+navItems[0].classList.add('active');
 function clearNav() {
   navItems.forEach(el => el.classList.remove('active'));
 }
@@ -62,7 +63,14 @@ window.addEventListener('wheel', e => {
   !anim && !pause && goToSlide();
 });
 function setPosition(newPos) {
-  windPos = newPos;
+  if (newPos > windPos) {
+    direction = 'down';
+    windPos = newPos - 1;
+  } else if (newPos < windPos) {
+    direction = 'up';
+    windPos = newPos + 1;
+  } else return;
+  goToSlide();
 }
 function goToSlide() {
   anim = true;
