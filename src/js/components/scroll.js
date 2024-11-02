@@ -27,7 +27,6 @@ window.addEventListener('wheel', e => {
   } else {
     direction = 'down'
   }
-  // console.log(pause)
   !anim && !pause && goToSlide()
 })
 
@@ -62,34 +61,38 @@ function goToSlide(){
   const currentSection = siteSlides[windPos].querySelector('section')
   if(currentSection.scrollHeight > window.innerHeight){ // Обработка слайдов, у которых высота больше, чем высота экрана
     pause = true
-    if (currentSection.scrollHeight - currentSection.scrollTop === currentSection.clientHeight) {
+    if (direction == 'down ' && currentSection.scrollHeight - currentSection.scrollTop === currentSection.clientHeight ) {
       pause = false
 
-    } else if(currentSection.scrollTop <= 1){
+    } else if(direction == 'up' && currentSection.scrollTop <= 1){
       pause = false
     }
     currentSection.addEventListener('wheel', e => {
-      pause = true
-
       if (e.wheelDeltaY < 0 && currentSection.scrollHeight - currentSection.scrollTop === currentSection.clientHeight) {
-        pause = false
+        setTimeout(() => {
+          pause = false
+        }, 300)
       } else if(e.wheelDeltaY > 0 && currentSection.scrollTop == 0){
-        pause = false
+        setTimeout(() => {
+          pause = false
+        }, 300)
       }
     })
   }
+  if(direction == 'down' && windPos == siteSlides.length - 1){
+    setTimeout(() => {
+      pause = true
 
-
-  if(direction == 'down' && target && target == siteSlides[siteSlides.length - 1]){
-    pause = true
-
-    document.body.style.overflow = null
+      document.body.style.overflow = null
+    }, delayAnim)
   }
 }
 
 window.addEventListener('scroll', e => {
   if(pause && window.scrollY == 0 && direction == 'up'){
-    pause = false
+    setTimeout(() => {
+          pause = false
+        }, 300)
     document.body.style.overflow = 'hidden'
   }
 })
