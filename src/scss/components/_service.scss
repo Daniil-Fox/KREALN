@@ -26,9 +26,9 @@
 
   &__wrapper {
     --pos: 100%;
-    position: fixed;
+    position: absolute;
     left: 0;
-    top: 0;
+    top: calc(-1 * var(--offset-top));
     z-index: 10;
     width: 100vw;
     height: 100vh;
@@ -50,7 +50,7 @@
 
     .service__wrap {
       padding-top: var(--offset-top);
-      position: fixed;
+      position: absolute;
       left: 0;
       top: 0;
       width: 100%;

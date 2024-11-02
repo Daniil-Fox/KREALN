@@ -12,6 +12,22 @@ let checkTopScreen = false;
 document.body.style.overflow = 'hidden'
 
 
+const navItems = document.querySelectorAll('.header__nav:not(.no-active) .nav__item')
+
+
+function clearNav(){
+  navItems.forEach(el => el.classList.remove('active'))
+}
+
+navItems.forEach((item, index) => {
+  item.addEventListener('click', e => {
+    e.preventDefault()
+    clearNav()
+    item.classList.add('active')
+    setPosition(index)
+  })
+})
+
 siteSlides.forEach((slide, i) => {
   slide.style.zIndex = i
 
@@ -30,6 +46,9 @@ window.addEventListener('wheel', e => {
   !anim && !pause && goToSlide()
 })
 
+function setPosition(newPos){
+  windPos = newPos
+}
 
 function goToSlide(){
   anim = true
