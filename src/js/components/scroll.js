@@ -14,20 +14,23 @@ document.body.style.overflow = 'hidden'
 
 
 const navItems = document.querySelectorAll('.header__nav:not(.no-active) li')
-navItems[0].classList.add('active')
+navItems[0]?.classList.add('active')
 
 function clearNav(){
   navItems.forEach(el => el.classList.remove('active'))
 }
 
-navItems.forEach((item, index) => {
-  item.addEventListener('click', e => {
-    e.preventDefault()
-    clearNav()
-    item.classList.add('active')
-    setPosition(index)
+if(navItems.length > 0){
+  navItems.forEach((item, index) => {
+    item.addEventListener('click', e => {
+      e.preventDefault()
+
+      setNavItem(index)
+      goToOtherSlide(index)
+    })
   })
-})
+}
+
 
 siteSlides.forEach((slide, i) => {
   slide.style.zIndex = i
@@ -47,6 +50,12 @@ window.addEventListener('wheel', e => {
   !anim && !pause && goToSlide()
 })
 
+function goToOtherSlide(slide){
+  setPosition(slide)
+
+  goToSlide()
+}
+
 function setPosition(newPos){
   if(newPos > windPos) {
     direction = 'down'
@@ -57,9 +66,11 @@ function setPosition(newPos){
     windPos = newPos+1
   }
   else return
+}
 
-
-  goToSlide()
+function setNavItem(pos){
+  clearNav()
+  navItems[pos].classList.add('active')
 }
 
 function goToSlide(){
@@ -83,7 +94,7 @@ function goToSlide(){
   }
 
   target?.classList.add('active')
-
+  setNavItem(windPos)
   setTimeout(() => {
     anim = false
     target?.classList.remove('active')
