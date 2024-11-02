@@ -1145,7 +1145,22 @@ a {
   width: 5rem;
   height: 5rem;
   border-radius: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   background-color: #307fe2;
+}
+.request__item span img {
+  width: 3rem;
+  height: 3rem;
+  -o-object-fit: contain;
+  object-fit: contain;
 }
 .request__title {
   text-align: center;
