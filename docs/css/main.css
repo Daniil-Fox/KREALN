@@ -890,13 +890,17 @@ a {
 .footer__logo {
   display: block;
   width: 10.2rem;
-  height: auto;
+  height: 4rem;
   margin-bottom: 2.35rem;
 }
-.footer__logo img {
-  display: block;
+.footer__logo svg {
+  fill: #307fe2;
   width: 100%;
-  height: auto;
+  height: 100%;
+  -o-object-fit: contain;
+  object-fit: contain;
+  -webkit-transition: 1s ease-out;
+  transition: 1s ease-out;
 }
 .footer__extra {
   -ms-flex-negative: 0;
