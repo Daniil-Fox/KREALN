@@ -188,7 +188,6 @@ a {
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden;
   transition: transform .8s ease-in-out .2s;
 
   &::before {
@@ -232,8 +231,12 @@ a {
     display: block;
   }
 
-  span:last-child {
+  span.high {
     color: #307fe2;
+  }
+
+  &--dark {
+    color: #141414;
   }
 }
 

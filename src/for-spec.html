@@ -14,25 +14,13 @@
                   <use xlink:href="img/sprite.svg#logo"></use>
                 </svg>
               </a>
-
-              <nav class="header__nav nav">
-                <ul>
-                  <li>Люди</li>
-                  <li>Карьера</li>
-                  <li>Патенты, сертификаты и свидетельства</li>
-                </ul>
-              </nav>
             </div>
           </div>
           <div class="site-wrapper">
-            <div
-              class="site-screen site-screen-start site-screen-light nav-disable"
-            >
-              @include('partials/team-main.html')
+            <div class="site-screen site-screen-start site-screen-rm">
+              @include('partials/spec-hero.html')
             </div>
-            <div class="site-screen">@include('partials/team-people.html')</div>
-            <div class="site-screen">@include('partials/team-car.html')</div>
-            <div class="site-screen">@include('partials/team-lic.html')</div>
+            <div class="site-screen">@include('partials/spec-items.html')</div>
           </div>
           @include('partials/aside.html')
         </div>

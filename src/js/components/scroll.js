@@ -1,6 +1,6 @@
 let delta, direction;
 const siteSlider = document.querySelector('.site-slider')
-const siteSlides = siteSlider.querySelectorAll('.site-screen')
+let siteSlides = siteSlider.querySelectorAll('.site-screen')
 
 const delatSizeUp = 0
 const delayAnim = 1300
@@ -13,23 +13,34 @@ let pause = false;
 let checkTopScreen = false;
 
 
-document.body.style.overflow = 'hidden'
+
 
 function setLightBody(flag){
   flag ? document.body.classList.add('body-light') : document.body.classList.remove('body-light')
 }
 
+function checkOverflow(){
+  if(siteSlides.length > 1){
+    document.body.style.overflow = 'hidden'
+  }
+}
 
 function checkSlide(slide){
   if(slide.classList.contains('site-screen-start')){
     siteSlider.classList.add('hide-control')
-    setLightBody(1)
+
   } else {
     siteSlider.classList.remove('hide-control')
+
+  }
+
+  if(slide.classList.contains('site-screen-light')){
+    setLightBody(1)
+  } else {
     setLightBody(0)
   }
 }
-
+checkOverflow()
 checkSlide(siteSlides[0])
 
 const nav = document.querySelector('.header__nav:not(.no-active)')
@@ -39,13 +50,18 @@ if(nav){
   navItems[0].classList.add('active')
 }
 
-siteSlides.forEach((slide, i) => {
-  slide.style.zIndex = i
+function initSlides(){
+  siteSlides.forEach((slide, i) => {
+    slide.style.zIndex = i
 
-  if(i != 0){
-    slide.style.transform = 'translateY(100%)'
-  }
-})
+    if(i != 0){
+      slide.style.transform = 'translateY(100%)'
+    }
+  })
+}
+
+initSlides()
+
 
 window.addEventListener('wheel', e => {
   delta = e.wheelDeltaY;
@@ -87,6 +103,12 @@ if(nav){
   })
 }
 
+function resetScrollSettings(){
+  windPos = 0;
+  navPos = 0;
+  siteSlides = siteSlider.querySelectorAll('.site-screen')
+  initSlides()
+}
 
 function goToOtherSlide(slideIndex){
   setPosition(slideIndex)
@@ -120,6 +142,7 @@ function setPosition(newPos){
   else return
 }
 
+// Подсветка активного пункта навигации
 function setNavItem(pos){
   clearNav()
   console.log(navItems[pos])
@@ -127,7 +150,7 @@ function setNavItem(pos){
 }
 
 function checkNavDisabled(){
-  return nav.classList.contains('disabled')
+  return nav && nav.classList.contains('disabled')
 }
 
 // Переход к следующим слайдам относительно winPos
@@ -135,7 +158,7 @@ function goToSlide(){
   anim = true
   let target;
   if(direction == "down" && windPos + 1 != siteSlides.length){
-    if(!siteSlides[windPos].classList.contains('nav-disable') && navPos + 1 < navItems.length) navPos++;
+    if(nav && !siteSlides[windPos].classList.contains('nav-disable') && navPos + 1 < navItems.length) navPos++;
     target = siteSlides[++windPos]
 
     setTimeout(() => {
@@ -143,8 +166,7 @@ function goToSlide(){
     }, delatSizeUp)
 
   } else if(direction == "up" && windPos - 1 > -1){
-
-    if(!siteSlides[windPos].classList.contains('nav-disable') && navPos - 1 > -1) navPos--;
+    if(nav && !siteSlides[windPos].classList.contains('nav-disable') && navPos - 1 > -1) navPos--;
     target = siteSlides[windPos--]
 
     setTimeout(() => {
@@ -158,15 +180,17 @@ function goToSlide(){
     checkSlide(siteSlides[windPos])
   }
 
-  // if(!checkNavDisabled()){
-  //   setNavItem(navPos)
-  // }
-
+  if(nav){
+    setNavItem(navPos)
+  }
+  // Выключаем анимацию
   setTimeout(() => {
     anim = false
     target?.classList.remove('active')
   }, delayAnim)
 
+
+  // Проверяем высоту слайда, если выше - включаем в него скролл
   const currentSection = siteSlides[windPos].querySelector('section')
 
   if(currentSection.scrollHeight > window.innerHeight){ // Обработка слайдов, у которых высота больше, чем высота экрана
@@ -189,6 +213,8 @@ function goToSlide(){
       }
     })
   }
+
+  // Если слайд последний и скролл вниз включаем обычный скролл
   if(direction == 'down' && windPos == siteSlides.length - 1){
     setTimeout(() => {
       pause = true
@@ -203,6 +229,8 @@ window.addEventListener('scroll', e => {
     setTimeout(() => {
           pause = false
         }, 300)
-    document.body.style.overflow = 'hidden'
+      checkOverflow()
   }
 })
+
+export {goToOtherSlide, resetScrollSettings, delayAnim}

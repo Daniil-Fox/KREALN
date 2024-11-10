@@ -9615,28 +9615,54 @@ __webpack_require__.r(__webpack_exports__);
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
-/* harmony import */ var gsap_ScrollTrigger_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! gsap/ScrollTrigger.js */ "./node_modules/gsap/ScrollTrigger.js");
+/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
+/* harmony import */ var gsap_ScrollTrigger_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! gsap/ScrollTrigger.js */ "./node_modules/gsap/ScrollTrigger.js");
+/* harmony import */ var _scroll_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./scroll.js */ "./src/js/components/scroll.js");
 
 
-gsap__WEBPACK_IMPORTED_MODULE_0__.gsap.registerPlugin(gsap_ScrollTrigger_js__WEBPACK_IMPORTED_MODULE_1__.ScrollTrigger);
-const timeline = gsap__WEBPACK_IMPORTED_MODULE_0__.gsap.timeline();
-timeline.fromTo('.animate-title span:first-child', {
-  x: -500,
-  opacity: 0
-}, {
-  x: 0,
-  opacity: 1,
-  duration: 1.2
+
+gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.registerPlugin(gsap_ScrollTrigger_js__WEBPACK_IMPORTED_MODULE_2__.ScrollTrigger);
+const timeline = gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.timeline({
+  onComplete: () => {
+    const rmAnimating = document.querySelector('.site-screen-rm');
+    if (rmAnimating) {
+      (0,_scroll_js__WEBPACK_IMPORTED_MODULE_0__.goToOtherSlide)(1);
+      setTimeout(() => {
+        rmAnimating.remove();
+        (0,_scroll_js__WEBPACK_IMPORTED_MODULE_0__.resetScrollSettings)();
+      }, _scroll_js__WEBPACK_IMPORTED_MODULE_0__.delayAnim + 10);
+    }
+  }
 });
-timeline.fromTo('.animate-title span:last-child', {
-  x: 500,
-  opacity: 0
-}, {
-  x: 0,
-  opacity: 1,
-  duration: 1.2
-}, '-=1');
+const animateSpan = document.querySelectorAll('.animate-title span');
+animateSpan.forEach((el, i) => {
+  timeline.fromTo(el, {
+    x: 700,
+    opacity: 0
+  }, {
+    x: 0,
+    opacity: 1,
+    duration: 0.7
+  });
+});
+// timeline.fromTo('.animate-title span:first-child', {
+//   x: -500,
+//   opacity: 0,
+// }, {
+//   x: 0,
+//   opacity: 1,
+//   duration: 1.2
+// })
+
+// timeline.fromTo('.animate-title span:last-child', {
+//   x: 500,
+//   opacity: 0,
+// }, {
+//   x: 0,
+//   opacity: 1,
+//   duration: 1.2
+// }, '-=1')
+
 timeline.fromTo('.team-main__desc', {
   opacity: 0,
   y: 100
@@ -9654,9 +9680,14 @@ timeline.fromTo('.team-main__desc', {
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   delayAnim: () => (/* binding */ delayAnim),
+/* harmony export */   goToOtherSlide: () => (/* binding */ goToOtherSlide),
+/* harmony export */   resetScrollSettings: () => (/* binding */ resetScrollSettings)
+/* harmony export */ });
 let delta, direction;
 const siteSlider = document.querySelector('.site-slider');
-const siteSlides = siteSlider.querySelectorAll('.site-screen');
+let siteSlides = siteSlider.querySelectorAll('.site-screen');
 const delatSizeUp = 0;
 const delayAnim = 1300;
 let windPos = 0;
@@ -9664,19 +9695,27 @@ let navPos = 0;
 let anim = false;
 let pause = false;
 let checkTopScreen = false;
-document.body.style.overflow = 'hidden';
 function setLightBody(flag) {
   flag ? document.body.classList.add('body-light') : document.body.classList.remove('body-light');
+}
+function checkOverflow() {
+  if (siteSlides.length > 1) {
+    document.body.style.overflow = 'hidden';
+  }
 }
 function checkSlide(slide) {
   if (slide.classList.contains('site-screen-start')) {
     siteSlider.classList.add('hide-control');
-    setLightBody(1);
   } else {
     siteSlider.classList.remove('hide-control');
+  }
+  if (slide.classList.contains('site-screen-light')) {
+    setLightBody(1);
+  } else {
     setLightBody(0);
   }
 }
+checkOverflow();
 checkSlide(siteSlides[0]);
 const nav = document.querySelector('.header__nav:not(.no-active)');
 let navItems;
@@ -9684,12 +9723,15 @@ if (nav) {
   navItems = nav.querySelectorAll('li');
   navItems[0].classList.add('active');
 }
-siteSlides.forEach((slide, i) => {
-  slide.style.zIndex = i;
-  if (i != 0) {
-    slide.style.transform = 'translateY(100%)';
-  }
-});
+function initSlides() {
+  siteSlides.forEach((slide, i) => {
+    slide.style.zIndex = i;
+    if (i != 0) {
+      slide.style.transform = 'translateY(100%)';
+    }
+  });
+}
+initSlides();
 window.addEventListener('wheel', e => {
   delta = e.wheelDeltaY;
   if (delta > 0) {
@@ -9726,6 +9768,12 @@ if (nav) {
     });
   });
 }
+function resetScrollSettings() {
+  windPos = 0;
+  navPos = 0;
+  siteSlides = siteSlider.querySelectorAll('.site-screen');
+  initSlides();
+}
 function goToOtherSlide(slideIndex) {
   setPosition(slideIndex);
   goToSlide();
@@ -9751,13 +9799,15 @@ function setPosition(newPos) {
     windPos = newPos + 1;
   } else return;
 }
+
+// Подсветка активного пункта навигации
 function setNavItem(pos) {
   clearNav();
   console.log(navItems[pos]);
   navItems[pos].classList.add('active');
 }
 function checkNavDisabled() {
-  return nav.classList.contains('disabled');
+  return nav && nav.classList.contains('disabled');
 }
 
 // Переход к следующим слайдам относительно winPos
@@ -9765,13 +9815,13 @@ function goToSlide() {
   anim = true;
   let target;
   if (direction == "down" && windPos + 1 != siteSlides.length) {
-    if (!siteSlides[windPos].classList.contains('nav-disable') && navPos + 1 < navItems.length) navPos++;
+    if (nav && !siteSlides[windPos].classList.contains('nav-disable') && navPos + 1 < navItems.length) navPos++;
     target = siteSlides[++windPos];
     setTimeout(() => {
       target.style.transform = 'translateY(0%)';
     }, delatSizeUp);
   } else if (direction == "up" && windPos - 1 > -1) {
-    if (!siteSlides[windPos].classList.contains('nav-disable') && navPos - 1 > -1) navPos--;
+    if (nav && !siteSlides[windPos].classList.contains('nav-disable') && navPos - 1 > -1) navPos--;
     target = siteSlides[windPos--];
     setTimeout(() => {
       target.style.transform = 'translateY(100%)';
@@ -9781,15 +9831,16 @@ function goToSlide() {
     target.classList.add('active');
     checkSlide(siteSlides[windPos]);
   }
-
-  // if(!checkNavDisabled()){
-  //   setNavItem(navPos)
-  // }
-
+  if (nav) {
+    setNavItem(navPos);
+  }
+  // Выключаем анимацию
   setTimeout(() => {
     anim = false;
     target?.classList.remove('active');
   }, delayAnim);
+
+  // Проверяем высоту слайда, если выше - включаем в него скролл
   const currentSection = siteSlides[windPos].querySelector('section');
   if (currentSection.scrollHeight > window.innerHeight) {
     // Обработка слайдов, у которых высота больше, чем высота экрана
@@ -9811,6 +9862,8 @@ function goToSlide() {
       }
     });
   }
+
+  // Если слайд последний и скролл вниз включаем обычный скролл
   if (direction == 'down' && windPos == siteSlides.length - 1) {
     setTimeout(() => {
       pause = true;
@@ -9823,9 +9876,10 @@ window.addEventListener('scroll', e => {
     setTimeout(() => {
       pause = false;
     }, 300);
-    document.body.style.overflow = 'hidden';
+    checkOverflow();
   }
 });
+
 
 /***/ }),
 
