@@ -9863,7 +9863,13 @@ new swiper__WEBPACK_IMPORTED_MODULE_0__.Swiper('.team-people__slider', {
   speed: 500,
   loop: true
 });
-const resizableSwiper = (container, swiperClass, swiperSettings, callback) => {
+const licTabs = document.querySelectorAll('.animate-g');
+const wrappers = document.querySelectorAll('.team-lic__wrapper');
+function clearActive() {
+  licTabs.forEach(el => el.classList.remove('active'));
+  wrappers.forEach(el => el.classList.remove('active'));
+}
+const resizableSwiper = (container, swiperClass, swiperSettings, tabItem, callback) => {
   let swiper;
 
   // breakpoint = window.matchMedia(breakpoint);
@@ -9882,30 +9888,7 @@ const resizableSwiper = (container, swiperClass, swiperSettings, callback) => {
       return;
     }
   };
-
-  // breakpoint.addEventListener('change', checker);
-  const licTabs = document.querySelectorAll('.animate-g');
-  const wrappers = document.querySelectorAll('.team-lic__wrapper');
-  function clearActive() {
-    licTabs.forEach(el => el.classList.remove('active'));
-    wrappers.forEach(el => el.classList.remove('active'));
-  }
-  licTabs.forEach(el => {
-    el.addEventListener('click', e => {
-      e.preventDefault();
-      const dataset = el.dataset.tab;
-      if (dataset == document.querySelector(`.team-lic__wrapper.active`).dataset.tab) return;else {
-        checker();
-        const currentWrap = document.querySelector(`.team-lic__wrapper[data-tab=${dataset}]`);
-        clearActive();
-        el.classList.add('active');
-        currentWrap.classList.add('active');
-        setTimeout(() => {
-          nextTab(currentWrap);
-        }, 10);
-      }
-    });
-  });
+  tabItem?.addEventListener('click', checker);
   checker();
 };
 const someFunc = instance => {
@@ -9915,14 +9898,29 @@ const someFunc = instance => {
     });
   }
 };
-const slidersTeamLic = document.querySelectorAll('.team-lic__wrapper');
-slidersTeamLic.forEach(el => {
-  resizableSwiper(el, el.querySelector('.team-lic__slider'), {
-    slidesPerView: 'auto',
-    spaceBetween: 40,
-    direction: 'vertical'
-    // freeMode: true
+licTabs.forEach(el => {
+  el.addEventListener('click', e => {
+    e.preventDefault();
+    console.log(el);
+    const dataset = el.dataset.tab;
+    if (dataset == document.querySelector(`.team-lic__wrapper.active`).dataset.tab) return;else {
+      clearActive();
+      const currentWrap = document.querySelector(`.team-lic__wrapper[data-tab=${dataset}]`);
+      el.classList.add('active');
+      currentWrap.classList.add('active');
+      setTimeout(() => {
+        nextTab(currentWrap);
+      }, 10);
+    }
   });
+});
+const slidersTeamLic = document.querySelectorAll('.team-lic__wrapper');
+slidersTeamLic.forEach((el, idx) => {
+  resizableSwiper(el, el.querySelector('.swiper'), {
+    direction: 'vertical',
+    slidesPerView: 'auto',
+    spaceBetween: 40
+  }, licTabs[idx]);
 });
 
 /***/ }),
