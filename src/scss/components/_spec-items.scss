@@ -1,12 +1,19 @@
 .spec-items {
   height: 100%;
   background-color: #f4f4f4;
+  overflow: auto;
+  position: relative;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  -ms-overflow-style: none;
+
+  scrollbar-width: none;
 
   &__container {
     height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
   }
 
