@@ -9840,9 +9840,6 @@ function nextTab(tab) {
     yPercent: 0,
     duration: 0.4
   }, "-=0.5");
-  // gsap.to(tab, {
-  //   yPercent: 0
-  // }, "-=1")
 }
 swiper__WEBPACK_IMPORTED_MODULE_0__.Swiper.use([swiper_modules__WEBPACK_IMPORTED_MODULE_1__.Navigation, swiper_modules__WEBPACK_IMPORTED_MODULE_1__.Pagination, swiper_modules__WEBPACK_IMPORTED_MODULE_1__.Autoplay, swiper_modules__WEBPACK_IMPORTED_MODULE_1__.FreeMode]);
 new swiper__WEBPACK_IMPORTED_MODULE_0__.Swiper('.research__slider', {
@@ -9865,9 +9862,11 @@ new swiper__WEBPACK_IMPORTED_MODULE_0__.Swiper('.team-people__slider', {
 });
 const licTabs = document.querySelectorAll('.animate-g');
 const wrappers = document.querySelectorAll('.team-lic__wrapper');
+const numbers = document.querySelectorAll('.team-lic__number');
 function clearActive() {
   licTabs.forEach(el => el.classList.remove('active'));
   wrappers.forEach(el => el.classList.remove('active'));
+  numbers.forEach(el => el.classList.remove('active'));
 }
 const resizableSwiper = (container, swiperClass, swiperSettings, tabItem, callback) => {
   let swiper;
@@ -9898,7 +9897,7 @@ const someFunc = instance => {
     });
   }
 };
-licTabs.forEach(el => {
+licTabs.forEach((el, idx) => {
   el.addEventListener('click', e => {
     e.preventDefault();
     console.log(el);
@@ -9908,6 +9907,7 @@ licTabs.forEach(el => {
       const currentWrap = document.querySelector(`.team-lic__wrapper[data-tab=${dataset}]`);
       el.classList.add('active');
       currentWrap.classList.add('active');
+      numbers[idx].classList.add('active');
       setTimeout(() => {
         nextTab(currentWrap);
       }, 10);

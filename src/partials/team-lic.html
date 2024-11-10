@@ -5,110 +5,117 @@
         <h2 class="title3 team-lic__title">
           Патенты, сертификаты и <span>свидетельства</span>
         </h2>
-
-        <svg viewBox="0 0 110 110" class="circle">
-          <defs>
-            <path
-              id="clockwise"
-              d="
-                M15,55
-                A35,35 0 0,1 95,55
-                A35,35 0 0,1 15,55"
+        <div class="team-lic__circle">
+          <svg viewBox="0 0 110 110" class="circle">
+            <defs>
+              <path
+                id="clockwise"
+                d="
+                  M15,55
+                  A35,35 0 0,1 95,55
+                  A35,35 0 0,1 15,55"
+              />
+            </defs>
+            <defs>
+              <mask id="mask-1">
+                <path
+                  class="path-stroke"
+                  id="f1"
+                  data-link="1"
+                  fill="#fff"
+                  d="M55,55 L0,55 A55,55 0 0,1 82.5,7.36860z"
+                ></path>
+                <path
+                  class="path-stroke"
+                  data-link="2"
+                  fill="#fff"
+                  d="M55,55 L82.5,7.36860 A55,55 0 0,1 82.5,102.6314z"
+                ></path>
+                <path
+                  class="path-stroke"
+                  fill="#fff"
+                  data-link="3"
+                  d="M55,55 L82.5,102.6314 A55,55 0 0,1 0,55z"
+                ></path>
+              </mask>
+            </defs>
+            <image
+              xlink:href="./img/team/circle.webp"
+              width="100%"
+              height="100%"
+              mask="url(#mask-1)"
             />
-          </defs>
-          <defs>
-            <mask id="mask-1">
-              <path
-                class="path-stroke"
-                id="f1"
-                data-link="1"
-                fill="#fff"
-                d="M55,55 L0,55 A55,55 0 0,1 82.5,7.36860z"
-              ></path>
-              <path
-                class="path-stroke"
-                data-link="2"
-                fill="#fff"
-                d="M55,55 L82.5,7.36860 A55,55 0 0,1 82.5,102.6314z"
-              ></path>
-              <path
-                class="path-stroke"
-                fill="#fff"
-                data-link="3"
-                d="M55,55 L82.5,102.6314 A55,55 0 0,1 0,55z"
-              ></path>
-            </mask>
-          </defs>
-          <image
-            xlink:href="./img/team/circle.webp"
-            width="100%"
-            height="100%"
-            mask="url(#mask-1)"
-          />
-          <a xlink:href="" class="animate-g active" data-tab="sertificates">
-            <path
-              id="f1"
-              data-link="1"
-              fill="transparent"
-              d="M55,55 L0,55 A55,55 0 0,1 82.5,7.36860z"
-            ></path>
+            <g class="slices">
+              <a xlink:href="" class="animate-g active" data-tab="sertificates">
+                <path
+                  id="f1"
+                  data-link="1"
+                  fill="transparent"
+                  d="M55,55 L0,55 A55,55 0 0,1 82.5,7.36860z"
+                ></path>
 
-            <text class="circle-text" font-family="Verdana" font-size="8" ;>
-              <textPath
-                xlink:href="#clockwise"
-                startOffset="16%"
-                text-anchor="middle"
-              >
-                Сертификаты
-              </textPath>
-            </text>
-          </a>
-          <a xlink:href="" class="animate-g" data-tab="svidet">
-            <path
-              data-link="2"
-              fill="transparent"
-              d="M55,55 L82.5,7.36860 A55,55 0 0,1 82.5,102.6314z"
-            ></path>
-            <text
-              class="circle-text"
-              font-family="Verdana"
-              font-size="8"
-              fill="#307fe2"
-              textTransform="uppercase"
-            >
-              <textPath
-                xlink:href="#clockwise"
-                startOffset="50%"
-                text-anchor="middle"
-              >
-                Свидетельство
-              </textPath>
-            </text>
-          </a>
-          <a xlink:href="" class="animate-g" data-tab="patent">
-            <path
-              fill="transparent"
-              data-link="3"
-              d="M55,55 L82.5,102.6314 A55,55 0 0,1 0,55z"
-            ></path>
-            <text class="circle-text" font-family="Verdana" font-size="8">
-              <textPath
-                xlink:href="#clockwise"
-                startOffset="84%"
-                text-anchor="middle"
-              >
-                Патенты
-              </textPath>
-            </text>
-          </a>
-          <circle
-            class="minicirculo"
-            fill="#fff"
-            cx="55"
-            cy="55"
-            r="12"
-          ></circle>
-        </svg>
+                <text class="circle-text" font-family="Verdana" font-size="8" ;>
+                  <textPath
+                    xlink:href="#clockwise"
+                    startOffset="16%"
+                    text-anchor="middle"
+                  >
+                    Сертификаты
+                  </textPath>
+                </text>
+              </a>
+              <a xlink:href="" class="animate-g" data-tab="svidet">
+                <path
+                  data-link="2"
+                  fill="transparent"
+                  d="M55,55 L82.5,7.36860 A55,55 0 0,1 82.5,102.6314z"
+                ></path>
+                <text
+                  class="circle-text"
+                  font-family="Verdana"
+                  font-size="8"
+                  fill="#307fe2"
+                  textTransform="uppercase"
+                >
+                  <textPath
+                    xlink:href="#clockwise"
+                    startOffset="50%"
+                    text-anchor="middle"
+                  >
+                    Свидетельство
+                  </textPath>
+                </text>
+              </a>
+              <a xlink:href="" class="animate-g" data-tab="patent">
+                <path
+                  fill="transparent"
+                  data-link="3"
+                  d="M55,55 L82.5,102.6314 A55,55 0 0,1 0,55z"
+                ></path>
+                <text class="circle-text" font-family="Verdana" font-size="8">
+                  <textPath
+                    xlink:href="#clockwise"
+                    startOffset="84%"
+                    text-anchor="middle"
+                  >
+                    Патенты
+                  </textPath>
+                </text>
+              </a>
+            </g>
+            <circle
+              class="minicirculo"
+              fill="#fff"
+              cx="55"
+              cy="55"
+              r="12"
+            ></circle>
+          </svg>
+
+          <span class="team-lic__number active">01</span>
+          <span class="team-lic__number">02</span>
+          <span class="team-lic__number">03</span>
+        </div>
       </div>
       <div class="team-car__right team-lic__right">
         <div class="team-lic__wrapper active" data-tab="sertificates">

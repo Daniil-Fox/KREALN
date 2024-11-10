@@ -22,15 +22,61 @@
 
   &__circle {
     position: relative;
+    z-index: 5;
     width: 63rem;
     height: 63rem;
     margin: 0 auto;
-    background-image: url('./../img/team/circle.webp');
-    background-size: cover;
+
+    svg {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      z-index: 5;
+
+      path {
+        transform-origin: center;
+        transform: rotate(65deg);
+      }
+    }
+
+  }
+
+  &__number {
+    position: absolute;
+    z-index: 1;
+    font-weight: 700;
+    font-size: 22rem;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: transparent;
+    background-image: url('./../img/blue-bg.webp');
+    background-size: 150%;
     background-repeat: no-repeat;
     background-position: center;
-    border-radius: 100%;
-    // overflow: hidden;
+
+    background-clip: text;
+
+    transition: .3s ease-out;
+    opacity: 0;
+
+    &:nth-of-type(1) {
+      right: -10rem;
+      top: -5.4rem;
+    }
+
+    &:nth-of-type(2) {
+      right: -10rem;
+      bottom: -5.7rem;
+    }
+
+    &:nth-of-type(3) {
+      left: -13rem;
+      bottom: -5.7rem;
+    }
+
+    &.active {
+      opacity: 0.7;
+    }
   }
 
   &__img {
