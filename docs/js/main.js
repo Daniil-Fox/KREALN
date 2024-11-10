@@ -9720,8 +9720,8 @@ if (nav) {
     item.addEventListener('click', e => {
       e.preventDefault();
       if (!checkNavDisabled()) {
-        setNavItem(index);
         goToOtherSlide(indices[index]);
+        setNavItem(index);
       }
     });
   });
@@ -9730,17 +9730,30 @@ function goToOtherSlide(slideIndex) {
   setPosition(slideIndex);
   goToSlide();
 }
+const renewPosSlidesDown = (start, end) => {
+  for (let i = start; i < end; i++) {
+    siteSlides[i].style.transform = 'translateY(0)';
+  }
+};
+const renewPosSlidesUp = (start, end) => {
+  for (let i = start; i < end; i++) {
+    siteSlides[i].style.transform = 'translateY(100%)';
+  }
+};
 function setPosition(newPos) {
   if (newPos > windPos) {
     direction = 'down';
+    renewPosSlidesDown(windPos, newPos);
     windPos = newPos - 1;
   } else if (newPos < windPos) {
     direction = 'up';
+    renewPosSlidesUp(newPos + 1, windPos + 1);
     windPos = newPos + 1;
   } else return;
 }
 function setNavItem(pos) {
   clearNav();
+  console.log(navItems[pos]);
   navItems[pos].classList.add('active');
 }
 function checkNavDisabled() {
@@ -9768,9 +9781,11 @@ function goToSlide() {
     target.classList.add('active');
     checkSlide(siteSlides[windPos]);
   }
-  if (!checkNavDisabled()) {
-    setNavItem(navPos);
-  }
+
+  // if(!checkNavDisabled()){
+  //   setNavItem(navPos)
+  // }
+
   setTimeout(() => {
     anim = false;
     target?.classList.remove('active');
@@ -9856,7 +9871,8 @@ new swiper__WEBPACK_IMPORTED_MODULE_0__.Swiper('.research__slider', {
 new swiper__WEBPACK_IMPORTED_MODULE_0__.Swiper('.team-people__slider', {
   slidesPerView: 'auto',
   spaceBetween: 0,
-  centeredSlides: true,
+  // centeredSlides: true,
+  freeMode: true,
   speed: 500,
   loop: true
 });

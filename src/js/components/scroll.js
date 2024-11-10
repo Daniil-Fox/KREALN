@@ -68,7 +68,7 @@ if(nav){
   function findIndicesOfOnes() {
     siteSlides.forEach((value, index) => {
         if (!value.classList.contains('nav-disable')) {
-            indices.push(index);
+          indices.push(index);
         }
     });
     return indices;
@@ -80,8 +80,8 @@ if(nav){
     item.addEventListener('click', e => {
       e.preventDefault()
       if(!checkNavDisabled()){
-        setNavItem(index)
         goToOtherSlide(indices[index])
+        setNavItem(index)
       }
     })
   })
@@ -93,14 +93,28 @@ function goToOtherSlide(slideIndex){
 
   goToSlide()
 }
+const renewPosSlidesDown = (start, end) => {
+  for(let i = start; i < end; i++){
+    siteSlides[i].style.transform = 'translateY(0)'
+  }
+}
+
+const renewPosSlidesUp = (start, end) => {
+  for(let i = start; i < end; i++){
+    siteSlides[i].style.transform = 'translateY(100%)'
+  }
+}
 
 function setPosition(newPos){
   if(newPos > windPos) {
     direction = 'down'
+    renewPosSlidesDown(windPos, newPos)
     windPos = newPos-1
+
   }
   else if(newPos < windPos) {
     direction = 'up'
+    renewPosSlidesUp(newPos+1, windPos+1)
     windPos = newPos+1
   }
   else return
@@ -108,6 +122,7 @@ function setPosition(newPos){
 
 function setNavItem(pos){
   clearNav()
+  console.log(navItems[pos])
   navItems[pos].classList.add('active')
 }
 
@@ -143,9 +158,9 @@ function goToSlide(){
     checkSlide(siteSlides[windPos])
   }
 
-  if(!checkNavDisabled()){
-    setNavItem(navPos)
-  }
+  // if(!checkNavDisabled()){
+  //   setNavItem(navPos)
+  // }
 
   setTimeout(() => {
     anim = false

@@ -37,7 +37,8 @@ new Swiper('.research__slider', {
 new Swiper('.team-people__slider', {
   slidesPerView: 'auto',
   spaceBetween: 0,
-  centeredSlides: true,
+  // centeredSlides: true,
+  freeMode: true,
   speed: 500,
   loop: true
 })
