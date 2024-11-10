@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru" class="page">
+  @include('partials/head.html')
+
+  <body class="page__body">
+    <div class="site-container">
+      <main class="main">
+        <div class="site-slider">
+          <div class="h-nav header">
+            <span></span>
+            <div class="header__container">
+              <a href="./" class="header__logo">
+                <svg class="">
+                  <use xlink:href="img/sprite.svg#logo"></use>
+                </svg>
+              </a>
+
+              <nav class="header__nav nav">
+                <ul>
+                  <li>Люди</li>
+                  <li>Карьера</li>
+                  <li>Патенты, сертификаты и свидетельства</li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+          <div class="site-wrapper">
+            <div class="site-screen site-screen-start nav-disable">
+              @include('partials/team-main.html')
+            </div>
+            <div class="site-screen">@include('partials/team-people.html')</div>
+            <div class="site-screen">@include('partials/team-car.html')</div>
+            <div class="site-screen">@include('partials/team-lic.html')</div>
+          </div>
+          @include('partials/aside.html')
+        </div>
+      </main>
+      @include('partials/footer.html')
+    </div>
+  </body>
+</html>

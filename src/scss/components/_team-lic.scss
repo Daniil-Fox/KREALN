@@ -1,0 +1,171 @@
+.team-lic {
+  height: 100%;
+  background-color: #f4f4f4;
+  overflow: hidden;
+
+  .container {
+    height: 100%;
+  }
+
+  &__container {
+    height: 100%;
+  }
+
+  &__left {
+    padding-left: 5.5rem;
+    padding-right: 5.5rem;
+  }
+
+  &__title {
+    margin-bottom: 6rem;
+  }
+
+  &__circle {
+    position: relative;
+    width: 63rem;
+    height: 63rem;
+    margin: 0 auto;
+    background-image: url('./../img/team/circle.webp');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 100%;
+    // overflow: hidden;
+  }
+
+  &__img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 2.4rem;
+    // cursor: zoom-in;
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      max-height: 54.2rem;
+    }
+  }
+
+  &__wrapper {
+    display: none;
+    max-height: 100%;
+    min-height: 0;
+    max-width: 100%;
+    min-width: 0;
+
+    &.active {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  &__info {
+    text-align: center;
+    padding: 0 3.4rem;
+  }
+
+  &__name {
+    margin-bottom: 1rem;
+  }
+
+  &__link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 1.6rem;
+    text-decoration: underline;
+    text-decoration-skip-ink: none;
+    text-align: center;
+    color: #307fe2;
+
+    img {
+      display: block;
+      width: 1.7rem;
+      height: 1.7rem;
+      object-fit: contain;
+    }
+  }
+
+
+  &__right {
+    position: relative;
+    padding-bottom: 0;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  &__slider {
+    padding-bottom: 4rem;
+    max-width: 100%;
+    min-width: 0;
+
+    .swiper-wrapper {
+      cursor: grab;
+
+      &:active {
+        cursor: grabbing;
+      }
+    }
+  }
+
+  &__slider .swiper-slide {
+    height: auto;
+  }
+}
+
+
+
+.circle-text textPath {
+  font-family: var(--font-family);
+  font-weight: 300;
+  text-transform: uppercase;
+  fill: #307fe2;
+}
+
+.circle .path-stroke {
+  stroke: #000;
+  stroke-width: 1px;
+}
+
+.circle path,
+.circle text {
+  transition: fill .3s ease-out, opacity .3s ease-out;
+}
+
+.animate-g {
+  overflow: hidden;
+
+  path {
+    fill: transparent;
+  }
+
+  text {
+    opacity: 0;
+  }
+
+  @include hover {
+    path {
+      fill: rgba(#DBE1E9, 0.8);
+    }
+
+    text {
+      opacity: 1;
+    }
+  }
+
+  &.active {
+    path {
+      fill: rgba(#DBE1E9, 0.8);
+    }
+
+    text {
+      opacity: 1;
+    }
+  }
+}

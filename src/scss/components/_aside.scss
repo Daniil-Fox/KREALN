@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  transition: 1.3s ease-out;
 
   &__container {
     display: flex;
@@ -19,6 +20,8 @@
     font-weight: 300;
     font-size: 1.8rem;
     color: #141414;
+    transition: 1s ease-out;
+
   }
 
   &__btn {

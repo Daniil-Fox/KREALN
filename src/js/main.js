@@ -16,6 +16,23 @@ if(service.length > 0){
   })
 
 }
-document.addEventListener("DOMContentLoaded", function(){
-  window.scrollTo(0, 0)
- })
+window.onbeforeunload = function () {
+  window.scrollTo(0, 0);
+}
+
+
+window.addEventListener('DOMContentLoaded', e => {
+  const circle = document.querySelectorAll('.team-lic__circle circle')
+  if(circle.length > 0){
+    let percnetage = 32
+
+    let radius = document.querySelector('.team-lic__circle').clientWidth / 2
+    circle.forEach(c => {
+      let circleLength = 2 * Math.PI * radius
+      c.setAttribute('stroke-dasharray', circleLength)
+      c.setAttribute('stroke-dashoffset', circleLength - circleLength * percnetage / 100)
+    })
+  }
+})
+
+

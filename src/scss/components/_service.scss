@@ -4,12 +4,13 @@
   padding-top: var(--offset-top);
   background-color: #f4f4f4;
   overflow: hidden;
+  position: relative;
 
   &__title {
     margin-bottom: 3.5rem;
   }
 
-  & .container {
+  .container {
     position: relative;
     z-index: 200;
     height: 100%;
@@ -65,8 +66,6 @@
       color: #fff;
     }
   }
-
-  position: relative;
 
   &__arrow {
     position: absolute;

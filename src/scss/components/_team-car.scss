@@ -1,0 +1,145 @@
+.team-car {
+  height: 100%;
+  background: linear-gradient(360deg, #f4f4f4 0%, #d1e3f9 100%);
+
+  .container {
+    height: 100%;
+  }
+
+  &__container {
+    height: 100%;
+    display: flex;
+  }
+
+  &__left,
+  &__right {
+    padding-top: 12rem;
+    padding-left: 7.2rem;
+    padding-right: 7.2rem;
+    padding-bottom: 5rem;
+  }
+
+  &__text {
+    line-height: 1.25;
+  }
+
+  &__left {
+    flex-basis: 93rem;
+    flex-shrink: 0;
+    border-right: 1px solid rgba(#141414, .1);
+  }
+
+  &__right {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 1rem;
+  }
+
+  &__content {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  &__title {
+    margin-bottom: 2.7rem;
+  }
+
+  &__item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    justify-content: space-between;
+    padding: 2rem;
+    background-color: #f2f8ff;
+  }
+
+  &__img {
+    display: inline-block;
+    height: 19rem;
+    width: auto;
+
+    img {
+      height: 100%;
+      width: auto;
+      object-fit: contain;
+    }
+  }
+}
+
+.team-arrow {
+  width: 100%;
+
+  position: relative;
+  z-index: 3;
+
+  &__arrow {
+    margin: 0 auto;
+    width: 70rem;
+    mask-image: url('./../img/team/arrow.webp');
+    mask-size: 100% 100%;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    height: 22rem;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+  }
+
+  &__item {
+    position: absolute;
+    z-index: -1;
+    padding: 1.4rem;
+    width: 22.5rem;
+    border: 0.50px solid rgba(0, 0, 0, 0.5);
+    text-align: center;
+
+    font-weight: 600;
+    font-size: 2rem;
+    color: #141414;
+
+    &:nth-child(1) {
+      left: 0;
+      top: calc(100% + 3rem);
+    }
+
+    &:nth-child(2) {
+      left: 13rem;
+      top: calc(100% + 13rem);
+    }
+
+    &:nth-child(3) {
+      left: 50%;
+      top: calc(100% + 22rem);
+      transform: translateX(-50%);
+    }
+
+    &:nth-child(4) {
+      right: 0;
+      top: calc(100% + 3rem);
+    }
+
+    &:nth-child(5) {
+      right: 13rem;
+      top: calc(100% + 13rem);
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      left: 50%;
+      bottom: 100%;
+      transform: translateX(-50%);
+      height: 22rem;
+      border: 0.50px solid rgba(0, 0, 0, 0.6);
+    }
+  }
+}

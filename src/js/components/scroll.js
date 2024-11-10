@@ -1,10 +1,13 @@
 let delta, direction;
 const siteSlider = document.querySelector('.site-slider')
-const delatSizeUp = 0
-const delayAnim = 1300
 const siteSlides = siteSlider.querySelectorAll('.site-screen')
 
+const delatSizeUp = 0
+const delayAnim = 1300
+
 let windPos = 0;
+let navPos = 0;
+
 let anim = false;
 let pause = false;
 let checkTopScreen = false;
@@ -12,25 +15,29 @@ let checkTopScreen = false;
 
 document.body.style.overflow = 'hidden'
 
-
-const navItems = document.querySelectorAll('.header__nav:not(.no-active) li')
-navItems[0]?.classList.add('active')
-
-function clearNav(){
-  navItems.forEach(el => el.classList.remove('active'))
+function setLightBody(flag){
+  flag ? document.body.classList.add('body-light') : document.body.classList.remove('body-light')
 }
 
-if(navItems.length > 0){
-  navItems.forEach((item, index) => {
-    item.addEventListener('click', e => {
-      e.preventDefault()
 
-      setNavItem(index)
-      goToOtherSlide(index)
-    })
-  })
+function checkSlide(slide){
+  if(slide.classList.contains('site-screen-start')){
+    siteSlider.classList.add('hide-control')
+    setLightBody(1)
+  } else {
+    siteSlider.classList.remove('hide-control')
+    setLightBody(0)
+  }
 }
 
+checkSlide(siteSlides[0])
+
+const nav = document.querySelector('.header__nav:not(.no-active)')
+let navItems
+if(nav){
+  navItems = nav.querySelectorAll('li')
+  navItems[0].classList.add('active')
+}
 
 siteSlides.forEach((slide, i) => {
   slide.style.zIndex = i
@@ -50,8 +57,39 @@ window.addEventListener('wheel', e => {
   !anim && !pause && goToSlide()
 })
 
-function goToOtherSlide(slide){
-  setPosition(slide)
+// Логика для навигации сбоку
+
+function clearNav(){
+  navItems.forEach(el => el.classList.remove('active'))
+}
+if(nav){
+  const indices = [];
+
+  function findIndicesOfOnes() {
+    siteSlides.forEach((value, index) => {
+        if (!value.classList.contains('nav-disable')) {
+            indices.push(index);
+        }
+    });
+    return indices;
+  }
+
+  findIndicesOfOnes()
+
+  navItems.forEach((item, index) => {
+    item.addEventListener('click', e => {
+      e.preventDefault()
+      if(!checkNavDisabled()){
+        setNavItem(index)
+        goToOtherSlide(indices[index])
+      }
+    })
+  })
+}
+
+
+function goToOtherSlide(slideIndex){
+  setPosition(slideIndex)
 
   goToSlide()
 }
@@ -73,11 +111,16 @@ function setNavItem(pos){
   navItems[pos].classList.add('active')
 }
 
+function checkNavDisabled(){
+  return nav.classList.contains('disabled')
+}
+
+// Переход к следующим слайдам относительно winPos
 function goToSlide(){
   anim = true
   let target;
-
   if(direction == "down" && windPos + 1 != siteSlides.length){
+    if(!siteSlides[windPos].classList.contains('nav-disable') && navPos + 1 < navItems.length) navPos++;
     target = siteSlides[++windPos]
 
     setTimeout(() => {
@@ -86,21 +129,31 @@ function goToSlide(){
 
   } else if(direction == "up" && windPos - 1 > -1){
 
+    if(!siteSlides[windPos].classList.contains('nav-disable') && navPos - 1 > -1) navPos--;
     target = siteSlides[windPos--]
+
     setTimeout(() => {
       target.style.transform = 'translateY(100%)'
     }, delatSizeUp)
 
   }
 
-  target?.classList.add('active')
-  setNavItem(windPos)
+  if(target){
+    target.classList.add('active')
+    checkSlide(siteSlides[windPos])
+  }
+
+  if(!checkNavDisabled()){
+    setNavItem(navPos)
+  }
+
   setTimeout(() => {
     anim = false
     target?.classList.remove('active')
   }, delayAnim)
 
   const currentSection = siteSlides[windPos].querySelector('section')
+
   if(currentSection.scrollHeight > window.innerHeight){ // Обработка слайдов, у которых высота больше, чем высота экрана
     pause = true
     if (direction == 'down ' && currentSection.scrollHeight - currentSection.scrollTop === currentSection.clientHeight ) {
