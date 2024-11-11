@@ -1,7 +1,7 @@
 import { Swiper } from "swiper";
-import { Autoplay, FreeMode, Navigation, Pagination } from "swiper/modules";
+import { Autoplay, EffectFade, FreeMode, Navigation, Pagination } from "swiper/modules";
 import { gsap } from "gsap";
-
+import { animateArrow } from "./animations.js";
 function nextTab(tab){
   const tl = gsap.timeline()
   gsap.set(tab, {
@@ -19,7 +19,7 @@ function nextTab(tab){
 
 }
 
-Swiper.use([Navigation, Pagination, Autoplay, FreeMode])
+Swiper.use([Navigation, Pagination, Autoplay, FreeMode, EffectFade])
 
 new Swiper('.research__slider', {
   slidesPerView: 'auto',
@@ -128,4 +128,49 @@ slidersTeamLic.forEach((el, idx) => {
     },
     licTabs[idx]
   );
+})
+
+const prodPagination = ['Блочно - модульные очистные сооружения', 'Фильтры с плавающей загрузкой', 'Станция приема сточных вод', 'Канализационная насосная станция', 'Трубчатые аэраторы', 'Плоскостная загрузка', 'Мешковая сушилка', 'Станции водоподготовки', 'Блок-бокс']
+
+const prodMainSlider = new Swiper(".prod-items__slider", {
+  slidesPerView: 1,
+  speed: 100,
+  navigation: {
+    prevEl: '.prod-items__btn--prev',
+    nextEl: '.prod-items__btn--next',
+  },
+  effect: "fade",
+  fadeEffect: {
+    crossFade: true
+  },
+  pagination: {
+    el: '.prod-pagination',
+    clickable: true,
+      renderBullet: function (index, className) {
+        return '<li class="' + className + '">' + (prodPagination[index]) + '</li>';
+      },
+  },
+})
+
+const prodInfoSlider = new Swiper('.prod-info__slider', {
+  slidesPerView: 1,
+  effect: "fade",
+  navigation: {
+    prevEl: '.prod-items__btn--prev',
+    nextEl: '.prod-items__btn--next',
+  },
+  speed: 100,
+  fadeEffect: {
+    crossFade: true
+  },
+})
+
+prodMainSlider.on('slideChangeTransitionEnd', (swiper) => {
+
+  animateArrow(swiper.el.querySelector('.swiper-slide-active .prod-items__arr'))
+
+  prodInfoSlider.slideTo(swiper.activeIndex)
+})
+prodInfoSlider.on('slideChange', (swiper) => {
+  prodMainSlider.slideTo(swiper.activeIndex)
 })

@@ -13,6 +13,7 @@ const timeline = gsap.timeline({
       setTimeout(() => {
         rmAnimating.remove()
         resetScrollSettings()
+        animateArrow(document.querySelector('.swiper-slide-active .prod-items__arr'))
       }, delayAnim + 10)
     }
   }
@@ -30,23 +31,6 @@ animateSpan.forEach((el, i )=> {
     duration: 0.7
   })
 })
-// timeline.fromTo('.animate-title span:first-child', {
-//   x: -500,
-//   opacity: 0,
-// }, {
-//   x: 0,
-//   opacity: 1,
-//   duration: 1.2
-// })
-
-// timeline.fromTo('.animate-title span:last-child', {
-//   x: 500,
-//   opacity: 0,
-// }, {
-//   x: 0,
-//   opacity: 1,
-//   duration: 1.2
-// }, '-=1')
 
 timeline.fromTo('.team-main__desc', {
   opacity: 0,
@@ -56,3 +40,48 @@ timeline.fromTo('.team-main__desc', {
   y: 0
 }, '-=0.6')
 
+
+gsap.set('.arr1', {
+  y: 800
+})
+gsap.set('.arr2', {
+  y: 800
+})
+gsap.set('.arr3', {
+  y: 800
+})
+
+
+function animateArrow(cont){
+  console.log(cont)
+  const arr1 = cont.querySelector('.arr1')
+  const arr2 = cont.querySelector('.arr2')
+  const arr3 = cont.querySelector('.arr3')
+
+  const img = cont.querySelector('.anim-img')
+  const imgMask = cont.querySelector('.mask-arr')
+
+
+  const tl = gsap.timeline({
+    duration: 1.2,
+    onComplete: () => {
+      img.style.opacity = 1
+      setTimeout(() => {
+        imgMask.style.opacity = 0
+      }, 800)
+    }
+  })
+
+  tl.to(arr1,{
+    y: 0
+  }).to(arr2, {
+    y: 0
+  }, "-=0.3").to(arr3, {
+    y: 0
+  }, "-=0.3")
+}
+
+
+
+
+export {animateArrow}

@@ -9615,6 +9615,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   animateArrow: () => (/* binding */ animateArrow)
+/* harmony export */ });
 /* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
 /* harmony import */ var gsap_ScrollTrigger_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! gsap/ScrollTrigger.js */ "./node_modules/gsap/ScrollTrigger.js");
 /* harmony import */ var _scroll_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./scroll.js */ "./src/js/components/scroll.js");
@@ -9630,6 +9633,7 @@ const timeline = gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.timeline({
       setTimeout(() => {
         rmAnimating.remove();
         (0,_scroll_js__WEBPACK_IMPORTED_MODULE_0__.resetScrollSettings)();
+        animateArrow(document.querySelector('.swiper-slide-active .prod-items__arr'));
       }, _scroll_js__WEBPACK_IMPORTED_MODULE_0__.delayAnim + 10);
     }
   }
@@ -9645,24 +9649,6 @@ animateSpan.forEach((el, i) => {
     duration: 0.7
   });
 });
-// timeline.fromTo('.animate-title span:first-child', {
-//   x: -500,
-//   opacity: 0,
-// }, {
-//   x: 0,
-//   opacity: 1,
-//   duration: 1.2
-// })
-
-// timeline.fromTo('.animate-title span:last-child', {
-//   x: 500,
-//   opacity: 0,
-// }, {
-//   x: 0,
-//   opacity: 1,
-//   duration: 1.2
-// }, '-=1')
-
 timeline.fromTo('.team-main__desc', {
   opacity: 0,
   y: 100
@@ -9670,6 +9656,40 @@ timeline.fromTo('.team-main__desc', {
   opacity: 1,
   y: 0
 }, '-=0.6');
+gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.set('.arr1', {
+  y: 800
+});
+gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.set('.arr2', {
+  y: 800
+});
+gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.set('.arr3', {
+  y: 800
+});
+function animateArrow(cont) {
+  console.log(cont);
+  const arr1 = cont.querySelector('.arr1');
+  const arr2 = cont.querySelector('.arr2');
+  const arr3 = cont.querySelector('.arr3');
+  const img = cont.querySelector('.anim-img');
+  const imgMask = cont.querySelector('.mask-arr');
+  const tl = gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.timeline({
+    duration: 1.2,
+    onComplete: () => {
+      img.style.opacity = 1;
+      setTimeout(() => {
+        imgMask.style.opacity = 0;
+      }, 800);
+    }
+  });
+  tl.to(arr1, {
+    y: 0
+  }).to(arr2, {
+    y: 0
+  }, "-=0.3").to(arr3, {
+    y: 0
+  }, "-=0.3");
+}
+
 
 /***/ }),
 
@@ -9892,13 +9912,15 @@ window.addEventListener('scroll', e => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var swiper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! swiper */ "./node_modules/swiper/swiper.mjs");
 /* harmony import */ var swiper_modules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! swiper/modules */ "./node_modules/swiper/modules/index.mjs");
-/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
+/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
+/* harmony import */ var _animations_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./animations.js */ "./src/js/components/animations.js");
+
 
 
 
 function nextTab(tab) {
-  const tl = gsap__WEBPACK_IMPORTED_MODULE_2__.gsap.timeline();
-  gsap__WEBPACK_IMPORTED_MODULE_2__.gsap.set(tab, {
+  const tl = gsap__WEBPACK_IMPORTED_MODULE_3__.gsap.timeline();
+  gsap__WEBPACK_IMPORTED_MODULE_3__.gsap.set(tab, {
     opacity: 0,
     yPercent: 60
   });
@@ -9910,7 +9932,7 @@ function nextTab(tab) {
     duration: 0.4
   }, "-=0.5");
 }
-swiper__WEBPACK_IMPORTED_MODULE_0__.Swiper.use([swiper_modules__WEBPACK_IMPORTED_MODULE_1__.Navigation, swiper_modules__WEBPACK_IMPORTED_MODULE_1__.Pagination, swiper_modules__WEBPACK_IMPORTED_MODULE_1__.Autoplay, swiper_modules__WEBPACK_IMPORTED_MODULE_1__.FreeMode]);
+swiper__WEBPACK_IMPORTED_MODULE_0__.Swiper.use([swiper_modules__WEBPACK_IMPORTED_MODULE_1__.Navigation, swiper_modules__WEBPACK_IMPORTED_MODULE_1__.Pagination, swiper_modules__WEBPACK_IMPORTED_MODULE_1__.Autoplay, swiper_modules__WEBPACK_IMPORTED_MODULE_1__.FreeMode, swiper_modules__WEBPACK_IMPORTED_MODULE_1__.EffectFade]);
 new swiper__WEBPACK_IMPORTED_MODULE_0__.Swiper('.research__slider', {
   slidesPerView: 'auto',
   centeredSlides: true,
@@ -9991,6 +10013,45 @@ slidersTeamLic.forEach((el, idx) => {
     slidesPerView: 'auto',
     spaceBetween: 40
   }, licTabs[idx]);
+});
+const prodPagination = ['Блочно - модульные очистные сооружения', 'Фильтры с плавающей загрузкой', 'Станция приема сточных вод', 'Канализационная насосная станция', 'Трубчатые аэраторы', 'Плоскостная загрузка', 'Мешковая сушилка', 'Станции водоподготовки', 'Блок-бокс'];
+const prodMainSlider = new swiper__WEBPACK_IMPORTED_MODULE_0__.Swiper(".prod-items__slider", {
+  slidesPerView: 1,
+  speed: 100,
+  navigation: {
+    prevEl: '.prod-items__btn--prev',
+    nextEl: '.prod-items__btn--next'
+  },
+  effect: "fade",
+  fadeEffect: {
+    crossFade: true
+  },
+  pagination: {
+    el: '.prod-pagination',
+    clickable: true,
+    renderBullet: function (index, className) {
+      return '<li class="' + className + '">' + prodPagination[index] + '</li>';
+    }
+  }
+});
+const prodInfoSlider = new swiper__WEBPACK_IMPORTED_MODULE_0__.Swiper('.prod-info__slider', {
+  slidesPerView: 1,
+  effect: "fade",
+  navigation: {
+    prevEl: '.prod-items__btn--prev',
+    nextEl: '.prod-items__btn--next'
+  },
+  speed: 100,
+  fadeEffect: {
+    crossFade: true
+  }
+});
+prodMainSlider.on('slideChangeTransitionEnd', swiper => {
+  (0,_animations_js__WEBPACK_IMPORTED_MODULE_2__.animateArrow)(swiper.el.querySelector('.swiper-slide-active .prod-items__arr'));
+  prodInfoSlider.slideTo(swiper.activeIndex);
+});
+prodInfoSlider.on('slideChange', swiper => {
+  prodMainSlider.slideTo(swiper.activeIndex);
 });
 
 /***/ }),
