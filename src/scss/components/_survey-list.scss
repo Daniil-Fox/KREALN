@@ -1,0 +1,156 @@
+.survey-list {
+  height: 100%;
+  background: linear-gradient(180deg, #fff 0%, #dcecff 100%);
+  overflow-y: auto;
+
+  &__title {
+    text-align: center;
+    margin-bottom: 10rem;
+  }
+
+  &__container {
+    min-height: 100%;
+    display: flex;
+    position: relative;
+  }
+
+  &__left {
+    padding: 12rem 6.3rem;
+
+    flex-basis: 93rem;
+    flex-shrink: 0;
+    border-right: 1px solid rgba(#141414, 0.1);
+  }
+
+  &__top {
+    text-align: center;
+
+    p:not(:last-child) {
+      margin-bottom: 2rem;
+    }
+  }
+
+  &__bottom {
+    text-align: center;
+
+    p:not(:last-child) {
+      margin-bottom: 4rem;
+    }
+  }
+
+  &__capture {
+    margin-bottom: 2rem;
+    color: #307fe2;
+  }
+
+  &__right {
+    flex: 1;
+    padding: 0 4.8rem;
+    padding-top: 14rem;
+    padding-bottom: 12rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    max-height: 100vh;
+  }
+
+  &__text {
+    max-width: 44rem;
+    margin: 0 auto;
+
+    color: rgba(20, 20, 20, 0.7);
+
+    a {
+      color: #141414;
+      font-weight: 600;
+    }
+  }
+}
+
+
+.sl-list {
+  display: flex;
+
+
+  &__items {
+    background-color: #fff;
+    padding-bottom: 3rem;
+  }
+
+  &__check {
+    width: 3.8rem;
+    height: 3.8rem;
+    flex-shrink: 0;
+
+    mask-image: url('./../img/sl-list-icon.webp');
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+
+    background-color: #dcecff;
+
+    transition: background-color .3s ease-out;
+  }
+
+  &__title {
+    font-family: var(--font-family);
+    font-weight: 300;
+    font-size: 4rem;
+    text-transform: uppercase;
+    color: #307fe2;
+    background: #fff;
+
+    padding: 1.4rem 2rem;
+    transform: rotate(180deg);
+    writing-mode: vertical-rl;
+    text-align: right;
+  }
+
+  &__item {
+    position: relative;
+    z-index: 4;
+    display: flex;
+    justify-content: space-between;
+    gap: 11.2rem;
+    box-shadow: 0 -4px 15px 0 rgba(48, 127, 226, 0.15);
+    background: #fff;
+
+    padding-top: 4.7rem;
+    padding-left: 4.3rem;
+    padding-right: 8.8rem;
+    padding-bottom: 10rem;
+    transition: transform .4s ease-out;
+
+    &:not(:first-child) {
+      margin-top: -7rem;
+    }
+
+    &.active {
+      transform: translateY(-4rem);
+
+      .sl-list__check {
+        background-color: #307FE2;
+      }
+
+      .sl-list__name {
+        color: #141414;
+      }
+    }
+
+
+  }
+
+  &__name {
+    text-align: left;
+    font-weight: 300;
+    color: rgba(20, 20, 20, 0.5);
+
+    transition: color .3s ease-out;
+  }
+}

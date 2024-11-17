@@ -62,6 +62,7 @@
     "graph-tabs": "^1.0.2",
     "gsap": "^3.12.5",
     "inputmask": "^5.0.8",
+    "jquery": "^3.7.1",
     "just-validate": "^4.3.0",
     "rellax": "^1.12.1",
     "simplebar": "^6.2.5",

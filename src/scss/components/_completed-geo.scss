@@ -1,0 +1,79 @@
+.completed-geo {
+  height: 100%;
+  background: #f4f4f4;
+  overflow-y: auto;
+
+  &__title {
+    text-align: center;
+    margin-bottom: 14rem;
+  }
+
+  &__img {
+    width: 100%;
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  &__container {
+    display: flex;
+    height: 100%;
+  }
+
+  &__left,
+  &__right {
+    padding-top: 12rem;
+  }
+
+  &__left {
+    flex-basis: 93rem;
+    flex-shrink: 0;
+    padding-left: 4.7rem;
+    padding-right: 4.7rem;
+
+    border-right: 1px solid rgba(#141414, 0.1);
+  }
+
+  &__right {
+    padding-left: 8.5rem;
+    padding-right: 8.5rem;
+  }
+
+  &__capture {
+    margin-bottom: 3rem;
+    font-weight: 500;
+    text-align: left;
+  }
+
+  &__block {
+    &:not(:last-child) {
+      margin-bottom: 6rem;
+    }
+  }
+
+  &__list {
+    li {
+      display: flex;
+      gap: 1.8rem;
+      color: rgba(20, 20, 20, 0.7);
+
+      &:not(:last-child) {
+        margin-bottom: 2rem;
+      }
+
+      &::before {
+        content: "";
+        display: block;
+        width: 2.4rem;
+        height: 2.4rem;
+        background: #d9d9d9;
+        border-radius: 2px;
+
+        flex-shrink: 0;
+      }
+    }
+  }
+}

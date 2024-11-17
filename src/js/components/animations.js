@@ -13,7 +13,9 @@ const timeline = gsap.timeline({
       setTimeout(() => {
         rmAnimating.remove()
         resetScrollSettings()
-        animateArrow(document.querySelector('.swiper-slide-active .prod-items__arr'))
+        if(document.querySelector('.swiper-slide-active .prod-items__arr')){
+          animateArrow(document.querySelector('.swiper-slide-active .prod-items__arr'))
+        }
       }, delayAnim + 10)
     }
   }
@@ -53,13 +55,13 @@ gsap.set('.arr3', {
 
 
 function animateArrow(cont){
-  console.log(cont)
-  const arr1 = cont.querySelector('.arr1')
-  const arr2 = cont.querySelector('.arr2')
-  const arr3 = cont.querySelector('.arr3')
 
-  const img = cont.querySelector('.anim-img')
-  const imgMask = cont.querySelector('.mask-arr')
+  const arr1 = cont?.querySelector('.arr1')
+  const arr2 = cont?.querySelector('.arr2')
+  const arr3 = cont?.querySelector('.arr3')
+
+  const img = cont?.querySelector('.anim-img')
+  const imgMask = cont?.querySelector('.mask-arr')
 
 
   const tl = gsap.timeline({

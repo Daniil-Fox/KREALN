@@ -165,12 +165,15 @@ const prodInfoSlider = new Swiper('.prod-info__slider', {
   },
 })
 
-prodMainSlider.on('slideChangeTransitionEnd', (swiper) => {
+if(document.querySelector('.prod-info__slider')){
+  prodMainSlider.on('slideChangeTransitionEnd', (swiper) => {
 
-  animateArrow(swiper.el.querySelector('.swiper-slide-active .prod-items__arr'))
+    animateArrow(swiper.el.querySelector('.swiper-slide-active .prod-items__arr'))
 
-  prodInfoSlider.slideTo(swiper.activeIndex)
-})
-prodInfoSlider.on('slideChange', (swiper) => {
-  prodMainSlider.slideTo(swiper.activeIndex)
-})
+    prodInfoSlider.slideTo(swiper.activeIndex)
+  })
+  prodInfoSlider.on('slideChange', (swiper) => {
+    prodMainSlider.slideTo(swiper.activeIndex)
+  })
+}
+

@@ -9601,10 +9601,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_sliders_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/sliders.js */ "./src/js/components/sliders.js");
 /* harmony import */ var _components_scroll_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/scroll.js */ "./src/js/components/scroll.js");
 /* harmony import */ var _components_animations_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/animations.js */ "./src/js/components/animations.js");
+/* harmony import */ var _components_survey_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/survey.js */ "./src/js/components/survey.js");
 // import './components/gsap.js'
 
 
 
+
+// import './components/owl.js'
 
 /***/ }),
 
@@ -9633,7 +9636,9 @@ const timeline = gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.timeline({
       setTimeout(() => {
         rmAnimating.remove();
         (0,_scroll_js__WEBPACK_IMPORTED_MODULE_0__.resetScrollSettings)();
-        animateArrow(document.querySelector('.swiper-slide-active .prod-items__arr'));
+        if (document.querySelector('.swiper-slide-active .prod-items__arr')) {
+          animateArrow(document.querySelector('.swiper-slide-active .prod-items__arr'));
+        }
       }, _scroll_js__WEBPACK_IMPORTED_MODULE_0__.delayAnim + 10);
     }
   }
@@ -9666,12 +9671,11 @@ gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.set('.arr3', {
   y: 800
 });
 function animateArrow(cont) {
-  console.log(cont);
-  const arr1 = cont.querySelector('.arr1');
-  const arr2 = cont.querySelector('.arr2');
-  const arr3 = cont.querySelector('.arr3');
-  const img = cont.querySelector('.anim-img');
-  const imgMask = cont.querySelector('.mask-arr');
+  const arr1 = cont?.querySelector('.arr1');
+  const arr2 = cont?.querySelector('.arr2');
+  const arr3 = cont?.querySelector('.arr3');
+  const img = cont?.querySelector('.anim-img');
+  const imgMask = cont?.querySelector('.mask-arr');
   const tl = gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.timeline({
     duration: 1.2,
     onComplete: () => {
@@ -10046,13 +10050,37 @@ const prodInfoSlider = new swiper__WEBPACK_IMPORTED_MODULE_0__.Swiper('.prod-inf
     crossFade: true
   }
 });
-prodMainSlider.on('slideChangeTransitionEnd', swiper => {
-  (0,_animations_js__WEBPACK_IMPORTED_MODULE_2__.animateArrow)(swiper.el.querySelector('.swiper-slide-active .prod-items__arr'));
-  prodInfoSlider.slideTo(swiper.activeIndex);
-});
-prodInfoSlider.on('slideChange', swiper => {
-  prodMainSlider.slideTo(swiper.activeIndex);
-});
+if (document.querySelector('.prod-info__slider')) {
+  prodMainSlider.on('slideChangeTransitionEnd', swiper => {
+    (0,_animations_js__WEBPACK_IMPORTED_MODULE_2__.animateArrow)(swiper.el.querySelector('.swiper-slide-active .prod-items__arr'));
+    prodInfoSlider.slideTo(swiper.activeIndex);
+  });
+  prodInfoSlider.on('slideChange', swiper => {
+    prodMainSlider.slideTo(swiper.activeIndex);
+  });
+}
+
+/***/ }),
+
+/***/ "./src/js/components/survey.js":
+/*!*************************************!*\
+  !*** ./src/js/components/survey.js ***!
+  \*************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+const surveyItems = document.querySelectorAll('.sl-list__item');
+if (surveyItems.length > 0) {
+  const clearActive = () => {
+    surveyItems.forEach(el => el.classList.remove('active'));
+  };
+  surveyItems.forEach(item => {
+    item.addEventListener('mouseenter', e => {
+      clearActive();
+      item.classList.add('active');
+    });
+  });
+}
 
 /***/ }),
 
