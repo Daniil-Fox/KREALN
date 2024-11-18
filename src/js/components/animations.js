@@ -7,8 +7,8 @@ gsap.registerPlugin(ScrollTrigger)
 const timeline = gsap.timeline({
   onComplete: () => {
     const rmAnimating = document.querySelector('.site-screen-rm')
+    goToOtherSlide(1)
     if(rmAnimating){
-      goToOtherSlide(1)
 
       setTimeout(() => {
         rmAnimating.remove()

@@ -1,0 +1,143 @@
+.news-sing {
+  height: 100%;
+  background: #f4f4f4;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+
+  &__img {
+    height: 48rem;
+
+    &:not(:last-child) {
+      margin-bottom: 4rem;
+    }
+  }
+
+  .container {
+    height: 100%;
+  }
+
+  &__container {
+    padding: 12rem 10rem;
+    padding-right: 10.9rem;
+    padding-bottom: 7rem;
+    height: 100%;
+    position: relative;
+    z-index: 2;
+
+    &:last-child {
+      &::after {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 0;
+        width: 200%;
+        height: 100%;
+
+        background: linear-gradient(180deg, #f4f4f4 0%, #d1e3f9 100%);
+
+      }
+    }
+  }
+
+  &__title {
+    margin: 0;
+    margin-bottom: 5.7rem;
+    font-weight: 600;
+    font-size: 3.2rem;
+    color: #141414;
+
+    max-width: 103.4rem;
+  }
+
+  &__items {
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6.2rem;
+
+    &:not(:last-child) {
+      margin-bottom: 6rem;
+    }
+  }
+
+
+
+  &__desc {
+    display: block;
+    margin: 0;
+    font-weight: 300;
+    font-size: 2rem;
+    color: #141414;
+    line-height: 135%;
+
+    &:not(:last-child) {
+      margin-bottom: 4rem;
+    }
+
+    &--date {
+      &:not(:last-child) {
+        margin-bottom: 1rem;
+      }
+    }
+
+    &--bold {
+      font-weight: 600;
+    }
+  }
+
+  &__wrapper {
+    position: relative;
+  }
+
+  &__link {
+    position: absolute;
+    right: -9.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 18rem;
+
+    display: flex;
+    align-items: center;
+    gap: 1.7rem;
+
+    font-family: var(--font-family);
+    font-weight: 600;
+    font-size: 2rem;
+    color: #141414;
+
+    span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 3.2rem;
+      height: 3.2rem;
+      flex-shrink: 0;
+      padding: 1rem;
+      background-color: #fff;
+      border-radius: 100%;
+
+      svg {
+        height: 100%;
+      }
+    }
+  }
+
+  &__flag {
+    clip-path: polygon(100% 0, 80% 50%, 100% 100%, 0 100%, 0 0);
+    height: 47rem;
+
+    &:not(:last-child) {
+      margin-bottom: 6rem;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

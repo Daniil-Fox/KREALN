@@ -114,6 +114,40 @@ a {
   position: relative;
 }
 
+section {
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  -ms-overflow-style: none;
+
+  scrollbar-width: none;
+}
+
+.row-wrapper {
+  display: flex;
+  position: relative;
+
+  .h-nav {
+    position: sticky;
+    bottom: unset;
+    top: 0;
+    height: 100vh;
+    width: 30.5rem;
+    flex-shrink: 0;
+  }
+
+  .sidebar {
+    position: sticky;
+    bottom: unset;
+    top: 0;
+    height: 100vh;
+    flex-shrink: 0;
+  }
+}
+
 .site-slider {
   position: relative;
   height: 100vh;
@@ -149,6 +183,16 @@ a {
         left: 100%;
         transform: translateX(-40%);
         background: linear-gradient(180deg, #307fe2 0%, #cadcf2 100%);
+      }
+    }
+
+    &--nolist {
+      border: none;
+      width: auto;
+      padding-left: 10.4rem;
+
+      span {
+        display: none;
       }
     }
   }
