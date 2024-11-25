@@ -1,0 +1,92 @@
+.sp-block-hero {
+  background-color: #fff;
+  height: 100%;
+
+
+  .container {
+    height: 100%;
+  }
+
+  &__title {
+    margin-bottom: 7rem;
+    text-align: center;
+  }
+
+  &__container {
+    display: flex;
+    height: 100%;
+  }
+
+  &__left {
+    padding-top: 12rem;
+    padding-bottom: 9rem;
+    height: 100%;
+    flex-basis: 93rem;
+    flex-shrink: 0;
+    border-right: 1px solid rgba(#141414, 0.1);
+  }
+
+  &__right {
+    height: 100%;
+    padding: 0 8rem;
+    padding-top: 12rem;
+    padding-bottom: 18rem;
+
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  &__img {
+    height: 67.5rem;
+    width: auto;
+    display: flex;
+    justify-content: flex-end;
+
+    img {
+      display: block;
+      height: 100%;
+      width: auto;
+    }
+  }
+
+  &__top {
+    font-weight: 600;
+    font-size: 3.2rem;
+    color: #307fe2;
+
+    span {
+      display: block;
+      font-size: 2.6rem;
+    }
+  }
+
+  &__mid {
+    ul {
+      max-width: 22rem;
+      margin: 0;
+      padding: 0;
+      padding-left: 2rem;
+      color: rgba(20, 20, 20, 0.7);
+    }
+  }
+
+  &__capture {
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  &__link {
+    margin-bottom: 1rem;
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 2.6rem;
+    color: #141414;
+
+    a {
+      display: block;
+      color: #307fe2;
+    }
+  }
+}

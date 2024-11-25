@@ -9899,9 +9899,45 @@ if (siteSlider) {
         }
       });
     }
+    if (currentSection.querySelector('.hor-scroll')) {
+      pause = true;
+      const horScroll = currentSection.querySelector('.hor-scroll');
+      const horScrollContainer = currentSection.querySelector('.hor-scroll-container');
+      if (horScroll.scrollWidth > horScrollContainer.clientWidth) {
+        let scroll = 0;
+        let finish = horScroll.scrollWidth - horScrollContainer.clientWidth;
+        function horWheel(e) {
+          if (e.wheelDeltaY < 0) {
+            scroll -= 30;
+            scroll = Math.max(scroll, -finish);
+            horScroll.style.transform = `translateX(${scroll}px)`;
+            if (scroll == finish) {
+              pause = false;
+              setTimeout(() => {
+                checkOverflow();
+              }, 300);
+            }
+          } else if (e.wheelDeltaY > 0) {
+            scroll += 30;
+            scroll = Math.min(scroll, 0);
+            horScroll.style.transform = `translateX(${scroll}px)`;
+            if (scroll == 0) {
+              pause = false;
+              setTimeout(() => {
+                checkOverflow();
+              }, 300);
+            }
+          }
+        }
+        currentSection.addEventListener('wheel', horWheel);
+      }
+    }
 
     // Если слайд последний и скролл вниз включаем обычный скролл
-    if (direction == 'down' && windPos == siteSlides.length - 1) {
+    function isEnd() {
+      return direction == 'down' && windPos == siteSlides.length - 1;
+    }
+    if (isEnd()) {
       setTimeout(() => {
         pause = true;
         document.body.style.overflow = null;
@@ -20616,6 +20652,20 @@ window.addEventListener('DOMContentLoaded', e => {
     });
   }
 });
+const circInfo = document.querySelectorAll('.sp-circ');
+if (circInfo && circInfo.length > 0) {
+  const clearActive = () => {
+    circInfo.forEach(el => el.classList.remove('active'));
+  };
+  circInfo.forEach(el => {
+    const btn = el.querySelector('.trigger');
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      clearActive();
+      el.classList.add('active');
+    });
+  });
+}
 })();
 
 /******/ })()

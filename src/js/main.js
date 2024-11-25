@@ -36,3 +36,18 @@ window.addEventListener('DOMContentLoaded', e => {
 })
 
 
+const circInfo = document.querySelectorAll('.sp-circ')
+
+if(circInfo && circInfo.length > 0){
+  const clearActive = () => {
+    circInfo.forEach(el => el.classList.remove('active'))
+  }
+  circInfo.forEach(el => {
+    const btn = el.querySelector('.trigger')
+    btn.addEventListener('click', e => {
+      e.preventDefault()
+      clearActive()
+      el.classList.add('active')
+    })
+  })
+}

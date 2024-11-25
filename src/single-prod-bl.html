@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru" class="page">
+  @include('partials/head.html')
+
+  <body class="page__body">
+    <div class="site-container">
+      <main class="main">
+        <div class="site-slider">
+          <div class="h-nav header">
+            <span></span>
+            <div class="header__container">
+              <a href="./" class="header__logo">
+                <svg class="">
+                  <use xlink:href="img/sprite.svg#logo"></use>
+                </svg>
+              </a>
+
+              <nav class="header__nav nav no-active">
+                <ul>
+                  <li class="active">
+                    <a href="#"> Блочно - модульные очистные сооружения </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      Конструктивные и объемно-планировочные решения
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">Общие технические характеристики</a>
+                  </li>
+                  <li>
+                    <a href="#">Виды и типы исполнения</a>
+                  </li>
+                  <li>
+                    <a href="#"
+                      >Общие этапы изготовления и ввода в эксплу-атацию</a
+                    >
+                  </li>
+                  <li><a href="#">Преимущества нашего оборудования</a></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+          <div class="site-wrapper">
+            <!-- <div class="site-screen">
+              @include('partials/sp-block-hero.html')
+            </div>
+            <div class="site-screen">
+              @include('partials/sp-block-solv.html')
+            </div>
+            <div class="site-screen">
+              @include('partials/sp-block-chars.html')
+            </div> -->
+            <!-- <div class="site-screen">
+              @include('partials/sp-block-kind.html')
+            </div> -->
+            <div class="site-screen">
+              @include('partials/sp-block-steps.html')
+            </div>
+            <div class="site-screen">
+              @include('partials/sp-block-slider.html')
+            </div>
+          </div>
+          @include('partials/aside.html')
+        </div>
+      </main>
+      @include('partials/footer.html')
+    </div>
+  </body>
+</html>

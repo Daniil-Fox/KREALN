@@ -262,6 +262,13 @@ section {
   color: #141414;
 }
 
+.capture2 {
+  margin: 0;
+  font-weight: 500;
+  font-size: 2.6rem;
+  color: #141414;
+}
+
 .title1 {
   margin: 0;
   font-family: var(--font-family);
@@ -284,6 +291,10 @@ section {
   }
 }
 
+.hor-scroll {
+  transition: transform .1s linear;
+}
+
 .title2 {
   margin: 0;
   font-weight: 500;
@@ -299,6 +310,18 @@ section {
   margin: 0;
   font-weight: 500;
   font-size: 4rem;
+  color: #141414;
+
+  span {
+    color: #307fe2;
+  }
+}
+
+.title4 {
+  margin: 0;
+
+  font-weight: 500;
+  font-size: 3.2rem;
   color: #141414;
 
   span {
