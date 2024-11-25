@@ -9714,6 +9714,7 @@ const delatSizeUp = 0;
 const delayAnim = 1300;
 let windPos = 0;
 let navPos = 0;
+let scroll = 0;
 let anim = false;
 let pause = false;
 let checkTopScreen = false;
@@ -9765,10 +9766,13 @@ if (siteSlider) {
     delta = e.wheelDeltaY;
     if (delta > 0) {
       direction = 'up';
+      if (window.scrollY != 0) {
+        window.scrollTo(0, 0);
+      }
     } else {
       direction = 'down';
     }
-    !anim && !pause && goToSlide();
+    handleScroll();
   });
 
   // Логика для навигации сбоку
@@ -9832,13 +9836,92 @@ if (siteSlider) {
   // Подсветка активного пункта навигации
   function setNavItem(pos) {
     clearNav();
-    console.log(navItems[pos]);
     navItems[pos].classList.add('active');
   }
   function checkNavDisabled() {
     return nav && nav.classList.contains('disabled');
   }
-
+  function isEnd() {
+    return direction == 'down' && windPos == siteSlides.length - 1;
+  }
+  function disableScrollSlides() {
+    if (isEnd()) {
+      setTimeout(() => {
+        pause = true;
+        document.body.style.overflow = null;
+      }, delayAnim);
+    } else {
+      document.body.style.overflow = 'hidden';
+    }
+  }
+  function handleScroll() {
+    handleVars();
+    console.log('pause: ' + pause);
+    if (!anim && !pause) {
+      goToSlide();
+    }
+  }
+  function handleVars() {
+    // Проверяем высоту слайда, если выше - включаем в него скролл
+    const currentSection = siteSlides[windPos].querySelector('section');
+    if (currentSection.scrollHeight > window.innerHeight) {
+      // Обработка слайдов, у которых высота больше, чем высота экрана
+      // <-- 18.11 MAYBE DELETE THIS
+      currentSection.addEventListener('scroll', e => {
+        e.preventDefault();
+        if (window.scrollY != 0) {
+          window.scrollTo(0, 0);
+        }
+      });
+      // -->
+      pause = true;
+      if (direction == 'down' && currentSection.scrollHeight - currentSection.scrollTop === currentSection.clientHeight) {
+        pause = false;
+      } else if (direction == 'up' && currentSection.scrollTop <= 1) {
+        pause = false;
+      }
+      currentSection.addEventListener('wheel', e => {
+        if (e.wheelDeltaY < 0 && currentSection.scrollHeight - currentSection.scrollTop === currentSection.clientHeight) {
+          setTimeout(() => {
+            pause = false;
+          }, 300);
+        } else if (e.wheelDeltaY > 0 && currentSection.scrollTop == 0) {
+          setTimeout(() => {
+            pause = false;
+          }, 300);
+        }
+      });
+    }
+    if (currentSection.querySelector('.hor-scroll')) {
+      const horScroll = currentSection.querySelector('.hor-scroll');
+      const horScrollContainer = currentSection.querySelector('.hor-scroll-container');
+      let finish = horScroll.scrollWidth - horScrollContainer.clientWidth;
+      const STEP = 20;
+      if (horScroll.scrollWidth > horScrollContainer.clientWidth) {
+        function horWheel(e) {
+          pause = true;
+          if (e.wheelDeltaY < 0) {
+            scroll -= STEP;
+            scroll = Math.max(scroll, -finish);
+            horScroll.style.transform = `translateX(${scroll}px)`;
+            if (scroll == -finish) {
+              pause = false;
+              currentSection.removeEventListener('wheel', horWheel);
+            }
+          } else if (e.wheelDeltaY > 0) {
+            scroll += STEP;
+            scroll = Math.min(scroll, 0);
+            horScroll.style.transform = `translateX(${scroll}px)`;
+            if (scroll == 0) {
+              pause = false;
+              currentSection.removeEventListener('wheel', horWheel);
+            }
+          }
+        }
+        currentSection.addEventListener('wheel', horWheel);
+      }
+    }
+  }
   // Переход к следующим слайдам относительно winPos
   function goToSlide() {
     anim = true;
@@ -9863,86 +9946,13 @@ if (siteSlider) {
     if (nav) {
       setNavItem(navPos);
     }
-    // Выключаем анимацию
     setTimeout(() => {
       anim = false;
       target?.classList.remove('active');
+      direction == 'down' && !pause && disableScrollSlides();
     }, delayAnim);
 
-    // Проверяем высоту слайда, если выше - включаем в него скролл
-    const currentSection = siteSlides[windPos].querySelector('section');
-    if (currentSection.scrollHeight > window.innerHeight) {
-      // Обработка слайдов, у которых высота больше, чем высота экрана
-      // <-- 18.11 MAYBE DELETE THIS
-      currentSection.addEventListener('scroll', e => {
-        e.preventDefault();
-        if (window.scrollY != 0) {
-          window.scrollTo(0, 0);
-        }
-      });
-      // -->
-      pause = true;
-      if (direction == 'down ' && currentSection.scrollHeight - currentSection.scrollTop === currentSection.clientHeight) {
-        pause = false;
-      } else if (direction == 'up' && currentSection.scrollTop <= 1) {
-        pause = false;
-      }
-      currentSection.addEventListener('wheel', e => {
-        if (e.wheelDeltaY < 0 && currentSection.scrollHeight - currentSection.scrollTop === currentSection.clientHeight) {
-          setTimeout(() => {
-            pause = false;
-          }, 300);
-        } else if (e.wheelDeltaY > 0 && currentSection.scrollTop == 0) {
-          setTimeout(() => {
-            pause = false;
-          }, 300);
-        }
-      });
-    }
-    if (currentSection.querySelector('.hor-scroll')) {
-      pause = true;
-      const horScroll = currentSection.querySelector('.hor-scroll');
-      const horScrollContainer = currentSection.querySelector('.hor-scroll-container');
-      if (horScroll.scrollWidth > horScrollContainer.clientWidth) {
-        let scroll = 0;
-        let finish = horScroll.scrollWidth - horScrollContainer.clientWidth;
-        function horWheel(e) {
-          if (e.wheelDeltaY < 0) {
-            scroll -= 30;
-            scroll = Math.max(scroll, -finish);
-            horScroll.style.transform = `translateX(${scroll}px)`;
-            if (scroll == finish) {
-              pause = false;
-              setTimeout(() => {
-                checkOverflow();
-              }, 300);
-            }
-          } else if (e.wheelDeltaY > 0) {
-            scroll += 30;
-            scroll = Math.min(scroll, 0);
-            horScroll.style.transform = `translateX(${scroll}px)`;
-            if (scroll == 0) {
-              pause = false;
-              setTimeout(() => {
-                checkOverflow();
-              }, 300);
-            }
-          }
-        }
-        currentSection.addEventListener('wheel', horWheel);
-      }
-    }
-
     // Если слайд последний и скролл вниз включаем обычный скролл
-    function isEnd() {
-      return direction == 'down' && windPos == siteSlides.length - 1;
-    }
-    if (isEnd()) {
-      setTimeout(() => {
-        pause = true;
-        document.body.style.overflow = null;
-      }, delayAnim);
-    }
   }
   window.addEventListener('scroll', e => {
     if (pause && window.scrollY == 0 && direction == 'up') {
