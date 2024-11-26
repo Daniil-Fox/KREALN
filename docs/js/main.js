@@ -9709,6 +9709,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   goToOtherSlide: () => (/* binding */ goToOtherSlide),
 /* harmony export */   resetScrollSettings: () => (/* binding */ resetScrollSettings)
 /* harmony export */ });
+/* harmony import */ var _functions_throttle_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../functions/throttle.js */ "./src/js/functions/throttle.js");
+
 let delta, direction;
 const delatSizeUp = 0;
 const delayAnim = 1300;
@@ -9722,24 +9724,24 @@ let checkTopScreen = false;
 // functions
 let goToOtherSlide = null;
 let resetScrollSettings = null;
-const siteSlider = document.querySelector('.site-slider');
+const siteSlider = document.querySelector(".site-slider");
 if (siteSlider) {
-  let siteSlides = siteSlider.querySelectorAll('.site-screen');
+  let siteSlides = siteSlider.querySelectorAll(".site-screen");
   function setLightBody(flag) {
-    flag ? document.body.classList.add('body-light') : document.body.classList.remove('body-light');
+    flag ? document.body.classList.add("body-light") : document.body.classList.remove("body-light");
   }
   function checkOverflow() {
     if (siteSlides.length > 1) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     }
   }
   function checkSlide(slide) {
-    if (slide.classList.contains('site-screen-start')) {
-      siteSlider.classList.add('hide-control');
+    if (slide.classList.contains("site-screen-start")) {
+      siteSlider.classList.add("hide-control");
     } else {
-      siteSlider.classList.remove('hide-control');
+      siteSlider.classList.remove("hide-control");
     }
-    if (slide.classList.contains('site-screen-light')) {
+    if (slide.classList.contains("site-screen-light")) {
       setLightBody(1);
     } else {
       setLightBody(0);
@@ -9747,52 +9749,55 @@ if (siteSlider) {
   }
   checkOverflow();
   checkSlide(siteSlides[0]);
-  const nav = document.querySelector('.header__nav:not(.no-active)');
+  const nav = document.querySelector(".header__nav:not(.no-active)");
   let navItems;
   if (nav) {
-    navItems = nav.querySelectorAll('li');
-    navItems[0].classList.add('active');
+    navItems = nav.querySelectorAll("li");
+    navItems[0].classList.add("active");
   }
   function initSlides() {
     siteSlides.forEach((slide, i) => {
       slide.style.zIndex = i;
       if (i != 0) {
-        slide.style.transform = 'translateY(100%)';
+        slide.style.transform = "translateY(100%)";
       }
     });
   }
   initSlides();
-  window.addEventListener('wheel', e => {
+  function mainFunc(e) {
     delta = e.wheelDeltaY;
     if (delta > 0) {
-      direction = 'up';
+      direction = "up";
       if (window.scrollY != 0) {
         window.scrollTo(0, 0);
       }
     } else {
-      direction = 'down';
+      direction = "down";
     }
     handleScroll();
-  });
+  }
+  let func = (0,_functions_throttle_js__WEBPACK_IMPORTED_MODULE_0__.throttle)(mainFunc);
+  window.addEventListener("wheel", func);
 
   // Логика для навигации сбоку
 
   function clearNav() {
-    navItems.forEach(el => el.classList.remove('active'));
+    navItems.forEach(el => el.classList.remove("active"));
   }
   if (nav) {
     const indices = [];
     function findIndicesOfOnes() {
       siteSlides.forEach((value, index) => {
-        if (!value.classList.contains('nav-disable')) {
+        if (!value.classList.contains("nav-disable")) {
           indices.push(index);
         }
       });
+      console.log(indices);
       return indices;
     }
     findIndicesOfOnes();
     navItems.forEach((item, index) => {
-      item.addEventListener('click', e => {
+      item.addEventListener("click", e => {
         e.preventDefault();
         if (!checkNavDisabled()) {
           goToOtherSlide(indices[index]);
@@ -9804,7 +9809,7 @@ if (siteSlider) {
   resetScrollSettings = () => {
     windPos = 0;
     navPos = 0;
-    siteSlides = siteSlider.querySelectorAll('.site-screen');
+    siteSlides = siteSlider.querySelectorAll(".site-screen");
     initSlides();
   };
   goToOtherSlide = slideIndex => {
@@ -9813,21 +9818,21 @@ if (siteSlider) {
   };
   const renewPosSlidesDown = (start, end) => {
     for (let i = start; i < end; i++) {
-      siteSlides[i].style.transform = 'translateY(0)';
+      siteSlides[i].style.transform = "translateY(0)";
     }
   };
   const renewPosSlidesUp = (start, end) => {
     for (let i = start; i < end; i++) {
-      siteSlides[i].style.transform = 'translateY(100%)';
+      siteSlides[i].style.transform = "translateY(100%)";
     }
   };
   function setPosition(newPos) {
     if (newPos > windPos) {
-      direction = 'down';
+      direction = "down";
       renewPosSlidesDown(windPos, newPos);
       windPos = newPos - 1;
     } else if (newPos < windPos) {
-      direction = 'up';
+      direction = "up";
       renewPosSlidesUp(newPos + 1, windPos + 1);
       windPos = newPos + 1;
     } else return;
@@ -9836,13 +9841,14 @@ if (siteSlider) {
   // Подсветка активного пункта навигации
   function setNavItem(pos) {
     clearNav();
-    navItems[pos].classList.add('active');
+    navPos = pos;
+    navItems[navPos].classList.add("active");
   }
   function checkNavDisabled() {
-    return nav && nav.classList.contains('disabled');
+    return nav && nav.classList.contains("disabled");
   }
   function isEnd() {
-    return direction == 'down' && windPos == siteSlides.length - 1;
+    return direction == "down" && windPos == siteSlides.length - 1;
   }
   function disableScrollSlides() {
     if (isEnd()) {
@@ -9851,23 +9857,23 @@ if (siteSlider) {
         document.body.style.overflow = null;
       }, delayAnim);
     } else {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     }
   }
   function handleScroll() {
     handleVars();
-    console.log('pause: ' + pause);
+    console.log("pause: " + pause);
     if (!anim && !pause) {
       goToSlide();
     }
   }
   function handleVars() {
     // Проверяем высоту слайда, если выше - включаем в него скролл
-    const currentSection = siteSlides[windPos].querySelector('section');
+    const currentSection = siteSlides[windPos].querySelector("section");
     if (currentSection.scrollHeight > window.innerHeight) {
       // Обработка слайдов, у которых высота больше, чем высота экрана
       // <-- 18.11 MAYBE DELETE THIS
-      currentSection.addEventListener('scroll', e => {
+      currentSection.addEventListener("scroll", e => {
         e.preventDefault();
         if (window.scrollY != 0) {
           window.scrollTo(0, 0);
@@ -9875,12 +9881,12 @@ if (siteSlider) {
       });
       // -->
       pause = true;
-      if (direction == 'down' && currentSection.scrollHeight - currentSection.scrollTop === currentSection.clientHeight) {
+      if (direction == "down" && currentSection.scrollHeight - currentSection.scrollTop === currentSection.clientHeight) {
         pause = false;
-      } else if (direction == 'up' && currentSection.scrollTop <= 1) {
+      } else if (direction == "up" && currentSection.scrollTop <= 1) {
         pause = false;
       }
-      currentSection.addEventListener('wheel', e => {
+      currentSection.addEventListener("wheel", e => {
         if (e.wheelDeltaY < 0 && currentSection.scrollHeight - currentSection.scrollTop === currentSection.clientHeight) {
           setTimeout(() => {
             pause = false;
@@ -9892,9 +9898,9 @@ if (siteSlider) {
         }
       });
     }
-    if (currentSection.querySelector('.hor-scroll')) {
-      const horScroll = currentSection.querySelector('.hor-scroll');
-      const horScrollContainer = currentSection.querySelector('.hor-scroll-container');
+    if (currentSection.querySelector(".hor-scroll")) {
+      const horScroll = currentSection.querySelector(".hor-scroll");
+      const horScrollContainer = currentSection.querySelector(".hor-scroll-container");
       let finish = horScroll.scrollWidth - horScrollContainer.clientWidth;
       const STEP = 20;
       if (horScroll.scrollWidth > horScrollContainer.clientWidth) {
@@ -9906,7 +9912,7 @@ if (siteSlider) {
             horScroll.style.transform = `translateX(${scroll}px)`;
             if (scroll == -finish) {
               pause = false;
-              currentSection.removeEventListener('wheel', horWheel);
+              currentSection.removeEventListener("wheel", horWheel);
             }
           } else if (e.wheelDeltaY > 0) {
             scroll += STEP;
@@ -9914,11 +9920,11 @@ if (siteSlider) {
             horScroll.style.transform = `translateX(${scroll}px)`;
             if (scroll == 0) {
               pause = false;
-              currentSection.removeEventListener('wheel', horWheel);
+              currentSection.removeEventListener("wheel", horWheel);
             }
           }
         }
-        currentSection.addEventListener('wheel', horWheel);
+        currentSection.addEventListener("wheel", horWheel);
       }
     }
   }
@@ -9927,20 +9933,20 @@ if (siteSlider) {
     anim = true;
     let target;
     if (direction == "down" && windPos + 1 != siteSlides.length) {
-      if (nav && !siteSlides[windPos].classList.contains('nav-disable') && navPos + 1 < navItems.length) navPos++;
+      if (nav && !siteSlides[windPos].classList.contains("nav-disable") && navPos + 1 < navItems.length) navPos++;
       target = siteSlides[++windPos];
       setTimeout(() => {
-        target.style.transform = 'translateY(0%)';
+        target.style.transform = "translateY(0%)";
       }, delatSizeUp);
     } else if (direction == "up" && windPos - 1 > -1) {
-      if (nav && !siteSlides[windPos].classList.contains('nav-disable') && navPos - 1 > -1) navPos--;
+      if (nav && !siteSlides[windPos].classList.contains("nav-disable") && navPos - 1 > -1) navPos--;
       target = siteSlides[windPos--];
       setTimeout(() => {
-        target.style.transform = 'translateY(100%)';
+        target.style.transform = "translateY(100%)";
       }, delatSizeUp);
     }
     if (target) {
-      target.classList.add('active');
+      target.classList.add("active");
       checkSlide(siteSlides[windPos]);
     }
     if (nav) {
@@ -9948,14 +9954,14 @@ if (siteSlider) {
     }
     setTimeout(() => {
       anim = false;
-      target?.classList.remove('active');
-      direction == 'down' && !pause && disableScrollSlides();
+      target?.classList.remove("active");
+      direction == "down" && !pause && disableScrollSlides();
     }, delayAnim);
 
     // Если слайд последний и скролл вниз включаем обычный скролл
   }
-  window.addEventListener('scroll', e => {
-    if (pause && window.scrollY == 0 && direction == 'up') {
+  window.addEventListener("scroll", e => {
+    if (pause && window.scrollY == 0 && direction == "up") {
       setTimeout(() => {
         pause = false;
       }, 300);
@@ -10141,6 +10147,44 @@ if (surveyItems.length > 0) {
     });
   });
 }
+
+/***/ }),
+
+/***/ "./src/js/functions/throttle.js":
+/*!**************************************!*\
+  !*** ./src/js/functions/throttle.js ***!
+  \**************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   throttle: () => (/* binding */ throttle)
+/* harmony export */ });
+const throttle = function (func) {
+  let delay = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 250;
+  let isThrottled = false;
+  let savedArgs = null;
+  let savedThis = null;
+  return function wrap() {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+    if (isThrottled) {
+      savedArgs = args, savedThis = this;
+      return;
+    }
+    func.apply(this, args);
+    isThrottled = true;
+    setTimeout(() => {
+      isThrottled = false;
+      if (savedThis) {
+        wrap.apply(savedThis, savedArgs);
+        savedThis = null;
+        savedArgs = null;
+      }
+    }, delay);
+  };
+};
 
 /***/ }),
 
@@ -20553,7 +20597,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _shared_swiper_core_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./shared/swiper-core.mjs */ "./node_modules/swiper/shared/swiper-core.mjs");
 /**
- * Swiper 11.1.14
+ * Swiper 11.1.15
  * Most modern mobile touch slider and framework with hardware accelerated transitions
  * https://swiperjs.com
  *
@@ -20561,7 +20605,7 @@ __webpack_require__.r(__webpack_exports__);
  *
  * Released under the MIT License
  *
- * Released on: September 12, 2024
+ * Released on: November 18, 2024
  */
 
 
@@ -20626,7 +20670,7 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+// This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
 (() => {
 /*!************************!*\
   !*** ./src/js/main.js ***!
