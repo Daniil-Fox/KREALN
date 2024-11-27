@@ -8,6 +8,8 @@
   }
 
   &__title {
+    max-width: 85rem;
+    margin: 0 auto;
     margin-bottom: 7rem;
     text-align: center;
   }
@@ -36,6 +38,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    gap: 4rem;
   }
 
   &__img {
@@ -70,6 +73,10 @@
       padding-left: 2rem;
       color: rgba(20, 20, 20, 0.7);
     }
+  }
+
+  &__text {
+    color: rgba(20, 20, 20, 0.7);
   }
 
   &__capture {

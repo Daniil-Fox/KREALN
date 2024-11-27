@@ -5,6 +5,10 @@
   padding-top: 12rem;
   padding-bottom: 17.3rem;
 
+  &--plosk {
+    background: linear-gradient(180deg, #fefeff 0%, #dcecff 100%);
+  }
+
   &__container {
     overflow: hidden;
   }

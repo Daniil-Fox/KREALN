@@ -2,6 +2,22 @@
   height: 100%;
   background: #dcecff;
 
+  &--filt {
+    background: linear-gradient(180deg, #dcecff 0%, #fefeff 100%);
+  }
+
+  &--plosk {
+    background: linear-gradient(180deg, #fff 0%, #fff 100%);
+  }
+
+  &--stat {
+    background: linear-gradient(180deg, #dcecff 0%, #fefeff 100%);
+  }
+
+  &--mesk {
+    background: linear-gradient(180deg, #fff 0%, #fff 100%);
+  }
+
   .container {
     height: 100%;
   }
@@ -9,6 +25,18 @@
   &__container {
     height: 100%;
     display: flex;
+
+    &--slim {
+      .sp-block-chars__left {
+        padding-left: 5.8rem;
+        padding-right: 5.8rem;
+        gap: 6rem;
+      }
+
+      .sp-block-chars__header {
+        padding: 0;
+      }
+    }
   }
 
   &__left {
@@ -21,6 +49,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    gap: 10rem;
   }
 
   &__right {
@@ -31,17 +60,46 @@
 
   &__title {
     margin-bottom: 1.7rem;
+    letter-spacing: 0;
+    text-align: left;
+    letter-spacing: -0.15487rem;
+  }
+
+  &__heading {
+    max-width: 75rem;
+    margin: 0 auto;
+
+    &:not(:last-child) {
+      margin-bottom: 3rem;
+    }
+
+    &--slim {
+      max-width: 35rem;
+
+      ul,
+      ol {
+        margin: 0;
+        padding-left: 2.5rem;
+        text-align: left;
+      }
+    }
   }
 
   &__header {
     margin-bottom: 3rem;
     padding: 0 3rem;
     text-align: center;
+
+
   }
 
   &__capture {
     font-weight: 500;
     margin-bottom: 0.2rem;
+
+    &--mod {
+      font-size: 1.6rem;
+    }
   }
 
   &__desc {
@@ -167,5 +225,21 @@
       height: 1.7rem;
       flex-shrink: 0;
     }
+  }
+}
+
+.spb-tblock {
+  &__text {
+    line-height: 1.375;
+
+    &--plosk {
+      max-width: 60rem;
+    }
+  }
+
+  &__capture {
+    text-align: left;
+    margin-bottom: 2rem;
+    font-weight: 600;
   }
 }

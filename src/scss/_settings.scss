@@ -234,6 +234,10 @@ section {
   height: 100%;
   transition: transform .8s ease-in-out .2s;
 
+  &:not(:first-child) {
+    transform: translateY(100%);
+  }
+
   &::before {
     content: "";
     position: absolute;
