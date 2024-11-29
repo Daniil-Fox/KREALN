@@ -1,0 +1,133 @@
+.contacts-main {
+  height: 100%;
+  overflow: hidden;
+  background-color: #fff;
+
+  .container,
+  &__container {
+    min-height: 100%;
+    height: 100%;
+
+  }
+
+  &__back {
+    position: absolute;
+    top: 12rem;
+    left: 10rem;
+    z-index: 12;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  &__container {
+    display: flex;
+    overflow: hidden;
+    position: relative;
+  }
+
+  &__fig {
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 130%;
+
+    .line {
+      height: 100%;
+      width: 18rem;
+      background: rgba(220, 236, 255, 0.5);
+      transform: rotate(20deg);
+
+      position: relative;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 14rem;
+        right: calc(100% - 8.2rem);
+        width: 75rem;
+        height: 18rem;
+        background: rgba(220, 236, 255, 0.5);
+        transform: rotate(27deg);
+        clip-path: polygon(0 0, 87.8% 0%, 100% 100%, 0% 100%);
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: 9rem;
+        left: calc(100% - 11.7rem);
+        width: 140rem;
+        height: 18rem;
+        background: rgba(220, 236, 255, 0.5);
+        transform: rotate(27deg);
+        clip-path: polygon(0 0, 100% 0%, 100% 100%, 6.5% 100%);
+      }
+    }
+  }
+
+  &__left {
+    position: relative;
+    z-index: 3;
+    flex-shrink: 0;
+    flex-basis: 93rem;
+    flex-grow: 0;
+    padding: 12rem 10rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    border-right: 1px solid rgba(#141414, 0.1);
+  }
+
+  &__map {
+    position: absolute;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 35rem;
+    height: 35rem;
+    border-radius: 100%;
+    overflow: hidden;
+    transform: translate(10rem, 34vh);
+
+    cursor: pointer;
+
+    &.active {
+      cursor: default;
+    }
+
+    // transition: .3s ease-out;
+  }
+
+  &__right {
+    position: relative;
+    z-index: 3;
+    flex-grow: 1;
+    font-style: normal;
+    padding: 12rem 2rem;
+    padding-left: 4.5rem;
+  }
+
+  &__block {
+    &:not(:last-child) {
+      margin-bottom: 6rem;
+    }
+  }
+
+  &__capture {
+    margin: 0;
+    margin-bottom: 2rem;
+    font-weight: 500;
+    font-size: 2.8rem;
+    color: #141414;
+    letter-spacing: -0.02em;
+    line-height: 135%;
+  }
+
+  &__text {
+    line-height: 135%;
+  }
+}

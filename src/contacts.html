@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru" class="page">
+  @include('partials/head.html')
+
+  <body class="page__body">
+    <div class="site-container">
+      <main class="main">
+        <div class="site-slider">
+          <div class="h-nav header">
+            <span></span>
+            <div class="header__container">
+              <a href="./" class="header__logo">
+                <svg class="">
+                  <use xlink:href="img/sprite.svg#logo"></use>
+                </svg>
+              </a>
+
+              <nav class="header__nav nav">
+                <ul>
+                  <li>Услуги</li>
+                  <li>Как добраться</li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+          <div class="site-wrapper">
+            <!-- <div class="site-screen">
+              @include('partials/contacts-main.html')
+            </div> -->
+            <div class="site-screen">
+              @include('partials/contacts-ways.html')
+            </div>
+          </div>
+          @include('partials/aside.html')
+        </div>
+      </main>
+      @include('partials/footer-white.html')
+    </div>
+    <script src="https://api-maps.yandex.ru/v3/?apikey=221cbec3-01c0-4b1a-8417-d7d65e719c35&lang=ru_RU"></script>
+
+    <script type="module">
+      main();
+      window.addEventListener("resize", main);
+      async function main() {
+        const coord = [30.312284, 59.929488];
+        await ymaps3.ready;
+        const { YMap, YMapDefaultSchemeLayer, YMapDefaultFeaturesLayer } =
+          ymaps3;
+        const map = new YMap(
+          document.getElementById("map"),
+          {
+            location: {
+              center: coord,
+              zoom: 14,
+            },
+            showScaleInCopyrights: true,
+          },
+          [new YMapDefaultSchemeLayer({}), new YMapDefaultFeaturesLayer({})]
+        );
+      }
+    </script>
+  </body>
+</html>

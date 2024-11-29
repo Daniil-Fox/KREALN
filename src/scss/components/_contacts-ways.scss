@@ -1,0 +1,34 @@
+.contacts-ways {
+  height: 100%;
+  background-color: #fff;
+
+  &__title {
+    margin-bottom: 18rem;
+  }
+
+  .container,
+  &__container {
+    height: 100%;
+  }
+
+  &__container {
+    display: flex;
+  }
+
+  &__left {
+    padding: 12rem 10rem;
+    padding-bottom: 9.4rem;
+    flex-shrink: 0;
+    flex-basis: 93rem;
+    border-right: 1px solid rgba(#141414, 0.1);
+  }
+
+  &__right {
+    flex-grow: 1;
+  }
+
+  &__wrapper {
+    display: flex;
+    align-items: flex-end;
+  }
+}

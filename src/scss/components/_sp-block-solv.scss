@@ -63,6 +63,11 @@
     padding: 2rem 3.5rem;
   }
 
+  &__back {
+    position: relative;
+    z-index: 10;
+  }
+
   &__content {
     position: relative;
     z-index: 4;

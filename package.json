@@ -57,6 +57,7 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
+    "@yandex/ymaps3-default-ui-theme": "^0.0.18",
     "aos": "^2.3.4",
     "graph-modal": "^1.0.7",
     "graph-tabs": "^1.0.2",
