@@ -4,6 +4,21 @@
     margin-bottom: 3rem;
   }
 
+  &__capture.centered {
+    text-align: center;
+  }
+
+  &__list {
+    margin: 0 auto;
+
+    padding: 0;
+    max-width: 40rem;
+
+    &:not(:last-child) {
+      margin-bottom: 6rem;
+    }
+  }
+
   &__img {
     border-radius: 2rem;
     overflow: hidden;

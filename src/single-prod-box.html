@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru" class="page">
+  @include('partials/head.html')
+
+  <body class="page__body">
+    <div class="site-container">
+      <main class="main">
+        <div class="site-slider">
+          <div class="h-nav header">
+            <span></span>
+            <div class="header__container">
+              <a href="./" class="header__logo">
+                <svg class="">
+                  <use xlink:href="img/sprite.svg#logo"></use>
+                </svg>
+              </a>
+
+              <nav class="header__nav nav">
+                <ul>
+                  <li class="active">
+                    Блок-бокс для размещения насосного оборудования
+                  </li>
+                  <li>Конструктивные и объемно-планировочные решения</li>
+                  <li>Общие технические характеристики</li>
+                  <li>Общие этапы изготовления и ввода в эксплу-атацию</li>
+                  <li>Преимущества нашего оборудования</li>
+                  <li>Наша продукция реализована</li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+          <div class="site-wrapper">
+            <div class="site-screen">@include('partials/sp-box-hero.html')</div>
+            <div class="site-screen">@include('partials/sp-box-solv.html')</div>
+            <div class="site-screen">
+              @include('partials/sp-box-chars.html')
+            </div>
+            <div class="site-screen">
+              @include('partials/sp-block-steps.html')
+            </div>
+            <div class="site-screen">
+              @include('partials/sp-block-slider.html')
+            </div>
+            <div class="site-screen">
+              @include('partials/sp-block-rel.html')
+            </div>
+          </div>
+          @include('partials/aside.html')
+        </div>
+      </main>
+      @include('partials/footer-white.html')
+    </div>
+  </body>
+</html>

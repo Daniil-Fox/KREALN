@@ -3206,12 +3206,17 @@ section::-webkit-scrollbar {
   display: block;
   font-size: 2.6rem;
 }
-.sp-block-hero__mid ul {
+.sp-block-hero__mid ul,
+.sp-block-hero__mid ol {
   max-width: 22rem;
   margin: 0;
   padding: 0;
   padding-left: 2rem;
   color: rgba(20, 20, 20, 0.7);
+}
+.sp-block-hero__mid ul.wide,
+.sp-block-hero__mid ol.wide {
+  max-width: 37rem;
 }
 .sp-block-hero__text {
   color: rgba(20, 20, 20, 0.7);
@@ -3244,6 +3249,15 @@ section::-webkit-scrollbar {
 .sp-block-solv .container {
   min-height: 100%;
   height: 100%;
+}
+.sp-block-solv__extra:not(:last-child) {
+  margin-bottom: 3rem;
+}
+.sp-block-solv__extra p {
+  margin: 0;
+}
+.sp-block-solv__extra p:not(:last-child) {
+  margin-bottom: 0.5rem;
 }
 .sp-block-solv__title {
   margin-bottom: 6rem;
@@ -3290,10 +3304,19 @@ section::-webkit-scrollbar {
   margin-bottom: 9.7rem;
 }
 .sp-block-solv__content ul li:not(:last-child) {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 .sp-block-solv__content--53 ul {
   margin-bottom: 5.3rem;
+}
+.sp-block-solv__content--35 ul {
+  margin-bottom: 3rem;
+}
+.sp-block-solv__content--wide {
+  max-width: 83.5rem;
+}
+.sp-block-solv__content--wide ul {
+  max-width: 100%;
 }
 .sp-block-solv__left {
   -ms-flex-negative: 0;
@@ -3345,6 +3368,10 @@ section::-webkit-scrollbar {
 .sp-block-chars--mesk {
   background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#fff));
   background: linear-gradient(180deg, #fff 0%, #fff 100%);
+}
+.sp-block-chars--box {
+  background: -webkit-gradient(linear, left top, left bottom, from(#dcecff), to(#fefeff));
+  background: linear-gradient(180deg, #dcecff 0%, #fefeff 100%);
 }
 .sp-block-chars .container {
   height: 100%;
@@ -3986,6 +4013,17 @@ section::-webkit-scrollbar {
 .sp-block-type__capture {
   text-align: left;
   margin-bottom: 3rem;
+}
+.sp-block-type__capture.centered {
+  text-align: center;
+}
+.sp-block-type__list {
+  margin: 0 auto;
+  padding: 0;
+  max-width: 40rem;
+}
+.sp-block-type__list:not(:last-child) {
+  margin-bottom: 6rem;
 }
 .sp-block-type__img {
   border-radius: 2rem;

@@ -11,6 +11,21 @@
     height: 100%;
   }
 
+  &__extra {
+
+    &:not(:last-child) {
+      margin-bottom: 3rem;
+    }
+
+    p {
+      margin: 0;
+
+      &:not(:last-child) {
+        margin-bottom: .5rem;
+      }
+    }
+  }
+
   &__title {
     margin-bottom: 6rem;
   }
@@ -63,13 +78,27 @@
       margin-bottom: 9.7rem;
 
       li:not(:last-child) {
-        margin-bottom: 2rem;
+        margin-bottom: 1.5rem;
       }
     }
 
     &--53 {
       ul {
         margin-bottom: 5.3rem;
+      }
+    }
+
+    &--35 {
+      ul {
+        margin-bottom: 3rem;
+      }
+    }
+
+    &--wide {
+      max-width: 83.5rem;
+
+      ul {
+        max-width: 100%;
       }
     }
   }

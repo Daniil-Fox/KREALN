@@ -66,12 +66,19 @@
   }
 
   &__mid {
-    ul {
+
+    ul,
+    ol {
       max-width: 22rem;
       margin: 0;
       padding: 0;
       padding-left: 2rem;
       color: rgba(20, 20, 20, 0.7);
+    }
+
+    ul.wide,
+    ol.wide {
+      max-width: 37rem;
     }
   }
 
