@@ -1,87 +1,221 @@
 <section class="contacts-ways">
   <div class="container">
     <div class="contacts-ways__container">
-      <div class="contacts-ways__left">
-        <h2 class="title2 contacts-ways__title">Как добраться</h2>
-        <div class="contacts-ways__wrapper">
-          <div class="contacts-ways__control orbit-control">
-            <div class="orbit-control__btn orbit-control__btn--prev">
-              <svg
-                width="36"
-                height="65"
-                viewBox="0 0 36 65"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  opacity="0.8"
-                  d="M33 3L5 32.3965L33 62"
-                  stroke-width="6"
-                />
-              </svg>
-            </div>
-            <div class="orbit-control__btn orbit-control__btn--next">
-              <svg
-                width="36"
-                height="65"
-                viewBox="0 0 36 65"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  opacity="0.8"
-                  d="M33 3L5 32.3965L33 62"
-                  stroke-width="6"
-                />
-              </svg>
-            </div>
-          </div>
-          <div class="contacts-ways__orbit orbit">
-            <div class="orbit__planet orbit__planet--active">
-              <div class="orbit__img">
-                <img src="./img/contacts/01.webp" alt="" />
+      <div class="contacts-ways__flex active" data-way="admiral">
+        <div class="contacts-ways__left">
+          <h2 class="title2 contacts-ways__title">Как добраться</h2>
+          <div class="contacts-ways__wrapper">
+            <div class="contacts-ways__control orbit-control">
+              <div class="orbit-control__btn orbit-control__btn--prev">
+                <svg
+                  width="36"
+                  height="65"
+                  viewBox="0 0 36 65"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    opacity="0.8"
+                    d="M33 3L5 32.3965L33 62"
+                    stroke-width="6"
+                  />
+                </svg>
               </div>
-              <div class="orbit__img">
-                <img src="./img/contacts/02.webp" alt="" />
-              </div>
-              <div class="orbit__img">
-                <img src="./img/contacts/03.webp" alt="" />
-              </div>
-              <div class="orbit__img">
-                <img src="./img/contacts/04.webp" alt="" />
-              </div>
-              <div class="orbit__img">
-                <img src="./img/contacts/05.webp" alt="" />
-              </div>
-              <div class="orbit__img">
-                <img src="./img/contacts/06.webp" alt="" />
+              <div class="orbit-control__btn orbit-control__btn--next">
+                <svg
+                  width="36"
+                  height="65"
+                  viewBox="0 0 36 65"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    opacity="0.8"
+                    d="M33 3L5 32.3965L33 62"
+                    stroke-width="6"
+                  />
+                </svg>
               </div>
             </div>
+            <div class="contacts-ways__orbit orbit">
+              <div class="orbit__counter">00</div>
+              <div class="orbit__wrapper">
+                <div class="orbit__planet orbit__planet--active">
+                  <div class="orbit__img">
+                    <img src="./img/contacts/01.webp" alt="" />
+                  </div>
+                  <div class="orbit__img">
+                    <img src="./img/contacts/02.webp" alt="" />
+                  </div>
+                  <div class="orbit__img">
+                    <img src="./img/contacts/03.webp" alt="" />
+                  </div>
+                  <div class="orbit__img">
+                    <img src="./img/contacts/04.webp" alt="" />
+                  </div>
+                  <div class="orbit__img">
+                    <img src="./img/contacts/05.webp" alt="" />
+                  </div>
+                  <div class="orbit__img">
+                    <img src="./img/contacts/06.webp" alt="" />
+                  </div>
+                </div>
 
-            <div class="orbit__planet orbit__planet--next">
-              <div class="orbit__img">
-                <img src="./img/contacts/01.webp" alt="" />
-              </div>
-              <div class="orbit__img">
-                <img src="./img/contacts/02.webp" alt="" />
-              </div>
-              <div class="orbit__img">
-                <img src="./img/contacts/03.webp" alt="" />
-              </div>
-              <div class="orbit__img">
-                <img src="./img/contacts/04.webp" alt="" />
-              </div>
-              <div class="orbit__img">
-                <img src="./img/contacts/05.webp" alt="" />
-              </div>
-              <div class="orbit__img">
-                <img src="./img/contacts/06.webp" alt="" />
+                <div class="orbit__planet orbit__planet--next">
+                  <div class="orbit__img">
+                    <img src="./img/contacts/01.webp" alt="" />
+                  </div>
+                  <div class="orbit__img">
+                    <img src="./img/contacts/02.webp" alt="" />
+                  </div>
+                  <div class="orbit__img">
+                    <img src="./img/contacts/03.webp" alt="" />
+                  </div>
+                  <div class="orbit__img">
+                    <img src="./img/contacts/04.webp" alt="" />
+                  </div>
+                  <div class="orbit__img">
+                    <img src="./img/contacts/05.webp" alt="" />
+                  </div>
+                  <div class="orbit__img">
+                    <img src="./img/contacts/06.webp" alt="" />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
+        <div class="contacts-ways__right">
+          <div class="sp-block-hero__top contacts-ways__capture">
+            От метро<br />
+            Адмиралтейская
+          </div>
+          <div class="contacts-ways__nav">
+            <ul class="list-reset contacts-ways__list">
+              <li class="active">ст.м. Адмиралтейская</li>
+              <li>ул. Малая морская</li>
+              <li>Исакиевская площадь</li>
+              <li>Исакиевская площадь</li>
+              <li>Синий мост</li>
+              <li>Пер. Антоненко</li>
+            </ul>
+
+            <a
+              href="#"
+              class="contacts-ways__trigger"
+              data-cont-trigger="sadovaya"
+              >От метро Садовая</a
+            >
+          </div>
+        </div>
       </div>
-      <div class="contacts-ways__right"></div>
+      <div class="contacts-ways__flex" data-way="sadovaya">
+        <div class="contacts-ways__left">
+          <h2 class="title2 contacts-ways__title">Как добраться</h2>
+          <div class="contacts-ways__wrapper">
+            <div class="contacts-ways__control orbit-control">
+              <div class="orbit-control__btn orbit-control__btn--prev">
+                <svg
+                  width="36"
+                  height="65"
+                  viewBox="0 0 36 65"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    opacity="0.8"
+                    d="M33 3L5 32.3965L33 62"
+                    stroke-width="6"
+                  />
+                </svg>
+              </div>
+              <div class="orbit-control__btn orbit-control__btn--next">
+                <svg
+                  width="36"
+                  height="65"
+                  viewBox="0 0 36 65"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    opacity="0.8"
+                    d="M33 3L5 32.3965L33 62"
+                    stroke-width="6"
+                  />
+                </svg>
+              </div>
+            </div>
+            <div class="contacts-ways__orbit orbit">
+              <div class="orbit__counter">00</div>
+              <div class="orbit__wrapper">
+                <div class="orbit__planet orbit__planet--active">
+                  <div class="orbit__img">
+                    <img src="./img/contacts/07.webp" alt="" />
+                  </div>
+                  <div class="orbit__img">
+                    <img src="./img/contacts/08.webp" alt="" />
+                  </div>
+                  <div class="orbit__img">
+                    <img src="./img/contacts/09.webp" alt="" />
+                  </div>
+                  <div class="orbit__img">
+                    <img src="./img/contacts/10.webp" alt="" />
+                  </div>
+                  <div class="orbit__img">
+                    <img src="./img/contacts/11.webp" alt="" />
+                  </div>
+                  <div class="orbit__img">
+                    <img src="./img/contacts/12.webp" alt="" />
+                  </div>
+                </div>
+
+                <div class="orbit__planet orbit__planet--next">
+                  <div class="orbit__img">
+                    <img src="./img/contacts/07.webp" alt="" />
+                  </div>
+                  <div class="orbit__img">
+                    <img src="./img/contacts/08.webp" alt="" />
+                  </div>
+                  <div class="orbit__img">
+                    <img src="./img/contacts/09.webp" alt="" />
+                  </div>
+                  <div class="orbit__img">
+                    <img src="./img/contacts/10.webp" alt="" />
+                  </div>
+                  <div class="orbit__img">
+                    <img src="./img/contacts/11.webp" alt="" />
+                  </div>
+                  <div class="orbit__img">
+                    <img src="./img/contacts/12.webp" alt="" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="contacts-ways__right">
+          <div class="sp-block-hero__top contacts-ways__capture">
+            От метро Садовая
+          </div>
+          <div class="contacts-ways__nav">
+            <ul class="list-reset contacts-ways__list">
+              <li class="active">ст.м. Садовая</li>
+              <li>Выход на пер. Гривцова</li>
+              <li>Пер. Гривцова</li>
+              <li>Канал Грибоедова</li>
+              <li>Ул. Казанская</li>
+              <li>Пер. Антоненко</li>
+            </ul>
+
+            <a
+              href="#"
+              class="contacts-ways__trigger"
+              data-cont-trigger="admiral"
+              >От метро Адмиралтейская</a
+            >
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>

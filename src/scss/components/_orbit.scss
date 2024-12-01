@@ -6,6 +6,24 @@
   border-radius: 100%;
   position: relative;
 
+  &__counter {
+    position: absolute;
+    top: -11.5rem;
+    right: -3.6rem;
+
+    font-weight: 600;
+    font-size: 20rem;
+    color: rgba(48, 127, 226, 0.1);
+
+    pointer-events: none;
+  }
+
+  &__wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
   &__planet {
     position: absolute;
     aspect-ratio: 1 / 1;
@@ -13,6 +31,19 @@
     overflow: hidden;
     width: 42.7rem;
 
+    &::after {
+      content: "";
+      position: absolute;
+      z-index: 10;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      background: rgba(0, 0, 0, 0.5);
+
+      transition: 0.3s ease-out;
+    }
 
     &--active {
 
@@ -22,11 +53,15 @@
 
     &--next {
       transform: scale(0.2);
-      // bottom: 5.4rem;
-      // right: 3.6rem;
 
       bottom: -14rem;
       right: -11.4rem;
+    }
+
+    &.hide {
+      &::after {
+        opacity: 1;
+      }
     }
   }
 
@@ -42,6 +77,8 @@
       height: 100%;
     }
   }
+
+
 }
 
 
@@ -62,6 +99,15 @@
 
     &--next {
       transform: rotate(180deg);
+    }
+
+    &.disable {
+      cursor: default;
+      pointer-events: none;
+
+      svg {
+        stroke: #d9d9d9;
+      }
     }
   }
 }
