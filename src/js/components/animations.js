@@ -294,8 +294,9 @@ if(contactsInitCont && contactsInitCont.length > 0){
 
           if(index != prevItem) {
             clearOrbitNav()
-            item.classList.add('active')
 
+
+            item.classList.add('active')
 
             even = currentIndex % 2
 
@@ -307,6 +308,7 @@ if(contactsInitCont && contactsInitCont.length > 0){
             currentIndex = index
             prevItem = index
             setOrbitCounter(currentIndex)
+            disableBtn()
           }
 
         })

@@ -9885,6 +9885,7 @@ if (contactsInitCont && contactsInitCont.length > 0) {
             currentIndex = index;
             prevItem = index;
             setOrbitCounter(currentIndex);
+            disableBtn();
           }
         });
       });
