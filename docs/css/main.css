@@ -226,6 +226,8 @@ a {
 
 section {
   overflow-y: auto;
+  height: 100px;
+  background-color: #fff;
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
@@ -372,6 +374,9 @@ section::-webkit-scrollbar {
   font-size: 2.4rem;
   text-align: center;
   color: #141414;
+}
+.capture span {
+  color: #307fe2;
 }
 
 .capture2 {
@@ -564,6 +569,9 @@ section::-webkit-scrollbar {
 .body-light .h-nav {
   border-right-color: rgba(255, 255, 255, 0.25);
 }
+.body-light .h-nav ul > li {
+  color: #fff;
+}
 .body-light .sidebar {
   border-left-color: rgba(255, 255, 255, 0.25);
 }
@@ -690,7 +698,7 @@ section::-webkit-scrollbar {
 .nav {
   position: absolute;
   top: 50%;
-  left: 9rem;
+  left: 10.4rem;
   right: 3rem;
   -webkit-transform: translate(0%, -50%);
   -ms-transform: translate(0%, -50%);
@@ -710,6 +718,8 @@ section::-webkit-scrollbar {
   color: #141414;
   cursor: pointer;
   opacity: 0.5;
+  -webkit-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
 }
 .nav ul li:not(:last-child) {
   margin-bottom: 1.8rem;
@@ -733,7 +743,7 @@ section::-webkit-scrollbar {
   opacity: 1;
 }
 .nav ul li.active::before {
-  width: 7.5rem;
+  width: 7.4rem;
 }
 .nav ul li a {
   color: inherit;
@@ -4378,4 +4388,136 @@ section::-webkit-scrollbar {
 .contacts-ways__list li.active::before {
   width: 4.2rem;
   margin-right: 2rem;
+}
+
+.proj-hero {
+  background-image: url("./../img/proj/hero.webp");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100%;
+  position: relative;
+  padding: 12rem 10rem;
+}
+.proj-hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+.proj-hero .container, .proj-hero__container {
+  height: 100%;
+}
+.proj-hero__container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+.proj-hero__content {
+  position: relative;
+  z-index: 10;
+}
+.proj-hero__title {
+  margin-bottom: 3rem;
+  color: #fff;
+  max-width: 76rem;
+}
+.proj-hero__header {
+  margin-bottom: 10rem;
+}
+.proj-hero__items {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  gap: 11.1rem;
+}
+
+.prhe-item__capture {
+  white-space: nowrap;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+.prhe-item__text {
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 30.5rem;
+}
+
+.proj-obj {
+  position: relative;
+  padding: 12rem 0rem;
+  padding-bottom: 0;
+  background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#dcecff));
+  background: linear-gradient(180deg, #fff 0%, #dcecff 100%);
+  height: 100%;
+}
+.proj-obj .container {
+  height: 100%;
+}
+.proj-obj__wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  gap: 6rem;
+}
+.proj-obj .swiper-slide {
+  width: 99.3rem;
+  height: 68.3rem;
+}
+.proj-obj .swiper-slide img {
+  width: 100%;
+  height: auto;
+}
+.proj-obj__title {
+  margin-bottom: 3rem;
+  text-align: left;
+}
+.proj-obj__capture {
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+  text-align: left;
+}
+.proj-obj__desc {
+  margin: 0;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.7);
+  letter-spacing: -0.01em;
+}
+.proj-obj__desc ul,
+.proj-obj__desc ol {
+  margin: 0;
+  padding-left: 2.5rem;
+}
+.proj-obj__desc a {
+  color: inherit;
+  text-decoration: underline;
+}
+.proj-obj__heading {
+  padding-left: 10rem;
+  padding-right: 10rem;
+}
+
+.proj-ben {
+  height: 100%;
+  background: -webkit-gradient(linear, left top, left bottom, from(#dcecff), to(#feffff));
+  background: linear-gradient(180deg, #dcecff 0%, #feffff 100%);
 }/*# sourceMappingURL=main.css.map */

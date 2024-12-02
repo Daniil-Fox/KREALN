@@ -10303,8 +10303,8 @@ if (siteSlider) {
     if (pause && window.scrollY == 0 && direction == "up") {
       setTimeout(() => {
         pause = false;
+        checkOverflow();
       }, 300);
-      checkOverflow();
     }
   });
 }

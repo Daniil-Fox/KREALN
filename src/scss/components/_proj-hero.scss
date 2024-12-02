@@ -1,0 +1,65 @@
+.proj-hero {
+  background-image: url('./../img/proj/hero.webp');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100%;
+  position: relative;
+  padding: 12rem 10rem;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+  }
+
+  .container,
+  &__container {
+    height: 100%;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  &__content {
+    position: relative;
+    z-index: 10;
+  }
+
+  &__title {
+    margin-bottom: 3rem;
+    color: #fff;
+    max-width: 76rem;
+  }
+
+  &__header {
+    margin-bottom: 10rem;
+  }
+
+  &__items {
+    display: flex;
+    justify-content: space-between;
+    gap: 11.1rem;
+  }
+}
+
+.prhe-item {
+
+  &__capture {
+    white-space: nowrap;
+    color: #fff;
+    margin-bottom: 1rem;
+  }
+
+  &__text {
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 30.5rem;
+  }
+}
