@@ -1,0 +1,26 @@
+.eco {
+  height: 100%;
+  background-image: url('./../img/eco-hero.webp');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: rgba(#000, 0.35);
+  }
+  .container,
+  &__container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__container {
+    position: relative;
+    z-index: 3;
+  }
+}

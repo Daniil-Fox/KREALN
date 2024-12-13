@@ -3,6 +3,10 @@
   background: #f4f4f4;
   overflow-y: auto;
 
+  @include tablet {
+    display: none;
+  }
+
   &__title {
     text-align: center;
     margin-bottom: 14rem;

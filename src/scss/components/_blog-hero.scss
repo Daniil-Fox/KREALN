@@ -1,0 +1,43 @@
+.blog-hero {
+  height: 100%;
+  background-image: url("./../img/blog-hero.webp");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+
+  @include tablet {
+    height: 100vh;
+    background-position: 25%;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(#000, 0.3);
+  }
+
+  &__container {
+    height: 100%;
+    width: 100%;
+    padding-right: 15rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @include tablet {
+      padding: 0;
+    }
+  }
+
+  &__title {
+    position: relative;
+    z-index: 2;
+    @include tablet {
+      text-align: center;
+    }
+  }
+}

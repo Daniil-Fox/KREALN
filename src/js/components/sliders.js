@@ -1,25 +1,44 @@
-import { Swiper } from "swiper";
-import { Autoplay, EffectFade, FreeMode, Navigation, Pagination } from "swiper/modules";
-import { gsap } from "gsap";
-import { animateArrow } from "./animations.js";
-function nextTab(tab){
-  const tl = gsap.timeline()
+import { Swiper } from 'swiper';
+import {
+  Autoplay,
+  EffectFade,
+  FreeMode,
+  Grid,
+  Mousewheel,
+  Navigation,
+  Pagination,
+} from 'swiper/modules';
+import { gsap } from 'gsap';
+import { animateArrow } from './animations.js';
+function nextTab(tab) {
+  const tl = gsap.timeline();
   gsap.set(tab, {
     opacity: 0,
     yPercent: 60,
-  })
+  });
 
   tl.to(tab, {
     opacity: 1,
-    duration: .5
-  }).to(tab, {
-    yPercent: 0,
-    duration: 0.4
-  }, "-=0.5")
-
+    duration: 0.5,
+  }).to(
+    tab,
+    {
+      yPercent: 0,
+      duration: 0.4,
+    },
+    '-=0.5',
+  );
 }
 
-Swiper.use([Navigation, Pagination, Autoplay, FreeMode, EffectFade])
+Swiper.use([
+  Navigation,
+  Pagination,
+  Autoplay,
+  FreeMode,
+  EffectFade,
+  Grid,
+  Mousewheel,
+]);
 
 new Swiper('.research__slider', {
   slidesPerView: 'auto',
@@ -30,9 +49,27 @@ new Swiper('.research__slider', {
   autoplay: {
     disableOnInteraction: false,
   },
-  speed: 500
-})
+  speed: 500,
 
+  320: {
+    freeMode: true,
+  },
+  1025: {
+    freeMode: false,
+  },
+});
+
+new Swiper('.proj-total__slider', {
+  slidesPerView: 'auto',
+  centeredSlides: true,
+  loop: true,
+  spaceBetween: 12,
+  speed: 500,
+  autoplay: {
+    disableOnInteraction: false,
+  },
+  speed: 500,
+});
 
 new Swiper('.team-people__slider', {
   slidesPerView: 'auto',
@@ -40,33 +77,43 @@ new Swiper('.team-people__slider', {
   // centeredSlides: true,
   freeMode: true,
   speed: 500,
-  loop: true
-})
+  loop: true,
+});
 
-const licTabs = document.querySelectorAll('.animate-g')
-const wrappers = document.querySelectorAll('.team-lic__wrapper')
-const numbers = document.querySelectorAll('.team-lic__number')
+const licTabs = document.querySelectorAll('.animate-g');
+const wrappers = document.querySelectorAll(
+  '.team-lic__wrapper',
+);
+const numbers = document.querySelectorAll(
+  '.team-lic__number',
+);
 
-function clearActive(){
-  licTabs.forEach(el => el.classList.remove('active'))
-  wrappers.forEach(el => el.classList.remove('active'))
-  numbers.forEach(el => el.classList.remove('active'))
+function clearActive() {
+  licTabs.forEach((el) => el.classList.remove('active'));
+  wrappers.forEach((el) => el.classList.remove('active'));
+  numbers.forEach((el) => el.classList.remove('active'));
 }
 
-const resizableSwiper = (container, swiperClass, swiperSettings, tabItem, callback) => {
+const toggleSwiper = (
+  container,
+  swiperClass,
+  swiperSettings,
+  tabItem,
+  callback,
+) => {
   let swiper;
 
   // breakpoint = window.matchMedia(breakpoint);
 
-  const enableSwiper = function(className, settings) {
+  const enableSwiper = function (className, settings) {
     swiper = new Swiper(className, settings);
 
     if (callback) {
       callback(swiper);
     }
-  }
+  };
 
-  const checker = function() {
+  const checker = function () {
     if (container.classList.contains('active')) {
       return enableSwiper(swiperClass, swiperSettings);
     } else {
@@ -77,48 +124,55 @@ const resizableSwiper = (container, swiperClass, swiperSettings, tabItem, callba
 
   tabItem?.addEventListener('click', checker);
 
-
   checker();
-}
+};
 
 const someFunc = (instance) => {
   if (instance) {
     instance.on('slideChange', function (e) {
-      console.log('*** mySwiper.activeIndex', instance.activeIndex);
+      console.log(
+        '*** mySwiper.activeIndex',
+        instance.activeIndex,
+      );
     });
   }
 };
 
-
 licTabs.forEach((el, idx) => {
-  el.addEventListener('click', e => {
-    e.preventDefault()
-    console.log(el)
-    const dataset = el.dataset.tab
+  el.addEventListener('click', (e) => {
+    e.preventDefault();
+    console.log(el);
+    const dataset = el.dataset.tab;
 
-    if(dataset == document.querySelector(`.team-lic__wrapper.active`).dataset.tab) return
+    if (
+      dataset ==
+      document.querySelector(`.team-lic__wrapper.active`)
+        .dataset.tab
+    )
+      return;
     else {
+      clearActive();
 
-      clearActive()
+      const currentWrap = document.querySelector(
+        `.team-lic__wrapper[data-tab=${dataset}]`,
+      );
 
-      const currentWrap = document.querySelector(`.team-lic__wrapper[data-tab=${dataset}]`)
-
-
-      el.classList.add('active')
-      currentWrap.classList.add('active')
-      numbers[idx].classList.add('active')
+      el.classList.add('active');
+      currentWrap.classList.add('active');
+      numbers[idx].classList.add('active');
       setTimeout(() => {
-        nextTab(currentWrap)
-      }, 10)
+        nextTab(currentWrap);
+      }, 10);
     }
-  })
+  });
+});
 
-})
-
-const slidersTeamLic = document.querySelectorAll('.team-lic__wrapper')
+const slidersTeamLic = document.querySelectorAll(
+  '.team-lic__wrapper',
+);
 
 slidersTeamLic.forEach((el, idx) => {
-  resizableSwiper(
+  toggleSwiper(
     el,
     el.querySelector('.swiper'),
     {
@@ -126,54 +180,162 @@ slidersTeamLic.forEach((el, idx) => {
       slidesPerView: 'auto',
       spaceBetween: 40,
     },
-    licTabs[idx]
+    licTabs[idx],
   );
-})
+});
 
-const prodPagination = ['Блочно - модульные очистные сооружения', 'Фильтры с плавающей загрузкой', 'Станция приема сточных вод', 'Канализационная насосная станция', 'Трубчатые аэраторы', 'Плоскостная загрузка', 'Мешковая сушилка', 'Станции водоподготовки', 'Блок-бокс']
+const prodPagination = [
+  'Блочно - модульные очистные сооружения',
+  'Фильтры с плавающей загрузкой',
+  'Станция приема сточных вод',
+  'Канализационная насосная станция',
+  'Трубчатые аэраторы',
+  'Плоскостная загрузка',
+  'Мешковая сушилка',
+  'Станции водоподготовки',
+  'Блок-бокс',
+];
 
-const prodMainSlider = new Swiper(".prod-items__slider", {
+const prodMainSlider = new Swiper('.prod-items__slider', {
   slidesPerView: 1,
   speed: 100,
   navigation: {
     prevEl: '.prod-items__btn--prev',
     nextEl: '.prod-items__btn--next',
   },
-  effect: "fade",
+  effect: 'fade',
   fadeEffect: {
-    crossFade: true
+    crossFade: true,
   },
   pagination: {
     el: '.prod-pagination',
     clickable: true,
-      renderBullet: function (index, className) {
-        return '<li class="' + className + '">' + (prodPagination[index]) + '</li>';
-      },
+    renderBullet: function (index, className) {
+      return (
+        '<li class="' +
+        className +
+        '">' +
+        prodPagination[index] +
+        '</li>'
+      );
+    },
   },
-})
+});
 
 const prodInfoSlider = new Swiper('.prod-info__slider', {
   slidesPerView: 1,
-  effect: "fade",
+  effect: 'fade',
   navigation: {
     prevEl: '.prod-items__btn--prev',
     nextEl: '.prod-items__btn--next',
   },
   speed: 100,
   fadeEffect: {
-    crossFade: true
+    crossFade: true,
   },
-})
+});
 
-if(document.querySelector('.prod-info__slider')){
-  prodMainSlider.on('slideChangeTransitionEnd', (swiper) => {
+if (document.querySelector('.prod-info__slider')) {
+  prodMainSlider.on(
+    'slideChangeTransitionEnd',
+    (swiper) => {
+      animateArrow(
+        swiper.el.querySelector(
+          '.swiper-slide-active .prod-items__arr',
+        ),
+      );
 
-    animateArrow(swiper.el.querySelector('.swiper-slide-active .prod-items__arr'))
-
-    prodInfoSlider.slideTo(swiper.activeIndex)
-  })
+      prodInfoSlider.slideTo(swiper.activeIndex);
+    },
+  );
   prodInfoSlider.on('slideChange', (swiper) => {
-    prodMainSlider.slideTo(swiper.activeIndex)
-  })
+    prodMainSlider.slideTo(swiper.activeIndex);
+  });
 }
 
+window.addEventListener('DOMContentLoaded', () => {
+  const resizableSwiper = (
+    breakpoint,
+    swiperClass,
+    swiperSettings,
+    callback,
+  ) => {
+    let swiper;
+
+    breakpoint = window.matchMedia(breakpoint);
+
+    const enableSwiper = function (className, settings) {
+      swiper = new Swiper(className, settings);
+
+      if (callback) {
+        callback(swiper);
+      }
+    };
+
+    const checker = function () {
+      if (breakpoint.matches) {
+        return enableSwiper(swiperClass, swiperSettings);
+      } else {
+        if (swiper !== undefined)
+          swiper.destroy(true, true);
+        return;
+      }
+    };
+
+    breakpoint.addEventListener('change', checker);
+    checker();
+  };
+
+  const someFunc = (instance) => {
+    if (instance) {
+      instance.on('slideChangeTransitionEnd', function (e) {
+        instance.el.style.height =
+          instance.el.querySelector('.swiper-slide-active')
+            .scrollHeight + 'px';
+      });
+    }
+  };
+
+  resizableSwiper(
+    '(max-width: 1024px)',
+    '.completed__slider',
+    {
+      slidesPerView: 1,
+      spaceBetween: 12,
+      // slidesPerGroup: 2,
+      //   grid: {
+      //     fill: "row",
+      //     rows: 6,
+      //   },
+      pagination: {
+        el: '.completed__pagination',
+        clickable: true,
+      },
+      navigation: {
+        prevEl: '.completed-prev',
+        nextEl: '.completed-next',
+      },
+    },
+    someFunc,
+  );
+  resizableSwiper(
+    '(min-width: 1025px)',
+    '.blog-slider__slider',
+    {
+      slidesPerView: 1,
+      spaceBetween: 40,
+      // mousewheel: true,
+      speed: 500,
+      navigation: {
+        prevEl: '.blog-slider__btn--prev',
+        nextEl: '.blog-slider__btn--next',
+      },
+    },
+    someFunc,
+  );
+});
+
+new Swiper('.eco-block__slider', {
+  slidesPerView: 'auto',
+  spaceBetween: 20,
+});

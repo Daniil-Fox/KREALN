@@ -3,15 +3,29 @@
   height: 100%;
   overflow: hidden;
 
+  @include tablet {
+    padding-top: 3rem;
+    background: none;
+  }
+
   &__container {
     display: flex;
     min-height: 100%;
+
+    @include tablet {
+      display: block;
+    }
   }
 
   &__left,
   &__right {
     padding-top: 12rem;
     padding-bottom: 12rem;
+
+    @include tablet {
+      padding: 0;
+
+    }
   }
 
   &__left {
@@ -20,6 +34,11 @@
     padding-right: 7rem;
 
     border-right: 1px solid rgba(#141414, 0.1);
+
+    @include tablet {
+      padding: 0;
+      border: none;
+    }
   }
 
   &__right {
@@ -32,6 +51,10 @@
     margin-top: auto;
     width: 100%;
     height: auto;
+
+    @include tablet {
+      display: none;
+    }
 
     img {
       width: 100%;
@@ -46,6 +69,11 @@
     padding: 2rem 7rem;
     margin-bottom: 2rem;
 
+    @include tablet {
+      padding: .5rem .7rem;
+      margin-bottom: 1.5rem;
+    }
+
     p {
       margin: 0;
       font-family: var(--font-family);
@@ -53,6 +81,11 @@
       font-size: 1.8rem;
       text-align: center;
       color: #141414;
+      line-height: 135%;
+
+      @include tablet {
+        font-size: 1.2rem;
+      }
 
       span {
         display: block;
@@ -66,6 +99,11 @@
     gap: 2.2rem;
 
     margin-bottom: 15rem;
+
+    @include tablet {
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
   }
 
   &__item {
@@ -73,6 +111,7 @@
     flex-direction: column;
     gap: .7rem;
     align-items: center;
+    line-height: 135%;
     flex: 1;
     padding: 1.2rem 0;
     box-shadow: 0 -4px 15px 0 rgba(48, 127, 226, 0.15);
@@ -83,6 +122,12 @@
     text-align: center;
     color: #141414;
 
+    @include tablet {
+      font-size: 1.2rem;
+      padding: .7rem .6rem;
+      gap: 0;
+    }
+
     span {
       width: 5rem;
       height: 5rem;
@@ -91,10 +136,20 @@
       align-items: center;
       justify-content: center;
 
+      @include tablet {
+        width: 2rem;
+        height: 2rem;
+      }
+
       img {
         width: 3rem;
         height: 3rem;
         object-fit: contain;
+
+        @include tablet {
+          width: 1rem;
+          height: 1rem;
+        }
       }
 
       background-color: #307fe2;
@@ -106,9 +161,18 @@
     margin-bottom: 6rem;
     font-size: 3.2rem;
 
+    @include tablet {
+      font-size: 2.4rem;
+      margin-bottom: 3rem;
+    }
+
     span {
       display: block;
     }
+  }
+
+  &__btn {
+    border-color: #307fe2;
   }
 }
 
@@ -117,6 +181,13 @@
   flex-direction: column;
   align-items: center;
   gap: 15rem;
+
+  &__content,
+  &__order {
+    @include tablet {
+      display: none;
+    }
+  }
 
   &__title {
     margin: 0;

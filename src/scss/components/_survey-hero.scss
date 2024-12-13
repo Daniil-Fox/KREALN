@@ -7,6 +7,11 @@
   background-position: center;
   position: relative;
 
+  @include tablet {
+    padding-top: 25.5rem;
+    padding-bottom: 33rem;
+  }
+
   &::after {
     content: "";
     position: absolute;
@@ -30,10 +35,15 @@
   &__container {
     padding-right: 15rem;
     padding-left: 42rem;
+
+    @include tablet {
+      padding: 0 7.5rem;
+    }
   }
 
   &__title {
     max-width: 100.3rem;
+
 
     span:last-child {
       text-align: right;

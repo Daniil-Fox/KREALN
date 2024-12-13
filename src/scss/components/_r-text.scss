@@ -7,6 +7,12 @@
   overflow: auto;
   position: relative;
 
+  @include tablet {
+    padding: 0;
+    padding-top: 3rem;
+    background: none;
+  }
+
   &::-webkit-scrollbar {
     display: none;
   }
@@ -21,50 +27,68 @@
     font-size: 3.2rem;
 
     max-width: 72rem;
+
+    @include tablet {
+      font-size: 2.4rem;
+      margin-left: -1.5rem;
+      margin-right: -1.5rem;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
   }
 
   &__subtitle {
     text-align: left;
     font-size: 1.8rem;
 
+    @include tablet {
+      font-size: 1.2rem;
+      text-align: center;
+    }
+
     &:not(:last-child) {
       margin-bottom: 3.5rem;
+
+      @include tablet {
+        margin-bottom: 3rem;
+      }
     }
   }
 
   &__arrow {
     position: fixed;
+    z-index: 1;
     top: 50%;
     transform: translateY(-50%);
-    right: 22rem;
+    left: 51%;
     height: 100vh;
-    width: 65rem;
     overflow: hidden;
-    background-image: url('./../img/research/for-arrow.webp');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: 80%;
 
-    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 100%, 50% 50%, 0% 0%);
+    @include tablet {
+      display: none;
+    }
 
-    &::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
+    img {
       height: 100%;
-      background-color: rgba(#000, 0.3);
+      width: auto;
     }
   }
 
   &__container {
+
     display: flex;
     padding: 0 10rem;
 
+    @include tablet {
+      padding: 0;
+      display: block;
+    }
   }
 
-  &__left {}
+  &__left {
+    position: relative;
+    z-index: 10;
+  }
 
   &__wrapper {
     overflow: hidden;
@@ -77,15 +101,30 @@
     }
   }
 
+
   &__flex {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 5rem;
     justify-content: space-between;
 
+    @include tablet {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+
     .r-text__col {
       &:nth-child(odd) {
         grid-column: 3 span;
+
+        ul {
+          max-width: 42rem;
+
+          @include tablet {
+            max-width: 100%;
+          }
+        }
       }
 
       &:nth-child(even) {
@@ -99,12 +138,37 @@
     display: flex;
     flex-direction: column;
 
+    @include tablet {
+      width: auto;
+    }
+
     &:not(:last-child) {
       margin-bottom: 6rem;
     }
 
     &--long {
       width: 79rem;
+
+      @include tablet {
+        width: auto;
+      }
+    }
+
+    &--mobr {
+      @include tablet {
+        .blue-block {
+          order: -1;
+          margin-bottom: 3rem;
+        }
+
+        .r-text__items {
+          order: -2;
+        }
+
+        .r-text__desc:not(:last-child) {
+          margin: 0;
+        }
+      }
     }
   }
 
@@ -116,6 +180,10 @@
     li {
       &:not(:last-child) {
         margin-bottom: 1rem;
+
+        @include tablet {
+          margin-bottom: .5rem;
+        }
       }
     }
   }
@@ -128,6 +196,23 @@
     font-size: 1.6rem;
     line-height: 144%;
     color: rgba(20, 20, 20, 0.7);
+
+    ul {
+      margin: 0;
+      padding-left: 2rem;
+    }
+
+    @include tablet {
+      font-size: .8rem;
+      text-align: center;
+    }
+
+
+    &--wd {
+      @include tablet {
+        font-size: 1rem;
+      }
+    }
   }
 
   &__items {
@@ -137,23 +222,50 @@
     gap: 1rem;
 
     &--wide {
+      max-width: 54.4rem;
       gap: 2.5rem 5rem;
+
+      @include tablet {
+        gap: 1.2rem 2.5rem;
+        padding-right: 2.5rem;
+      }
+    }
+
+    &--slim {
+      max-width: 59rem;
+      grid-template-columns: repeat(8, 1fr);
+
+      @include tablet {
+        grid-template-columns: repeat(6, 1fr);
+      }
     }
 
     &:not(:last-child) {
       margin-bottom: 6rem;
+
+      @include tablet {
+        margin-bottom: 3rem;
+      }
     }
   }
 
   &__item {
 
+
     &:nth-child(3n + 3) {
       grid-column: 6 span;
     }
+
+
   }
 
   &__capture {
     margin-bottom: 3rem;
+
+    @include tablet {
+      font-size: 1.2rem;
+      text-align: center;
+    }
 
     &--bold {
       font-weight: 500;
@@ -165,6 +277,10 @@
       text-align: left;
       font-weight: 500;
       margin-bottom: 3rem;
+
+      @include tablet {
+        margin-bottom: 1rem;
+      }
     }
   }
 
@@ -193,8 +309,14 @@
   position: relative;
   font-size: 1.6rem;
   grid-column: 3 span;
+  line-height: 137.5%;
 
-  &::after {
+  @include tablet {
+    font-size: 1rem;
+    padding: 1.4rem 1.5rem;
+  }
+
+  &::before {
     content: attr(data-fig);
     position: absolute;
     top: 0.7rem;
@@ -202,15 +324,43 @@
     font-weight: 400;
     font-size: 2.4rem;
     color: #dcecff;
+
+    @include tablet {
+      display: none;
+    }
   }
 
+  &--slim {
+    padding: 2.3rem 3rem;
+    text-align: center;
 
+    @include tablet {
+      padding: 1rem 0.45rem;
+    }
+
+    &:nth-child(odd) {
+      // flex-basis: 22rem;
+      grid-column: 3 span;
+    }
+
+    &:nth-child(even) {
+      grid-column: 5 span;
+
+      @include tablet {
+        grid-column: 3 span;
+      }
+    }
+  }
 
   p {
     font-weight: 300;
     text-align: center;
     line-height: 140%;
     font-size: 1.6rem;
+
+    @include tablet {
+      font-size: 1rem;
+    }
   }
 
   &--gray {
@@ -222,6 +372,10 @@
 
     text-align: center;
     min-height: 15rem;
+
+    @include tablet {
+      min-height: 8rem;
+    }
 
     &:not(:last-child) {
       &::after {
@@ -236,6 +390,12 @@
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
+
+        @include tablet {
+          width: .5rem;
+          height: 1rem;
+          left: calc(100% + 1.2rem);
+        }
       }
     }
   }

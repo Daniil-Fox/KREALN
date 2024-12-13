@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru" class="page">
+  @include('partials/head.html')
+
+  <body class="page__body">
+    <div class="site-container">
+      <main class="main">
+        <div class="site-slider">
+          <div class="h-nav header">
+            <span></span>
+            <div class="header__container">
+              <a href="./" class="header__logo">
+                <svg class="">
+                  <use xlink:href="img/sprite.svg#logo"></use>
+                </svg>
+              </a>
+
+              <nav class="header__nav nav">
+                <ul>
+                  <li>Объект</li>
+                  <li>Преимущества</li>
+                  <li>Итоги</li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+          <div class="site-wrapper">
+            <div class="site-screen site-screen-light nav-disable">
+              @include('partials/proj-hero-oskom.html')
+            </div>
+            <div class="site-screen">
+              @include('partials/proj-obj-oskom.html')
+            </div>
+            <div class="site-screen site-screen-hide-nav">
+              @include('partials/proj-ben-oskom.html')
+            </div>
+            <div class="site-screen">
+              @include('partials/proj-total-nikel.html')
+            </div>
+          </div>
+          @include('partials/aside.html')
+        </div>
+      </main>
+      @include('partials/footer-white.html')
+    </div>
+  </body>
+</html>

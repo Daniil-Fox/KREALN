@@ -2,6 +2,10 @@
 .header {
   padding: 4rem;
 
+  @include tablet {
+    display: none;
+  }
+
   &__logo {
     display: block;
     margin: 0 auto;

@@ -3,11 +3,29 @@
   overflow: hidden;
   background-color: #fff;
 
+  @include tablet {
+    padding: 3rem 0rem;
+  }
+
   .container,
   &__container {
     min-height: 100%;
     height: 100%;
 
+  }
+
+  .container {
+    @include tablet {
+      padding: 0;
+    }
+  }
+
+  &__btn {
+    padding: 1.8rem 2.8rem;
+
+    @include tablet {
+      display: none;
+    }
   }
 
   &__back {
@@ -23,6 +41,10 @@
     display: flex;
     overflow: hidden;
     position: relative;
+
+    @include tablet {
+      flex-direction: column;
+    }
   }
 
   &__fig {
@@ -32,6 +54,10 @@
     top: 50%;
     transform: translate(-50%, -50%);
     height: 130%;
+
+    @include tablet {
+      display: none;
+    }
 
     .line {
       height: 100%;
@@ -80,6 +106,15 @@
     align-items: flex-start;
 
     border-right: 1px solid rgba(#141414, 0.1);
+
+    @include tablet {
+      padding: 0;
+      border: none;
+      align-items: center;
+      justify-content: flex-start;
+      flex-basis: auto;
+      margin-bottom: 3rem;
+    }
   }
 
   &__map {
@@ -99,7 +134,13 @@
       cursor: default;
     }
 
-    // transition: .3s ease-out;
+    @include tablet {
+      position: static;
+      border-radius: 0;
+      transform: none;
+      width: 100%;
+      height: 29.3rem;
+    }
   }
 
   &__right {
@@ -109,11 +150,41 @@
     font-style: normal;
     padding: 12rem 2rem;
     padding-left: 4.5rem;
+
+    @include tablet {
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem 2rem;
+      padding: 0 2rem;
+    }
   }
 
   &__block {
+    @include tablet {
+      &:nth-child(odd) {
+        width: 30.66%;
+      }
+
+      &:nth-child(even) {
+        width: 59%;
+      }
+    }
+
     &:not(:last-child) {
       margin-bottom: 6rem;
+
+      @include tablet {
+        margin: 0;
+      }
+    }
+  }
+
+  &__title {
+    font-weight: 500;
+
+    @include tablet {
+      margin-bottom: 3rem;
     }
   }
 
@@ -125,9 +196,21 @@
     color: #141414;
     letter-spacing: -0.02em;
     line-height: 135%;
+
+    @include tablet {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
   }
 
   &__text {
+    display: inline-block;
     line-height: 135%;
+    text-align: left;
+
+    @include tablet {
+      font-size: .8rem;
+      max-width: 10rem;
+    }
   }
 }

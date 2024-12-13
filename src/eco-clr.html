@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru" class="page">
+  @include('partials/head.html')
+
+  <body class="page__body">
+    <div class="site-container">
+      <main class="main">
+        <div class="site-slider site-slider--eco">
+          <div class="h-nav header">
+            <span></span>
+            <div class="header__container">
+              <a href="./" class="header__logo">
+                <svg class="">
+                  <use
+                    xlink:href="img/sprite.svg#logo"
+                  ></use>
+                </svg>
+              </a>
+
+              <nav class="header__nav nav no-active">
+                <ul>
+                  <li class="active">
+                    <a> Заголовок </a>
+                  </li>
+                  <ul>
+                    <li>
+                      <a href="#zag1">Подзаголовок</a>
+                    </li>
+                    <li>
+                      <a href="#zag2">Подзаголовок</a>
+                    </li>
+                    <li>
+                      <a href="#zag3">Подзаголовок</a>
+                    </li>
+                  </ul>
+                </ul>
+              </nav>
+            </div>
+          </div>
+          <div class="site-wrapper">
+            <div class="site-screen">
+              @include('partials/eco-hero-clr.html')
+            </div>
+            <div class="site-screen">
+              @include('partials/eco-sec-clr.html')
+            </div>
+            <div class="site-screen">
+              @include('partials/eco-colimg-clr.html')
+            </div>
+          </div>
+          @include('partials/aside.html')
+        </div>
+      </main>
+      @include('partials/footer-ultra-blue.html')
+    </div>
+  </body>
+</html>

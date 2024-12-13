@@ -9602,7 +9602,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_scroll_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/scroll.js */ "./src/js/components/scroll.js");
 /* harmony import */ var _components_animations_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/animations.js */ "./src/js/components/animations.js");
 /* harmony import */ var _components_survey_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/survey.js */ "./src/js/components/survey.js");
+/* harmony import */ var _components_contacts_tab_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/contacts-tab.js */ "./src/js/components/contacts-tab.js");
+/* harmony import */ var _components_blog_mob_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/blog-mob.js */ "./src/js/components/blog-mob.js");
 // import './components/gsap.js'
+
+
 
 
 
@@ -9631,7 +9635,7 @@ gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.registerPlugin(gsap_ScrollTrigger_js__WEB
 const timeline = gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.timeline({
   onComplete: () => {
     const rmAnimating = document.querySelector('.site-screen-rm');
-    (0,_scroll_js__WEBPACK_IMPORTED_MODULE_0__.goToOtherSlide)(1);
+    window.matchMedia('(min-width: 1025px)').matches ? (0,_scroll_js__WEBPACK_IMPORTED_MODULE_0__.goToOtherSlide)(1) : null;
     if (rmAnimating) {
       setTimeout(() => {
         rmAnimating.remove();
@@ -9689,44 +9693,56 @@ function animateArrow(cont) {
     y: 0
   }).to(arr2, {
     y: 0
-  }, "-=0.3").to(arr3, {
+  }, '-=0.3').to(arr3, {
     y: 0
-  }, "-=0.3");
+  }, '-=0.3');
 }
 
 // Contacts
-const mapContainer = document.querySelector('.contacts-main__map');
-const mapBack = document.querySelector('.contacts-main__back');
-const tl = gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.timeline({
-  paused: true
-});
-tl.to(mapContainer, {
-  width: '100%',
-  height: '100%',
-  x: 0,
-  y: 0,
-  borderRadius: 0,
-  duration: 1
-}).to(mapBack, {
-  opacity: 1
-});
-const controlTl = function () {
-  let reverse = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-  if (reverse) {
-    tl.reverse();
-  } else {
-    tl.play();
-  }
-};
-mapContainer?.addEventListener('click', e => {
-  controlTl();
-  mapContainer.classList.add('active');
-});
-mapBack?.addEventListener('click', e => {
-  e.preventDefault();
-  controlTl(true);
-  mapContainer.classList.remove('active');
-});
+if (window.matchMedia('(min-width: 1025px)').matches) {
+  const mapContainer = document.querySelector('.contacts-main__map');
+  const mapBack = document.querySelector('.contacts-main__back');
+  const tl = gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.timeline({
+    paused: true
+  });
+  tl.to(mapContainer, {
+    width: '100%',
+    height: '100%',
+    x: 0,
+    y: 0,
+    borderRadius: 0,
+    duration: 1
+  }).to(mapBack, {
+    opacity: 1
+  });
+  const controlTl = function () {
+    let reverse = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+    if (reverse) {
+      tl.reverse();
+    } else {
+      tl.play();
+    }
+  };
+  mapContainer?.addEventListener('click', e => {
+    controlTl();
+    mapContainer.classList.add('active');
+  });
+  mapBack?.addEventListener('click', e => {
+    e.preventDefault();
+    controlTl(true);
+    mapContainer.classList.remove('active');
+  });
+}
+
+// SpBlockHero
+const spHero = document.querySelector('.sp-block-hero__img');
+if (spHero) {
+  window.addEventListener('DOMContentLoaded', e => {
+    setTimeout(() => {
+      animateArrow(spHero);
+    }, 300);
+  });
+}
 
 // Orbit
 
@@ -9809,11 +9825,11 @@ if (contactsInitCont && contactsInitCont.length > 0) {
         tl1.to(nextNextSlide, {
           zIndex: 4,
           opacity: 1
-        }, "-=0.5");
+        }, '-=0.5');
         tl1.to(orbitActive[idx], {
           zIndex: 4,
           opacity: 1
-        }, "-=0.5");
+        }, '-=0.5');
       }
     }
     function changeSlideBack(idx) {
@@ -9849,7 +9865,7 @@ if (contactsInitCont && contactsInitCont.length > 0) {
         tl1.to(orbitNext[idx], {
           zIndex: 4,
           opacity: 1
-        }, "-=0.5");
+        }, '-=0.5');
       } else {
         tl1.to(orbitNext[idx + 1], {
           zIndex: 4,
@@ -9858,7 +9874,7 @@ if (contactsInitCont && contactsInitCont.length > 0) {
         tl1.to(orbitActive[idx], {
           zIndex: 4,
           opacity: 1
-        }, "-=0.5");
+        }, '-=0.5');
       }
     }
     function clearOrbitNav() {
@@ -9902,102 +9918,6 @@ if (contactsInitCont && contactsInitCont.length > 0) {
         return currentIndex % 2;
       }
     }
-
-    // function incrSlides(){
-
-    //   gsap.to('.orbit', {rotateZ: () => rotation += 180, duration: 1})
-
-    //   gsap.to('.orbit__planet--active', {
-    //     rotateZ: () => currentIndex % 2 ? '180' : '0',
-    //     scale: () =>  currentIndex % 2 ? '0.2' : '1'
-    //   })
-    //   gsap.to('.orbit__planet--next', {
-    //     rotateZ: () => currentIndex % 2 ? '180' : '0',
-    //     scale: () =>  !(currentIndex % 2) ? '0.2' : '1'
-    //   })
-
-    //   if(even){
-    //     // PREV
-    //     tl1.to(orbitActive[currentIndex-1], {
-    //       zIndex: -2
-    //     })
-    //     // CURRENT
-    //     tl1.to(orbitActive[currentIndex+1], {
-    //       zIndex: 4,
-    //       opacity: 1
-    //     })
-    //   } else{
-    //     tl1.to(orbitNext[currentIndex-1], {
-    //       zIndex: -2
-    //     })
-    //     // CURRENT
-    //     tl1.to(orbitNext[currentIndex+1], {
-    //       zIndex: 4,
-    //       opacity: 1
-    //     })
-    //   }
-    // }
-
-    // function decrSlides(){
-    //   let next = currentIndex+1
-
-    //   tl1.to(orbitActive[next], {zIndex: -1, opacity: 0})
-    //   tl1.to(orbitActive[currentIndex], {zIndex: 2, opacity: 1})
-
-    //   tl2.to(orbitNext[next + 1], {zIndex: -1, opacity: 0})
-    //   tl2.to(orbitNext[(currentIndex + 1) % orbitActive.length], {zIndex: 2, opacity: 1})
-    // }
-
-    // function decrSlides(){
-    //   gsap.to('.orbit', {rotateZ: () => rotation -= 180, duration: 1})
-
-    //   gsap.to('.orbit__planet--active', {
-    //     rotateZ: () => currentIndex % 2 ? '180' : '0',
-    //     scale: () =>  currentIndex % 2 ? '0.2' : '1'
-    //   })
-    //   gsap.to('.orbit__planet--next', {
-    //     rotateZ: () => currentIndex % 2 ? '180' : '0',
-    //     scale: () =>  !(currentIndex % 2) ? '0.2' : '1'
-    //   })
-
-    //   if(!even){
-    //     // PREV
-    //     console.log(currentIndex)
-    //     tl1.to(orbitActive[currentIndex+2], {
-    //       zIndex: -2,
-    //       opacity: 0
-    //     })
-    //     // CURRENT
-    //     tl1.to(orbitActive[currentIndex], {
-    //       zIndex: 4,
-    //       opacity: 1
-    //     })
-    //   } else{
-    //     tl1.to(orbitNext[currentIndex+2], {
-    //       zIndex: -2,
-    //       opacity: 0
-    //     })
-    //     // CURRENT
-    //     tl1.to(orbitNext[currentIndex], {
-    //       zIndex: 4,
-    //       opacity: 1
-    //     })
-    //   }
-    // }
-
-    // function nextPlanet(){
-    //   if(currentIndex != orbitActive.length - 1){
-    //     even = incr()
-    //     incrSlides()
-    //   }
-
-    // }
-    // function prevPlanet(){
-    //   if(currentIndex-1 >= 0){
-    //     even = decr()
-    //     decrSlides()
-    //   }
-    // }
     gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.set(orbitActive[currentIndex], {
       zIndex: 2,
       opacity: 1
@@ -10036,6 +9956,57 @@ if (contactsInitCont && contactsInitCont.length > 0) {
 
 /***/ }),
 
+/***/ "./src/js/components/blog-mob.js":
+/*!***************************************!*\
+  !*** ./src/js/components/blog-mob.js ***!
+  \***************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+const blogItems = [...document.querySelectorAll('.blog-slider__slider .swiper-slide')];
+if (blogItems && blogItems.length > 0) {
+  const totalLength = blogItems.length;
+  let visible = 3;
+  const showMore = document.querySelector('.blog-show-more');
+  blogItems.slice(visible).forEach(el => el.classList.add('hide'));
+  showMore?.addEventListener('click', e => {
+    visible += 3;
+    e.preventDefault();
+    blogItems.slice(0, visible).forEach(el => el.classList.remove('hide'));
+    if (visible >= totalLength) {
+      showMore.classList.add('hide');
+    }
+  });
+}
+
+/***/ }),
+
+/***/ "./src/js/components/contacts-tab.js":
+/*!*******************************************!*\
+  !*** ./src/js/components/contacts-tab.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+const tabs = document.querySelectorAll('.contacts-ways__tab');
+if (tabs && tabs.length > 0) {
+  const tabsContainer = document.querySelectorAll('.contacts-ways__mwrap[data-contacts-tab]');
+  const clear = () => {
+    tabs.forEach(el => el.classList.remove('active'));
+    tabsContainer.forEach(el => el.classList.remove('active'));
+  };
+  tabs.forEach(el => {
+    el.addEventListener('click', e => {
+      const dataset = el.dataset.contactsTab;
+      clear();
+      el.classList.add('active');
+      document.querySelector(`.contacts-ways__mwrap[data-contacts-tab=${dataset}]`).classList.add('active');
+    });
+  });
+}
+
+/***/ }),
+
 /***/ "./src/js/components/scroll.js":
 /*!*************************************!*\
   !*** ./src/js/components/scroll.js ***!
@@ -10063,250 +10034,265 @@ let checkTopScreen = false;
 // functions
 let goToOtherSlide = null;
 let resetScrollSettings = null;
-const siteSlider = document.querySelector(".site-slider");
-if (siteSlider) {
-  let siteSlides = siteSlider.querySelectorAll(".site-screen");
-  function setLightBody(flag) {
-    flag ? document.body.classList.add("body-light") : document.body.classList.remove("body-light");
-  }
-  function checkOverflow() {
-    if (siteSlides.length > 1) {
-      document.body.style.overflow = "hidden";
+if (window.matchMedia("(min-width: 1025px)").matches) {
+  const siteSlider = document.querySelector(".site-slider");
+  if (siteSlider) {
+    let siteSlides = siteSlider.querySelectorAll(".site-screen");
+    function setLightBody(flag) {
+      flag ? document.body.classList.add("body-light") : document.body.classList.remove("body-light");
     }
-  }
-  function checkSlide(slide) {
-    if (slide.classList.contains("site-screen-start")) {
-      siteSlider.classList.add("hide-control");
-    } else {
-      siteSlider.classList.remove("hide-control");
-    }
-    if (slide.classList.contains("site-screen-light")) {
-      setLightBody(1);
-    } else {
-      setLightBody(0);
-    }
-  }
-  checkOverflow();
-  checkSlide(siteSlides[0]);
-  const nav = document.querySelector(".header__nav:not(.no-active)");
-  let navItems;
-  if (nav) {
-    navItems = nav.querySelectorAll("li");
-    navItems[0].classList.add("active");
-  }
-  function initSlides() {
-    siteSlides.forEach((slide, i) => {
-      slide.style.zIndex = i;
-      if (i != 0) {
-        slide.style.transform = "translateY(100%)";
+    function checkOverflow() {
+      if (siteSlides.length > 1 && window.scrollY == 0) {
+        document.body.style.overflow = "hidden";
       }
-    });
-  }
-  initSlides();
-  function mainFunc(e) {
-    delta = e.wheelDeltaY;
-    if (delta > 0) {
-      direction = "up";
-      if (window.scrollY != 0) {
-        window.scrollTo(0, 0);
-      }
-    } else {
-      direction = "down";
     }
-    handleScroll();
-  }
-  let func = (0,_functions_throttle_js__WEBPACK_IMPORTED_MODULE_0__.throttle)(mainFunc);
-  window.addEventListener("wheel", func);
-
-  // Логика для навигации сбоку
-
-  function clearNav() {
-    navItems.forEach(el => el.classList.remove("active"));
-  }
-  if (nav) {
-    const indices = [];
-    function findIndicesOfOnes() {
-      siteSlides.forEach((value, index) => {
-        if (!value.classList.contains("nav-disable")) {
-          indices.push(index);
+    function checkSlide(slide) {
+      if (slide.classList.contains("site-screen-start")) {
+        siteSlider.classList.add("hide-control");
+      } else {
+        siteSlider.classList.remove("hide-control");
+      }
+      if (slide.classList.contains("site-screen-light")) {
+        setLightBody(1);
+      } else {
+        setLightBody(0);
+      }
+      if (slide.classList.contains('site-screen-hide-nav')) {
+        siteSlider.classList.add("hide-nav");
+      } else {
+        siteSlider.classList.remove("hide-nav");
+      }
+    }
+    checkOverflow();
+    checkSlide(siteSlides[0]);
+    const nav = document.querySelector(".header__nav:not(.no-active)");
+    let navItems;
+    if (nav) {
+      navItems = nav.querySelectorAll("li");
+      navItems[0].classList.add("active");
+    }
+    function initSlides() {
+      siteSlides.forEach((slide, i) => {
+        slide.style.zIndex = i;
+        if (i != 0) {
+          slide.style.transform = "translateY(100%)";
         }
       });
-      console.log(indices);
-      return indices;
     }
-    findIndicesOfOnes();
-    navItems.forEach((item, index) => {
-      item.addEventListener("click", e => {
-        e.preventDefault();
-        if (!checkNavDisabled()) {
-          goToOtherSlide(indices[index]);
-          setNavItem(index);
-        }
-      });
-    });
-  }
-  resetScrollSettings = () => {
-    windPos = 0;
-    navPos = 0;
-    siteSlides = siteSlider.querySelectorAll(".site-screen");
     initSlides();
-  };
-  goToOtherSlide = slideIndex => {
-    setPosition(slideIndex);
-    goToSlide();
-  };
-  const renewPosSlidesDown = (start, end) => {
-    for (let i = start; i < end; i++) {
-      siteSlides[i].style.transform = "translateY(0)";
-    }
-  };
-  const renewPosSlidesUp = (start, end) => {
-    for (let i = start; i < end; i++) {
-      siteSlides[i].style.transform = "translateY(100%)";
-    }
-  };
-  function setPosition(newPos) {
-    if (newPos > windPos) {
-      direction = "down";
-      renewPosSlidesDown(windPos, newPos);
-      windPos = newPos - 1;
-    } else if (newPos < windPos) {
-      direction = "up";
-      renewPosSlidesUp(newPos + 1, windPos + 1);
-      windPos = newPos + 1;
-    } else return;
-  }
-
-  // Подсветка активного пункта навигации
-  function setNavItem(pos) {
-    clearNav();
-    navPos = pos;
-    navItems[navPos].classList.add("active");
-  }
-  function checkNavDisabled() {
-    return nav && nav.classList.contains("disabled");
-  }
-  function isEnd() {
-    return direction == "down" && windPos == siteSlides.length - 1;
-  }
-  function disableScrollSlides() {
-    if (isEnd()) {
-      setTimeout(() => {
-        pause = true;
-        document.body.style.overflow = null;
-      }, delayAnim);
-    } else {
-      document.body.style.overflow = "hidden";
-    }
-  }
-  function handleScroll() {
-    handleVars();
-    console.log("pause: " + pause);
-    if (!anim && !pause) {
-      goToSlide();
-    }
-  }
-  function handleVars() {
-    // Проверяем высоту слайда, если выше - включаем в него скролл
-    const currentSection = siteSlides[windPos].querySelector("section");
-    if (currentSection.scrollHeight > window.innerHeight) {
-      // Обработка слайдов, у которых высота больше, чем высота экрана
-      // <-- 18.11 MAYBE DELETE THIS
-      currentSection.addEventListener("scroll", e => {
-        e.preventDefault();
+    function mainFunc(e) {
+      delta = e.wheelDeltaY;
+      if (delta > 0) {
+        direction = "up";
         if (window.scrollY != 0) {
           window.scrollTo(0, 0);
         }
-      });
-      // -->
-      pause = true;
-      if (direction == "down" && currentSection.scrollHeight - currentSection.scrollTop === currentSection.clientHeight) {
-        pause = false;
-      } else if (direction == "up" && currentSection.scrollTop <= 1) {
-        pause = false;
+      } else {
+        direction = "down";
       }
-      currentSection.addEventListener("wheel", e => {
-        if (e.wheelDeltaY < 0 && currentSection.scrollHeight - currentSection.scrollTop === currentSection.clientHeight) {
-          setTimeout(() => {
-            pause = false;
-          }, 300);
-        } else if (e.wheelDeltaY > 0 && currentSection.scrollTop == 0) {
-          setTimeout(() => {
-            pause = false;
-          }, 300);
-        }
-      });
+      handleScroll();
     }
-    if (currentSection.querySelector(".hor-scroll")) {
-      const horScroll = currentSection.querySelector(".hor-scroll");
-      const horScrollContainer = currentSection.querySelector(".hor-scroll-container");
-      let finish = horScroll.scrollWidth - horScrollContainer.clientWidth;
-      const STEP = 20;
-      if (horScroll.scrollWidth > horScrollContainer.clientWidth) {
-        function horWheel(e) {
-          pause = true;
-          if (e.wheelDeltaY < 0) {
-            scroll -= STEP;
-            scroll = Math.max(scroll, -finish);
-            horScroll.style.transform = `translateX(${scroll}px)`;
-            if (scroll == -finish) {
-              pause = false;
-              currentSection.removeEventListener("wheel", horWheel);
-            }
-          } else if (e.wheelDeltaY > 0) {
-            scroll += STEP;
-            scroll = Math.min(scroll, 0);
-            horScroll.style.transform = `translateX(${scroll}px)`;
-            if (scroll == 0) {
-              pause = false;
-              currentSection.removeEventListener("wheel", horWheel);
-            }
-          }
-        }
-        currentSection.addEventListener("wheel", horWheel);
-      }
-    }
-  }
-  // Переход к следующим слайдам относительно winPos
-  function goToSlide() {
-    anim = true;
-    let target;
-    if (direction == "down" && windPos + 1 != siteSlides.length) {
-      if (nav && !siteSlides[windPos].classList.contains("nav-disable") && navPos + 1 < navItems.length) navPos++;
-      target = siteSlides[++windPos];
-      setTimeout(() => {
-        target.style.transform = "translateY(0%)";
-      }, delatSizeUp);
-    } else if (direction == "up" && windPos - 1 > -1) {
-      if (nav && !siteSlides[windPos].classList.contains("nav-disable") && navPos - 1 > -1) navPos--;
-      target = siteSlides[windPos--];
-      setTimeout(() => {
-        target.style.transform = "translateY(100%)";
-      }, delatSizeUp);
-    }
-    if (target) {
-      target.classList.add("active");
-      checkSlide(siteSlides[windPos]);
+    let func = (0,_functions_throttle_js__WEBPACK_IMPORTED_MODULE_0__.throttle)(mainFunc);
+    window.addEventListener("wheel", func);
+
+    // Логика для навигации сбоку
+
+    function clearNav() {
+      navItems.forEach(el => el.classList.remove("active"));
     }
     if (nav) {
-      setNavItem(navPos);
+      const indices = [];
+      function findIndicesOfOnes() {
+        siteSlides.forEach((value, index) => {
+          if (!value.classList.contains("nav-disable")) {
+            indices.push(index);
+          }
+        });
+        console.log(indices);
+        return indices;
+      }
+      findIndicesOfOnes();
+      navItems.forEach((item, index) => {
+        item.addEventListener("click", e => {
+          e.preventDefault();
+          if (!checkNavDisabled()) {
+            goToOtherSlide(indices[index]);
+            setNavItem(index);
+            if (index != navItems.length - 1) {
+              window.scrollTo(0, 0);
+              disableScrollSlides();
+            }
+          }
+        });
+      });
     }
-    setTimeout(() => {
-      anim = false;
-      target?.classList.remove("active");
-      direction == "down" && !pause && disableScrollSlides();
-    }, delayAnim);
+    resetScrollSettings = () => {
+      windPos = 0;
+      navPos = 0;
+      siteSlides = siteSlider.querySelectorAll(".site-screen");
+      initSlides();
+    };
+    goToOtherSlide = slideIndex => {
+      setPosition(slideIndex);
+      goToSlide();
+    };
+    const renewPosSlidesDown = (start, end) => {
+      for (let i = start; i < end; i++) {
+        siteSlides[i].style.transform = "translateY(0)";
+      }
+    };
+    const renewPosSlidesUp = (start, end) => {
+      for (let i = start; i < end; i++) {
+        siteSlides[i].style.transform = "translateY(100%)";
+      }
+    };
+    function setPosition(newPos) {
+      if (newPos > windPos) {
+        direction = "down";
+        renewPosSlidesDown(windPos, newPos);
+        windPos = newPos - 1;
+      } else if (newPos < windPos) {
+        direction = "up";
+        renewPosSlidesUp(newPos + 1, windPos + 1);
+        windPos = newPos + 1;
+      } else return;
+    }
 
-    // Если слайд последний и скролл вниз включаем обычный скролл
-  }
-  window.addEventListener("scroll", e => {
-    if (pause && window.scrollY == 0 && direction == "up") {
-      setTimeout(() => {
-        pause = false;
-        checkOverflow();
-      }, 300);
+    // Подсветка активного пункта навигации
+    function setNavItem(pos) {
+      clearNav();
+      navPos = pos;
+      navItems[navPos].classList.add("active");
     }
-  });
+    function checkNavDisabled() {
+      return nav && nav.classList.contains("disabled");
+    }
+    function isEnd() {
+      return direction == "down" && windPos == siteSlides.length - 1;
+    }
+    function disableScrollSlides() {
+      if (isEnd()) {
+        setTimeout(() => {
+          pause = true;
+          document.body.style.overflow = null;
+        }, delayAnim);
+      } else {
+        document.body.style.overflow = "hidden";
+      }
+    }
+    function handleScroll() {
+      handleVars();
+      console.log("pause: " + pause);
+      if (!anim && !pause) {
+        goToSlide();
+      }
+    }
+    function handleVars() {
+      // Проверяем высоту слайда, если выше - включаем в него скролл
+      const currentSection = siteSlides[windPos].querySelector("section");
+      if (currentSection.scrollHeight > window.innerHeight) {
+        // Обработка слайдов, у которых высота больше, чем высота экрана
+        // <-- 18.11 MAYBE DELETE THIS
+        // currentSection.addEventListener("scroll", (e) => {
+        //   e.preventDefault();
+
+        //   if (window.scrollY != 0) {
+        //     window.scrollTo(0, 0);
+        //   }
+        // });
+        // -->
+        pause = true;
+        if (direction == "down" && currentSection.scrollHeight - currentSection.scrollTop === currentSection.clientHeight) {
+          pause = false;
+        } else if (direction == "up" && currentSection.scrollTop <= 1) {
+          pause = false;
+        }
+        currentSection.addEventListener("wheel", e => {
+          if (e.wheelDeltaY < 0 && currentSection.scrollHeight - currentSection.scrollTop === currentSection.clientHeight) {
+            setTimeout(() => {
+              pause = false;
+            }, 300);
+          } else if (e.wheelDeltaY > 0 && currentSection.scrollTop == 0) {
+            setTimeout(() => {
+              pause = false;
+            }, 300);
+          }
+        });
+      }
+      if (currentSection.querySelector(".hor-scroll")) {
+        const horScroll = currentSection.querySelector(".hor-scroll");
+        const horScrollContainer = currentSection.querySelector(".hor-scroll-container");
+        let finish = horScroll.scrollWidth - horScrollContainer.clientWidth;
+        const STEP = 20;
+        if (horScroll.scrollWidth > horScrollContainer.clientWidth) {
+          function horWheel(e) {
+            pause = true;
+            if (e.wheelDeltaY < 0) {
+              scroll -= STEP;
+              scroll = Math.max(scroll, -finish);
+              horScroll.style.transform = `translateX(${scroll}px)`;
+              if (scroll == -finish) {
+                pause = false;
+                currentSection.removeEventListener("wheel", horWheel);
+              }
+            } else if (e.wheelDeltaY > 0) {
+              scroll += STEP;
+              scroll = Math.min(scroll, 0);
+              horScroll.style.transform = `translateX(${scroll}px)`;
+              if (scroll == 0) {
+                pause = false;
+                currentSection.removeEventListener("wheel", horWheel);
+              }
+            }
+          }
+          currentSection.addEventListener("wheel", horWheel);
+        }
+      }
+    }
+    // Переход к следующим слайдам относительно winPos
+    function goToSlide() {
+      anim = true;
+      let target;
+      if (direction == "down" && windPos + 1 != siteSlides.length) {
+        if (nav && !siteSlides[windPos].classList.contains("nav-disable") && navPos + 1 < navItems.length) navPos++;
+        target = siteSlides[++windPos];
+        setTimeout(() => {
+          target.style.transform = "translateY(0%)";
+        }, delatSizeUp);
+      } else if (direction == "up" && windPos - 1 > -1) {
+        if (nav && !siteSlides[windPos].classList.contains("nav-disable") && navPos - 1 > -1) navPos--;
+        target = siteSlides[windPos--];
+        setTimeout(() => {
+          target.style.transform = "translateY(100%)";
+        }, delatSizeUp);
+      }
+      if (target) {
+        target.classList.add("active");
+        checkSlide(siteSlides[windPos]);
+      }
+      if (nav) {
+        setNavItem(navPos);
+      }
+      if (target == siteSlides[siteSlides.length - 1]) {
+        disableScrollSlides();
+      }
+      setTimeout(() => {
+        anim = false;
+        target?.classList.remove("active");
+        direction == "down" && !pause;
+      }, delayAnim);
+
+      // Если слайд последний и скролл вниз включаем обычный скролл
+    }
+    window.addEventListener("scroll", e => {
+      if (pause && window.scrollY == 0 && direction == "up") {
+        checkOverflow();
+        setTimeout(() => {
+          pause = false;
+        }, 300);
+      }
+    });
+  }
 }
 
 
@@ -10335,18 +10321,35 @@ function nextTab(tab) {
   });
   tl.to(tab, {
     opacity: 1,
-    duration: .5
+    duration: 0.5
   }).to(tab, {
     yPercent: 0,
     duration: 0.4
-  }, "-=0.5");
+  }, '-=0.5');
 }
-swiper__WEBPACK_IMPORTED_MODULE_0__.Swiper.use([swiper_modules__WEBPACK_IMPORTED_MODULE_1__.Navigation, swiper_modules__WEBPACK_IMPORTED_MODULE_1__.Pagination, swiper_modules__WEBPACK_IMPORTED_MODULE_1__.Autoplay, swiper_modules__WEBPACK_IMPORTED_MODULE_1__.FreeMode, swiper_modules__WEBPACK_IMPORTED_MODULE_1__.EffectFade]);
+swiper__WEBPACK_IMPORTED_MODULE_0__.Swiper.use([swiper_modules__WEBPACK_IMPORTED_MODULE_1__.Navigation, swiper_modules__WEBPACK_IMPORTED_MODULE_1__.Pagination, swiper_modules__WEBPACK_IMPORTED_MODULE_1__.Autoplay, swiper_modules__WEBPACK_IMPORTED_MODULE_1__.FreeMode, swiper_modules__WEBPACK_IMPORTED_MODULE_1__.EffectFade, swiper_modules__WEBPACK_IMPORTED_MODULE_1__.Grid, swiper_modules__WEBPACK_IMPORTED_MODULE_1__.Mousewheel]);
 new swiper__WEBPACK_IMPORTED_MODULE_0__.Swiper('.research__slider', {
   slidesPerView: 'auto',
   centeredSlides: true,
   loop: true,
   spaceBetween: 20,
+  speed: 500,
+  autoplay: {
+    disableOnInteraction: false
+  },
+  speed: 500,
+  320: {
+    freeMode: true
+  },
+  1025: {
+    freeMode: false
+  }
+});
+new swiper__WEBPACK_IMPORTED_MODULE_0__.Swiper('.proj-total__slider', {
+  slidesPerView: 'auto',
+  centeredSlides: true,
+  loop: true,
+  spaceBetween: 12,
   speed: 500,
   autoplay: {
     disableOnInteraction: false
@@ -10369,7 +10372,7 @@ function clearActive() {
   wrappers.forEach(el => el.classList.remove('active'));
   numbers.forEach(el => el.classList.remove('active'));
 }
-const resizableSwiper = (container, swiperClass, swiperSettings, tabItem, callback) => {
+const toggleSwiper = (container, swiperClass, swiperSettings, tabItem, callback) => {
   let swiper;
 
   // breakpoint = window.matchMedia(breakpoint);
@@ -10417,21 +10420,21 @@ licTabs.forEach((el, idx) => {
 });
 const slidersTeamLic = document.querySelectorAll('.team-lic__wrapper');
 slidersTeamLic.forEach((el, idx) => {
-  resizableSwiper(el, el.querySelector('.swiper'), {
+  toggleSwiper(el, el.querySelector('.swiper'), {
     direction: 'vertical',
     slidesPerView: 'auto',
     spaceBetween: 40
   }, licTabs[idx]);
 });
 const prodPagination = ['Блочно - модульные очистные сооружения', 'Фильтры с плавающей загрузкой', 'Станция приема сточных вод', 'Канализационная насосная станция', 'Трубчатые аэраторы', 'Плоскостная загрузка', 'Мешковая сушилка', 'Станции водоподготовки', 'Блок-бокс'];
-const prodMainSlider = new swiper__WEBPACK_IMPORTED_MODULE_0__.Swiper(".prod-items__slider", {
+const prodMainSlider = new swiper__WEBPACK_IMPORTED_MODULE_0__.Swiper('.prod-items__slider', {
   slidesPerView: 1,
   speed: 100,
   navigation: {
     prevEl: '.prod-items__btn--prev',
     nextEl: '.prod-items__btn--next'
   },
-  effect: "fade",
+  effect: 'fade',
   fadeEffect: {
     crossFade: true
   },
@@ -10445,7 +10448,7 @@ const prodMainSlider = new swiper__WEBPACK_IMPORTED_MODULE_0__.Swiper(".prod-ite
 });
 const prodInfoSlider = new swiper__WEBPACK_IMPORTED_MODULE_0__.Swiper('.prod-info__slider', {
   slidesPerView: 1,
-  effect: "fade",
+  effect: 'fade',
   navigation: {
     prevEl: '.prod-items__btn--prev',
     nextEl: '.prod-items__btn--next'
@@ -10464,6 +10467,66 @@ if (document.querySelector('.prod-info__slider')) {
     prodMainSlider.slideTo(swiper.activeIndex);
   });
 }
+window.addEventListener('DOMContentLoaded', () => {
+  const resizableSwiper = (breakpoint, swiperClass, swiperSettings, callback) => {
+    let swiper;
+    breakpoint = window.matchMedia(breakpoint);
+    const enableSwiper = function (className, settings) {
+      swiper = new swiper__WEBPACK_IMPORTED_MODULE_0__.Swiper(className, settings);
+      if (callback) {
+        callback(swiper);
+      }
+    };
+    const checker = function () {
+      if (breakpoint.matches) {
+        return enableSwiper(swiperClass, swiperSettings);
+      } else {
+        if (swiper !== undefined) swiper.destroy(true, true);
+        return;
+      }
+    };
+    breakpoint.addEventListener('change', checker);
+    checker();
+  };
+  const someFunc = instance => {
+    if (instance) {
+      instance.on('slideChangeTransitionEnd', function (e) {
+        instance.el.style.height = instance.el.querySelector('.swiper-slide-active').scrollHeight + 'px';
+      });
+    }
+  };
+  resizableSwiper('(max-width: 1024px)', '.completed__slider', {
+    slidesPerView: 1,
+    spaceBetween: 12,
+    // slidesPerGroup: 2,
+    //   grid: {
+    //     fill: "row",
+    //     rows: 6,
+    //   },
+    pagination: {
+      el: '.completed__pagination',
+      clickable: true
+    },
+    navigation: {
+      prevEl: '.completed-prev',
+      nextEl: '.completed-next'
+    }
+  }, someFunc);
+  resizableSwiper('(min-width: 1025px)', '.blog-slider__slider', {
+    slidesPerView: 1,
+    spaceBetween: 40,
+    // mousewheel: true,
+    speed: 500,
+    navigation: {
+      prevEl: '.blog-slider__btn--prev',
+      nextEl: '.blog-slider__btn--next'
+    }
+  }, someFunc);
+});
+new swiper__WEBPACK_IMPORTED_MODULE_0__.Swiper('.eco-block__slider', {
+  slidesPerView: 'auto',
+  spaceBetween: 20
+});
 
 /***/ }),
 
@@ -10479,12 +10542,25 @@ if (surveyItems.length > 0) {
   const clearActive = () => {
     surveyItems.forEach(el => el.classList.remove('active'));
   };
-  surveyItems.forEach(item => {
-    item.addEventListener('mouseenter', e => {
-      clearActive();
-      item.classList.add('active');
+  if (window.matchMedia("(min-width: 1025px)").matches) {
+    surveyItems.forEach(item => {
+      item.addEventListener('mouseenter', e => {
+        clearActive();
+        item.classList.add('active');
+      });
     });
-  });
+  } else {
+    surveyItems.forEach(item => {
+      item.addEventListener('click', e => {
+        e.preventDefault();
+        item.addEventListener('click', e => {
+          location.href = item.href;
+        });
+        clearActive();
+        item.classList.add('active');
+      });
+    });
+  }
 }
 
 /***/ }),

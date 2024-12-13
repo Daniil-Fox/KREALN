@@ -5,6 +5,11 @@
   background: linear-gradient(180deg, #fff 0%, #dcecff 100%);
   height: 100%;
 
+  @include tablet {
+    padding: 3rem 0;
+    background: none;
+  }
+
   .container {
     height: 100%;
   }
@@ -14,11 +19,20 @@
     flex-direction: column;
     justify-content: space-between;
     gap: 6rem;
+
+    @include tablet {
+      gap: 2rem;
+    }
   }
 
   .swiper-slide {
     width: 99.3rem;
     height: 68.3rem;
+
+    @include tablet {
+      width: 49rem;
+      height: 27.2rem;
+    }
 
     img {
       width: 100%;
@@ -29,12 +43,25 @@
   &__title {
     margin-bottom: 3rem;
     text-align: left;
+    font-weight: 500;
+
+    @include tablet {
+      text-align: center;
+    }
+
+    span {
+      font-weight: 700;
+    }
   }
 
   &__capture {
     margin-bottom: 1.5rem;
     font-weight: 400;
     text-align: left;
+
+    @include tablet {
+      text-align: center;
+    }
   }
 
   &__desc {
@@ -42,6 +69,16 @@
     font-weight: 400;
     color: rgba(0, 0, 0, 0.7);
     letter-spacing: -0.01em;
+
+    max-width: 90rem;
+
+    &--wide {
+      max-width: 95rem;
+    }
+
+    p {
+      margin: 0;
+    }
 
     ul,
     ol {
@@ -53,10 +90,42 @@
       color: inherit;
       text-decoration: underline;
     }
+
+
+  }
+
+  &__block {
+    &:not(:last-child) {
+      margin-bottom: 3rem;
+
+      @include tablet {
+        margin-bottom: 2rem;
+      }
+    }
+
+    &:last-child {
+      @include tablet {
+        text-align: left;
+
+        ul,
+        ol {
+          max-width: 21rem;
+          margin: 0 auto;
+        }
+      }
+    }
   }
 
   &__heading {
     padding-left: 10rem;
     padding-right: 10rem;
+
+    @include tablet {
+      padding: 0;
+      text-align: center;
+
+    }
   }
+
+
 }

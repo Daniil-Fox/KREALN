@@ -1,4 +1,284 @@
 .proj-ben {
+  padding-top: 22.7rem 3.5rem;
+  padding-left: 7.5rem;
   height: 100%;
   background: linear-gradient(180deg, #dcecff 0%, #feffff 100%);
+  overflow: visible;
+
+  @include tablet {
+    padding: 3rem 0;
+    padding-bottom: 5.5rem;
+    background: none;
+  }
+
+  .container {
+    height: 100%;
+  }
+
+  &__content {
+    max-width: 64rem;
+
+    @include tablet {
+      max-width: 100%;
+    }
+  }
+
+  &__title {
+    margin-bottom: 2.7rem;
+    text-align: center;
+
+    @include tablet {
+      font-size: 1.6rem;
+      margin-bottom: 0.9rem;
+    }
+
+    &--small {
+      max-width: 60rem;
+    }
+  }
+
+  &__text {
+
+    p {
+      text-align: center;
+      margin: 0;
+    }
+
+    &--left p {
+      text-align: left;
+    }
+
+    ul,
+    ol {
+      margin: 0;
+      padding: 0;
+
+      padding-left: 6.5rem;
+    }
+  }
+
+  &__block {
+    &:not(:last-child) {
+      margin-bottom: 6rem;
+
+      @include tablet {
+        margin-bottom: 2rem;
+      }
+    }
+  }
+
+  &__container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 8rem;
+
+    @include tablet {
+      flex-direction: column;
+      gap: 3rem;
+    }
+  }
+
+  &__circle {
+    text {
+      font-family: var(--font-family);
+      font-weight: 400;
+      font-size: 1.4rem;
+      text-align: center;
+      color: #141414;
+    }
+  }
+
+  &--vodspb {
+
+    ul,
+    ol {
+      margin: 0 auto;
+      max-width: 36.4rem;
+    }
+  }
+
+  &--reknor {
+
+    ul,
+    ol {
+      margin: 0 auto;
+      max-width: 40rem;
+    }
+  }
+
+  &--alrosa {
+
+    ul,
+    ol {
+      padding-left: 0;
+      margin: 0 auto;
+      max-width: 60.2rem;
+    }
+  }
+
+  &--design {
+
+    ul,
+    ol {
+      padding-left: 0;
+      margin: 0 auto;
+      max-width: 44.2rem;
+    }
+  }
+}
+
+.pben-circle {
+  position: relative;
+  flex-shrink: 0;
+
+  &__base {
+    position: relative;
+    width: 67rem;
+    height: 67rem;
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    @include tablet {
+      width: 27.6rem;
+      height: 26.7rem;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  &__orbit {
+    position: absolute;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    &--inside {
+      inset: -3rem;
+      transform: rotateZ(320deg);
+      background-image: url('./../img/proj/slides/arc-inside.svg');
+
+      animation: orbitInside 10s linear infinite;
+
+      @include tablet {
+        inset: -1rem;
+      }
+    }
+
+    &--outside {
+      inset: -5.8rem;
+      transform: rotateZ(28deg);
+      background-image: url('./../img/proj/slides/arc-outside.svg');
+
+      animation: orbitInside 20s linear infinite;
+
+      @include tablet {
+        inset: -1.5rem;
+      }
+    }
+  }
+
+  &__sphere {
+
+    position: absolute;
+    height: calc(100% + 15rem);
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    animation: orbitSphere 10s linear infinite;
+    animation-direction: reverse;
+
+    @include tablet {
+      height: calc(100% + 5.5rem);
+    }
+
+    &::before {
+      content: "";
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3.5rem;
+      height: 3.5rem;
+      border-radius: 100%;
+      background-color: #307FE2;
+
+      @include tablet {
+        width: 1.5rem;
+        height: 1.5rem;
+
+      }
+    }
+
+    &:nth-of-type(2) {
+      height: calc(100% + 8rem);
+      animation-direction: unset;
+
+      @include tablet {
+        height: calc(100% + 3.5rem);
+      }
+
+      &::before {
+        width: 2rem;
+        height: 2rem;
+
+        @include tablet {
+          width: .6rem;
+          height: .6rem;
+        }
+      }
+    }
+
+    &:nth-of-type(3) {
+      height: calc(100% + 13rem);
+      animation-delay: .3s;
+
+      @include tablet {
+        height: calc(100% + 4.5rem);
+      }
+
+      &::before {
+        width: 1.2rem;
+        height: 1.2rem;
+
+
+        @include tablet {
+          width: .6rem;
+          height: .6rem;
+        }
+      }
+    }
+  }
+}
+
+@keyframes orbitInside {
+  from {
+    transform: rotateZ(0);
+  }
+
+  to {
+    transform: rotateZ(360deg);
+  }
+}
+
+@keyframes orbitSphere {
+  from {
+    transform: translate(-50%, -50%) rotateZ(0);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotateZ(360deg);
+  }
 }

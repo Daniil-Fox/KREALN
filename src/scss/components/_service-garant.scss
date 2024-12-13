@@ -2,16 +2,32 @@
   padding: 12rem 0;
   padding-top: var(--offset-top);
 
+  @include tablet {
+    padding: 3rem 0;
+  }
+
   &__title {
     margin-bottom: 6rem;
+
+    @include tablet {
+      margin-bottom: 1rem;
+    }
   }
 
   &__text {
     max-width: 84.5rem;
     margin: 0 auto;
 
+
+  }
+
+  &__top {
     &:not(:last-child) {
       margin-bottom: 10rem;
+
+      @include tablet {
+        margin-bottom: 3rem;
+      }
     }
   }
 
@@ -25,14 +41,27 @@
   }
 
   &__capture {
+    margin: 0;
     font-weight: 600;
     font-size: 2.4rem;
     color: #141414;
+
+    @include tablet {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
   }
 
   &__subcapture {
     font-size: 1.6rem;
     margin-bottom: 2rem;
+
+    @include tablet {
+      max-width: 23rem;
+      margin: 0 auto;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
   }
 
   &__bottom {

@@ -6,6 +6,7 @@
     <div class="site-container">
       <main class="main">
         <div class="site-slider">
+          @include('partials/mob-header.html')
           <div class="h-nav header">
             <span></span>
             <div class="header__container">
@@ -25,14 +26,17 @@
             </div>
           </div>
           <div class="site-wrapper">
-            <!-- <div class="site-screen site-screen-light nav-disable">
+            <div class="site-screen site-screen-light nav-disable">
               @include('partials/proj-hero-nikel.html')
             </div>
             <div class="site-screen">
               @include('partials/proj-obj-nikel.html')
-            </div> -->
-            <div class="site-screen">
+            </div>
+            <div class="site-screen site-screen-hide-nav">
               @include('partials/proj-ben-nikel.html')
+            </div>
+            <div class="site-screen">
+              @include('partials/proj-total-nikel.html')
             </div>
           </div>
           @include('partials/aside.html')

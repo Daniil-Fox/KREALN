@@ -4,6 +4,7 @@
 
   <body class="page__body">
     <div class="site-container">
+      @include('partials/mob-header.html')
       <main class="main">
         <div class="site-slider">
           <div class="h-nav header">
@@ -17,9 +18,7 @@
             </div>
           </div>
           <div class="site-wrapper">
-            <div
-              class="site-screen site-screen-start site-screen-light site-screen-rm"
-            >
+            <div class="site-screen site-screen-start site-screen-light">
               @include('partials/survey-hero.html')
             </div>
             <div class="site-screen">@include('partials/survey-list.html')</div>

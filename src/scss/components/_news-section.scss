@@ -2,31 +2,79 @@
   height: 100%;
   overflow-y: auto;
 
+  @include tablet {
+    height: auto;
+    overflow: hidden;
+    background: linear-gradient(
+      180deg,
+      #fff 0%,
+      #dcecff 100%
+    );
+  }
+
   &__title {
     max-width: 105.5rem;
     margin-bottom: 8rem;
-    font-weight: 400;
+    font-weight: 500;
     font-size: 4rem;
+
+    @include tablet {
+      font-size: 1.6rem;
+      margin-bottom: 3rem;
+      max-width: 100%;
+      text-align: center;
+    }
   }
 
   &__container {
-    height: 100%;
+    height: auto;
     padding-right: 37rem;
     padding-left: 20.5rem;
     padding-top: 12rem;
+    padding-bottom: 12rem;
+
+    @include tablet {
+      padding: 3rem var(--container-offset);
+    }
 
     &:nth-child(3n + 1) {
-      background: linear-gradient(180deg, #f4f4f4 0%, #dcecff 100%);
+      background: linear-gradient(
+        180deg,
+        #f4f4f4 0%,
+        #dcecff 100%
+      );
+
+      @include tablet {
+        background: none;
+      }
     }
 
     &:nth-child(3n + 2) {
       padding-top: 18rem;
-      background: linear-gradient(180deg, #ddecfe 0%, #f4f4f4 100%);
+      background: linear-gradient(
+        180deg,
+        #ddecfe 0%,
+        #f4f4f4 100%
+      );
+
+      @include tablet {
+        padding-top: 3rem;
+        background: none;
+      }
     }
 
     &:nth-child(3n + 3) {
       padding-top: 18rem;
-      background: linear-gradient(180deg, #f4f4f4 0%, #f4f4f4 100%);
+      background: linear-gradient(
+        180deg,
+        #f4f4f4 0%,
+        #f4f4f4 100%
+      );
+
+      @include tablet {
+        padding-top: 3rem;
+        background: none;
+      }
     }
   }
 
@@ -34,14 +82,23 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 8rem;
+
+    @include tablet {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
   }
 }
-
 
 .news-item {
   &__img {
     height: 51.2rem;
     margin-bottom: 4rem;
+
+    @include tablet {
+      height: 22rem;
+      margin-bottom: 1rem;
+    }
 
     img {
       display: block;
@@ -53,10 +110,18 @@
   &__date {
     display: block;
     margin-bottom: 1rem;
+
+    @include tablet {
+      font-size: 1rem;
+    }
   }
 
   &__capture {
-    font-weight: 600;
+    font-weight: 500;
     text-align: left;
+
+    @include tablet {
+      font-size: 1.2rem;
+    }
   }
 }

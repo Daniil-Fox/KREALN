@@ -3,6 +3,12 @@
   height: 100%;
   overflow: auto;
 
+  @include tablet {
+    padding-top: 3rem;
+    padding-bottom: 8.5rem;
+    background: none;
+  }
+
   &::-webkit-scrollbar {
     display: none;
   }
@@ -14,6 +20,10 @@
   &__left {
     padding-left: 17rem;
     padding-right: 17rem;
+
+    @include tablet {
+      padding: 0;
+    }
   }
 
   &__subtitle {
@@ -22,6 +32,20 @@
     font-weight: 300;
     font-size: 2rem;
     color: #141414;
+
+    @include tablet {
+      font-size: 1rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+  }
+
+  &__title {
+    @include tablet {
+      text-align: center;
+      font-size: 2.3rem;
+      margin-bottom: 1rem;
+    }
   }
 
   &__capture {
@@ -29,6 +53,21 @@
     margin-bottom: 3rem;
     font-size: 2.6rem;
     text-align: left;
+    line-height: 135%;
+
+    @include tablet {
+      font-size: 1.2rem;
+      text-align: center;
+    }
+  }
+
+  &__right {
+    padding-left: 8.3rem;
+    padding-right: 2.5rem;
+
+    @include tablet {
+      padding: 0;
+    }
   }
 
   &__list {}
@@ -36,6 +75,10 @@
   &__item {
     &:not(:last-child) {
       margin-bottom: 3rem;
+
+      @include tablet {
+        margin-bottom: 1rem;
+      }
     }
   }
 }
@@ -49,6 +92,11 @@
     font-weight: 400;
     font-size: 2rem;
     color: #141414;
+
+    @include tablet {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
   }
 
   &__body {
@@ -56,6 +104,10 @@
     font-weight: 300;
     font-size: 1.6rem;
     color: rgba(20, 20, 20, 0.7);
+
+    @include tablet {
+      font-size: 1rem;
+    }
   }
 
   &__list {
@@ -64,9 +116,17 @@
     font-size: 1.6rem;
     color: rgba(20, 20, 20, 0.7);
 
+    @include tablet {
+      font-size: 1rem;
+    }
+
     li {
       position: relative;
       margin-left: 2rem;
+
+      @include tablet {
+        margin-left: 1.6rem;
+      }
 
       &::before {
         content: "";
@@ -78,6 +138,83 @@
         border-radius: 100%;
         background-color: currentColor;
       }
+    }
+  }
+}
+
+
+.cases-clients {
+  position: sticky;
+  top: 0;
+  max-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @include tablet {
+    position: relative;
+    max-height: auto;
+  }
+
+  &__title {
+    text-align: left;
+    margin-bottom: 3rem;
+
+    @include tablet {
+      display: none;
+    }
+  }
+
+  &__text {
+    margin-bottom: 3rem;
+
+    @include tablet {
+      display: none;
+    }
+  }
+
+  &__top {
+    @include tablet {
+      display: none;
+    }
+  }
+
+  &__bottom {
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    @include tablet {
+      margin-top: 3rem;
+      align-items: center;
+    }
+  }
+
+  &__btn {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    font-size: 2.4rem;
+
+    @include tablet {
+      padding: 1rem 1.4rem;
+      font-size: 1rem;
+    }
+
+    &:last-child {
+      @include tablet {
+        display: none;
+      }
+    }
+  }
+
+  ul,
+  ol {
+    margin: 0;
+    padding-left: 2rem;
+
+    li:not(:last-child) {
+      margin-bottom: 1.5rem;
     }
   }
 }

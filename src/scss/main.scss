@@ -1,68 +1,83 @@
 // базовые подключения
-@import "vars";
-@import "mixins";
-@import "fonts";
-@import "settings";
+@import 'vars';
+@import 'mixins';
+@import 'fonts';
+@import 'settings';
 
 // подключения компонентов страницы
-@import "./components/header";
-@import "./components/aside";
-@import "./components/blue-block";
-@import "./components/nav";
-@import "./components/service";
-@import "./components/service-garant";
-@import "./components/footer";
-@import "./components/fn";
-@import "./components/block";
-@import "./components/research";
-@import "./components/request";
-@import "./components/r-text";
-@import "./components/cases";
+@import './components/header';
+@import './components/aside';
+@import './components/blue-block';
+@import './components/nav';
+@import './components/service';
+@import './components/service-garant';
+@import './components/footer';
+@import './components/fn';
+@import './components/block';
+@import './components/research';
+@import './components/request';
+@import './components/r-text';
+@import './components/cases';
 
 // Team
-@import "./components/team-main";
-@import "./components/team-people";
-@import "./components/team-car";
-@import "./components/team-lic";
-
+@import './components/team-main';
+@import './components/team-people';
+@import './components/team-car';
+@import './components/team-lic';
 
 // Spec
-@import "./components/spec-hero";
-@import "./components/spec-items";
+@import './components/spec-hero';
+@import './components/spec-items';
 
 // Prod
-@import "./components/prod-hero";
-@import "./components/prod-items";
+@import './components/prod-hero';
+@import './components/prod-items';
 
 // Completed
-@import "./components/completed";
-@import "./components/completed-geo";
+@import './components/completed';
+@import './components/completed-geo';
 
 // Survey
-@import "./components/survey-hero";
-@import "./components/survey-list";
+@import './components/survey-hero';
+@import './components/survey-list';
 
 // News
-@import "./components/news-hero";
-@import "./components/news-section";
-@import "./components/news-sing";
+@import './components/news-hero';
+@import './components/news-section';
+@import './components/news-sing';
 
 // Sp Block
-@import "./components/sp-block-hero";
-@import "./components/sp-block-solv";
-@import "./components/sp-block-chars";
-@import "./components/sp-block-kind";
-@import "./components/sp-block-steps";
-@import "./components/sp-block-slider";
-@import "./components/sp-block-rel";
-@import "./components/sp-block-type";
+@import './components/sp-block-hero';
+@import './components/sp-block-solv';
+@import './components/sp-block-chars';
+@import './components/sp-block-kind';
+@import './components/sp-block-steps';
+@import './components/sp-block-slider';
+@import './components/sp-block-rel';
+@import './components/sp-block-type';
 
 // Contacts
-@import "./components/contacts-main";
-@import "./components/orbit";
-@import "./components/contacts-ways";
+@import './components/contacts-main';
+@import './components/orbit';
+@import './components/contacts-ways';
 
 // Project
-@import "./components/proj-hero";
-@import "./components/proj-obj";
-@import "./components/proj-ben";
+@import './components/proj-hero';
+@import './components/proj-obj';
+@import './components/proj-ben';
+@import './components/proj-total';
+
+// Mob header
+@import './components/mob-header';
+
+// Blog
+@import './components/blog-hero';
+@import './components/blog-slider';
+
+// Article
+@import './components/article';
+
+// Eco
+@import './components/eco';
+@import './components/eco-items';
+@import './components/eco-block';

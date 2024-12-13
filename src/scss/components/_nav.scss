@@ -28,8 +28,8 @@
         content: "";
         position: absolute;
         right: calc(100% + 2rem);
-        top: 50%;
-        transform: translateY(-50%);
+        top: .8rem;
+        // transform: translateY(-50%);
         height: 1px;
         width: 2.5rem;
         background-color: currentColor;
@@ -56,5 +56,9 @@
     ul {
       padding-left: 5rem;
     }
+  }
+
+  &--slim {
+    right: 6rem;
   }
 }
