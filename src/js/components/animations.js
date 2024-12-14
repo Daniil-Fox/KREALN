@@ -16,21 +16,21 @@ const timeline = gsap.timeline({
     window.matchMedia('(min-width: 1025px)').matches
       ? goToOtherSlide(1)
       : null;
+    if (
+      document.querySelector(
+        '.swiper-slide-active .prod-items__arr',
+      )
+    ) {
+      animateArrow(
+        document.querySelector(
+          '.swiper-slide-active .prod-items__arr',
+        ),
+      );
+    }
     if (rmAnimating) {
       setTimeout(() => {
         rmAnimating.remove();
         resetScrollSettings();
-        if (
-          document.querySelector(
-            '.swiper-slide-active .prod-items__arr',
-          )
-        ) {
-          animateArrow(
-            document.querySelector(
-              '.swiper-slide-active .prod-items__arr',
-            ),
-          );
-        }
       }, delayAnim + 10);
     }
   },

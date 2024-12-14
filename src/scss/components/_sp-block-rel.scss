@@ -3,8 +3,46 @@
   height: 100%;
   background: #fefeff;
 
+  @include tablet {
+    padding: 3rem 0;
+    padding-bottom: 8.5rem;
+  }
+
   &--plosk {
-    background: linear-gradient(180deg, #dfedff 0%, #fff 100%);
+    background: linear-gradient(
+      180deg,
+      #dfedff 0%,
+      #fff 100%
+    );
+    @include tablet {
+      background: #fff;
+    }
+  }
+
+  &--mod {
+    @include tablet {
+      background: linear-gradient(180deg, #fff 100%);
+    }
+  }
+  &--box {
+    @include tablet {
+      background: #fff;
+    }
+  }
+  &--mesk {
+    background: linear-gradient(
+      180deg,
+      #dfedff 0%,
+      #fff 100%
+    );
+    @include tablet {
+      background: #f5f5f5;
+    }
+  }
+  &--kan {
+    @include tablet {
+      background: #fff;
+    }
   }
 
   .container,
@@ -14,6 +52,9 @@
 
   &__title {
     margin-bottom: 5rem;
+    @include tablet {
+      margin-bottom: 3.5rem;
+    }
   }
 
   &__container {
@@ -36,6 +77,13 @@
     background-position: 50% 50%;
 
     animation: move-bg 25s linear infinite;
+
+    @include tablet {
+      margin: 0;
+      height: 21rem;
+      animation-duration: 50s;
+      background-size: 200%;
+    }
   }
 }
 

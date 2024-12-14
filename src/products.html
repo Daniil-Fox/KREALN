@@ -11,20 +11,26 @@
             <div class="header__container">
               <a href="./" class="header__logo">
                 <svg class="">
-                  <use xlink:href="img/sprite.svg#logo"></use>
+                  <use
+                    xlink:href="img/sprite.svg#logo"
+                  ></use>
                 </svg>
               </a>
 
-              <nav class="header__nav nav no-active prod-nav">
+              <nav
+                class="header__nav nav no-active prod-nav"
+              >
                 <ul class="prod-pagination list-reset"></ul>
               </nav>
             </div>
           </div>
           <div class="site-wrapper">
-            <div class="site-screen site-screen-start site-screen-rm">
+            <div class="site-screen site-screen-start">
               @include('partials/prod-hero.html')
             </div>
-            <div class="site-screen">@include('partials/prod-items.html')</div>
+            <div class="site-screen">
+              @include('partials/prod-items.html')
+            </div>
           </div>
           @include('partials/aside.html')
         </div>

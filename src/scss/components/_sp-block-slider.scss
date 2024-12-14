@@ -1,14 +1,99 @@
 .sp-block-slider {
   height: 100%;
-  background: linear-gradient(180deg, #fefeff 0%, #fff 100%);
+  background: linear-gradient(
+    180deg,
+    #fefeff 0%,
+    #fff 100%
+  );
 
   padding-top: 12rem;
   padding-bottom: 17.3rem;
 
-  &--plosk {
-    background: linear-gradient(180deg, #fefeff 0%, #dcecff 100%);
+  @include tablet {
+    padding: 3rem 0;
   }
 
+  &--plosk {
+    background: linear-gradient(
+      180deg,
+      #fefeff 0%,
+      #dcecff 100%
+    );
+    @include tablet {
+      background: linear-gradient(
+        180deg,
+        #f4f4f4 0%,
+        #fff 100%
+      );
+    }
+  }
+
+  &--mod {
+    @include tablet {
+      background: linear-gradient(
+        180deg,
+        #ddecffb6 0%,
+        #fff 100%
+      );
+    }
+  }
+  &--box {
+    @include tablet {
+      background: linear-gradient(
+        180deg,
+        #f4f4f4 0%,
+        #fff 100%
+      );
+    }
+  }
+  &--ready {
+    @include tablet {
+      background: linear-gradient(
+        180deg,
+        #f2f7ff 0%,
+        #fff 100%
+      );
+    }
+  }
+  &--mesk {
+    @include tablet {
+      background: #f5f5f5;
+    }
+  }
+  &--aero {
+    @include tablet {
+      background: linear-gradient(
+        180deg,
+        #f4f4f4 0%,
+        #fff 100%
+      );
+    }
+  }
+  &--kan {
+    @include tablet {
+      background: linear-gradient(
+        180deg,
+        #f4f9ff 0%,
+        #fff 100%
+      );
+    }
+  }
+  &--stat {
+    @include tablet {
+      background: linear-gradient(
+        180deg,
+        #f4f4f4 0%,
+        #fff 100%
+      );
+    }
+  }
+  &--filt {
+    background: linear-gradient(
+      180deg,
+      #f4f4f4 0%,
+      #fff 100%
+    );
+  }
   &__container {
     overflow: hidden;
   }
@@ -16,6 +101,10 @@
   &__title {
     text-align: center;
     margin-bottom: 6rem;
+
+    @include tablet {
+      margin-bottom: 3rem;
+    }
   }
 
   &__items {
@@ -24,6 +113,10 @@
 
   &__item {
     flex: 0 0 36.5rem;
+
+    @include tablet {
+      flex: 0 0 22.4rem;
+    }
   }
 }
 
@@ -35,6 +128,15 @@
   border: 1px solid #307fe2;
   border-top: none;
   border-bottom: none;
+  height: auto;
+  &:not(:last-child) {
+    border-right: none;
+  }
+  @include tablet {
+    justify-content: space-between;
+    padding: 0 2rem;
+    padding-bottom: 3rem;
+  }
 
   &__fig {
     font-weight: 700;
@@ -42,16 +144,22 @@
     color: #dcecff;
     line-height: 1;
     overflow: hidden;
-    transition: .3s ease-out;
+    transition: 0.3s ease-out;
+
+    @include tablet {
+      font-size: 15rem;
+    }
   }
 
   &__icon {
     height: 11.6rem;
     margin-bottom: 3.7rem;
     opacity: 0.2;
-    transition: .3s ease-out;
+    transition: 0.3s ease-out;
     will-change: height;
-
+    @include tablet {
+      height: 10rem;
+    }
     img {
       height: 100%;
       width: auto;
@@ -65,16 +173,26 @@
     font-weight: 300;
     font-size: 1.6rem;
     color: rgba(20, 20, 20, 0.7);
-
+    @include tablet {
+      font-size: 1rem;
+    }
     span {
       display: block;
       font-weight: 600;
       font-size: 2rem;
       text-align: center;
       color: #141414;
+
+      @include tablet {
+        font-size: 1.2rem;
+      }
     }
   }
-
+  &.swiper-slide-active {
+    .sps-item__icon {
+      opacity: 1;
+    }
+  }
   @include hover {
     .sps-item__fig {
       line-height: 0;

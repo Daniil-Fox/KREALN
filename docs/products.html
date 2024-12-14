@@ -106,17 +106,21 @@
             <div class="header__container">
               <a href="./" class="header__logo">
                 <svg class="">
-                  <use xlink:href="img/sprite.svg#logo"></use>
+                  <use
+                    xlink:href="img/sprite.svg#logo"
+                  ></use>
                 </svg>
               </a>
 
-              <nav class="header__nav nav no-active prod-nav">
+              <nav
+                class="header__nav nav no-active prod-nav"
+              >
                 <ul class="prod-pagination list-reset"></ul>
               </nav>
             </div>
           </div>
           <div class="site-wrapper">
-            <div class="site-screen site-screen-start site-screen-rm">
+            <div class="site-screen site-screen-start">
               <section class="prod-hero">
   <div class="container prod-hero__container">
     <h1 class="title1 title1--dark prod-hero__title animate-title">
@@ -127,79 +131,20 @@
 </section>
 
             </div>
-            <div class="site-screen"><section class="prod-items">
+            <div class="site-screen">
+              <!-- У масок есть айдишники, для анимации стоит две свгшки - стрелки и сама картинка, чтобы идеально друг к другу прилегали -->
+<section class="prod-items">
   <div class="container">
     <div class="prod-items__container">
       <div class="prod-items__left">
         <h2 class="title3 prod-items__title">Продукция</h2>
-        <div class="prod-items__slider swiper swiper-no-swiping">
+        <div
+          class="prod-items__slider swiper swiper-no-swiping"
+        >
           <div class="swiper-wrapper">
             <div class="swiper-slide prod-items__slide">
               <div class="prod-items__wrap">
-                <!-- <div class="prod-items__img">
-                  <img src="./img/prod/01.webp" alt="" />
-                </div> -->
                 <div class="prod-items__arr">
-                  <!-- <svg
-                    width="589"
-                    height="507"
-                    viewBox="0 0 589 507"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                  >
-                    <g class="arr1">
-                      <defs>
-                        <mask id="msk">
-                          <path
-                            d="M19 24L293.533 244L570 24"
-                            stroke="white"
-                            stroke-width="60"
-                          />
-                        </mask>
-                      </defs>
-                      <image
-                        mask="url(#msk)"
-                        width="855"
-                        height="675"
-                        href="./img/prod/01.webp"
-                      ></image>
-                    </g>
-                    <g class="arr2">
-                      <defs>
-                        <mask id="msk2">
-                          <path
-                            d="M19 138L293.533 358L570 138"
-                            stroke="white"
-                            stroke-width="60"
-                          />
-                        </mask>
-                      </defs>
-                      <image
-                        mask="url(#msk2)"
-                        width="855"
-                        height="675"
-                        href="./img/prod/01.webp"
-                      ></image>
-                    </g>
-                    <g class="arr3">
-                      <defs>
-                        <mask id="msk3">
-                          <path
-                            d="M19 248L293.533 468L570 248"
-                            stroke="white"
-                            stroke-width="60"
-                          />
-                        </mask>
-                      </defs>
-                      <image
-                        mask="url(#msk3)"
-                        width="855"
-                        height="675"
-                        href="./img/prod/01.webp"
-                      ></image>
-                    </g>
-                  </svg> -->
                   <svg
                     viewBox="0 0 589 507"
                     fill="none"
@@ -710,12 +655,71 @@
                 </div>
               </div>
             </div>
+            <div class="swiper-slide prod-items__slide">
+              <div class="prod-items__wrap">
+                <div class="prod-items__arr">
+                  <svg
+                    viewBox="0 0 589 507"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    class="arr-container"
+                  >
+                    <defs>
+                      <mask id="msk10">
+                        <path
+                          class="arr1"
+                          d="M19 24L293.533 244L570 24"
+                          stroke="white"
+                          stroke-width="60"
+                        />
+                        <path
+                          class="arr2"
+                          d="M19 138L293.533 358L570 138"
+                          stroke="white"
+                          stroke-width="60"
+                        />
+                        <path
+                          class="arr3"
+                          d="M19 248L293.533 468L570 248"
+                          stroke="white"
+                          stroke-width="60"
+                        />
+                      </mask>
+                    </defs>
+
+                    <image
+                      class="mask-arr"
+                      mask="url(#msk10)"
+                      width="855"
+                      height="675"
+                      href="./img/prod/10.webp"
+                    ></image>
+                  </svg>
+                  <svg
+                    viewBox="0 0 589 507"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    class="anim-img"
+                  >
+                    <image
+                      width="855"
+                      height="675"
+                      href="./img/prod/10.webp"
+                    ></image>
+                  </svg>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
       <div class="prod-items__right">
         <div class="prod-items__control">
-          <div class="prod-items__btn prod-items__btn--prev">
+          <div
+            class="prod-items__btn prod-items__btn--prev"
+          >
             <svg
               width="23"
               height="42"
@@ -723,10 +727,15 @@
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path d="M20 2L4 20.9333L20 40" stroke-width="6" />
+              <path
+                d="M20 2L4 20.9333L20 40"
+                stroke-width="6"
+              />
             </svg>
           </div>
-          <div class="prod-items__btn prod-items__btn--next">
+          <div
+            class="prod-items__btn prod-items__btn--next"
+          >
             <svg
               width="23"
               height="42"
@@ -734,155 +743,275 @@
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path d="M3 2L19 20.9333L3 40" stroke-width="6" />
+              <path
+                d="M3 2L19 20.9333L3 40"
+                stroke-width="6"
+              />
             </svg>
           </div>
         </div>
 
         <div class="prod-items__info prod-info">
-          <div class="prod-info__slider swiper swiper-no-swiping">
+          <div
+            class="prod-info__slider swiper swiper-no-swiping"
+          >
             <div class="swiper-wrapper">
               <div class="swiper-slide">
-                <div class="prod-info__slide">
+                <div
+                  class="prod-info__slide"
+                  data-count="01"
+                >
                   <h4 class="prod-info__title capture">
                     Блочно-модульные очистные сооружения
                   </h4>
                   <p class="text prod-info__desc">
-                    Предназначены для очистки сточных вод и являются рациональным решением для <strong>минимизации расходов с точки зрения строительства и эксплуатации.</strong>
-
+                    Предназначены для очистки сточных вод и
+                    являются рациональным решением для
+                    минимизации расходов с точки зрения
+                    строительства и эксплуатации.
                   </p>
                   <a href="#" class="link prod-info__link">
                     Подробнее
                     <svg class="">
-                      <use xlink:href="img/sprite.svg#arr-right"></use>
+                      <use
+                        xlink:href="img/sprite.svg#arr-right"
+                      ></use>
                     </svg>
                   </a>
                 </div>
               </div>
               <div class="swiper-slide">
-                <div class="prod-info__slide">
+                <div
+                  class="prod-info__slide"
+                  data-count="02"
+                >
                   <h4 class="prod-info__title capture">
                     Фильтры с плавающей загрузкой
                   </h4>
                   <p class="text prod-info__desc">
-                    Отстойник-фильтр  - один из ключевых продуктов, являющийся принципиально новым и запатентованным  решением проблемы фильтрационной доочистки сточных вод
+                    Отстойник-фильтр - один из ключевых
+                    продуктов, являющийся принципиально
+                    новым и запатентованным решением
+                    проблемы фильтрационной доочистки
+                    сточных вод
                   </p>
                   <a href="#" class="link prod-info__link">
                     Подробнее
                     <svg class="">
-                      <use xlink:href="img/sprite.svg#arr-right"></use>
+                      <use
+                        xlink:href="img/sprite.svg#arr-right"
+                      ></use>
                     </svg>
                   </a>
                 </div>
               </div>
               <div class="swiper-slide">
-                <div class="prod-info__slide">
+                <div
+                  class="prod-info__slide"
+                  data-count="03"
+                >
                   <h4 class="prod-info__title capture">
                     Станция приема сточных вод
                   </h4>
                   <p class="text prod-info__desc">
-                    Служит для приемки стоков от ассенизаторных машин, которые собирают их от населения из выгребных ям и септиков индивидуальных домов. Станции предназначены для механической очистки приемных стоков перед сбросом их в центральную систему канализации
+                    Служит для приемки стоков от
+                    ассенизаторных машин, которые собирают
+                    их от населения из выгребных ям и
+                    септиков индивидуальных домов. Станции
+                    предназначены для механической очистки
+                    приемных стоков перед сбросом их в
+                    центральную систему канализации
                   </p>
                   <a href="#" class="link prod-info__link">
                     Подробнее
                     <svg class="">
-                      <use xlink:href="img/sprite.svg#arr-right"></use>
+                      <use
+                        xlink:href="img/sprite.svg#arr-right"
+                      ></use>
                     </svg>
                   </a>
                 </div>
               </div>
               <div class="swiper-slide">
-                <div class="prod-info__slide">
+                <div
+                  class="prod-info__slide"
+                  data-count="04"
+                >
                   <h4 class="prod-info__title capture">
                     Канализационная насосная станция
                   </h4>
                   <p class="text prod-info__desc">
-                    Стандартизированный продукт, изготавливаемый по ТУ АО «КРЕАЛ» Наиболее востребован в районах крайнего севера, где нет возможности устройства КНС в подземном исполнении
+                    Стандартизированный продукт,
+                    изготавливаемый по ТУ АО «КРЕАЛ»
+                    Наиболее востребован в районах крайнего
+                    севера, где нет возможности устройства
+                    КНС в подземном исполнении
                   </p>
                   <a href="#" class="link prod-info__link">
                     Подробнее
                     <svg class="">
-                      <use xlink:href="img/sprite.svg#arr-right"></use>
+                      <use
+                        xlink:href="img/sprite.svg#arr-right"
+                      ></use>
                     </svg>
                   </a>
                 </div>
               </div>
               <div class="swiper-slide">
-                <div class="prod-info__slide">
+                <div
+                  class="prod-info__slide"
+                  data-count="05"
+                >
                   <h4 class="prod-info__title capture">
                     Трубчатые аэраторы
                   </h4>
                   <p class="text prod-info__desc">
-                    Являемся разработчиком, патентообладателем и производителем <strong>собственных систем аэрации воды</strong>, которые предназначены для насыщения кислородом аппаратов комплекса очистных сооружений, а также биологических прудов и природных водоемов
+                    Являемся разработчиком,
+                    патентообладателем и производителем
+                    собственных систем аэрации воды, которые
+                    предназначены для насыщения кислородом
+                    аппаратов комплекса очистных сооружений,
+                    а также биологических прудов и природных
+                    водоемов
                   </p>
                   <a href="#" class="link prod-info__link">
                     Подробнее
                     <svg class="">
-                      <use xlink:href="img/sprite.svg#arr-right"></use>
+                      <use
+                        xlink:href="img/sprite.svg#arr-right"
+                      ></use>
                     </svg>
                   </a>
                 </div>
               </div>
               <div class="swiper-slide">
-                <div class="prod-info__slide">
+                <div
+                  class="prod-info__slide"
+                  data-count="06"
+                >
                   <h4 class="prod-info__title capture">
                     Плоскостная загрузка
                   </h4>
                   <p class="text prod-info__desc">
-                    Являемся производителем плоскостной загрузки</strong> (по собственным ТУ,) которая изготавливается в виде плоских и гофрированных листов из стойких полимерных материалов. Ее применение в станциях биологической очистки позволяет сделать процесс более эффективным
+                    Являемся производителем плоскостной
+                    загрузки (по собственным ТУ,) которая
+                    изготавливается в виде плоских и
+                    гофрированных листов из стойких
+                    полимерных материалов. Ее применение в
+                    станциях биологической очистки позволяет
+                    сделать процесс более эффективным
                   </p>
                   <a href="#" class="link prod-info__link">
                     Подробнее
                     <svg class="">
-                      <use xlink:href="img/sprite.svg#arr-right"></use>
+                      <use
+                        xlink:href="img/sprite.svg#arr-right"
+                      ></use>
                     </svg>
                   </a>
                 </div>
               </div>
               <div class="swiper-slide">
-                <div class="prod-info__slide">
+                <div
+                  class="prod-info__slide"
+                  data-count="07"
+                >
                   <h4 class="prod-info__title capture">
                     Мешковая сушилка
                   </h4>
                   <p class="text prod-info__desc">
-                    Предназначена для <strong>удаления влаги из осадка промышленных или хозяйственно-бытовых стоков. Применяется на очистных сооружениях небольшой мощности (до 1000 м3/ сутки)
+                    Предназначена для удаления влаги из
+                    осадка промышленных или
+                    хозяйственно-бытовых стоков. Применяется
+                    на очистных сооружениях небольшой
+                    мощности (до 1000 м3/ сутки)
                   </p>
                   <a href="#" class="link prod-info__link">
                     Подробнее
                     <svg class="">
-                      <use xlink:href="img/sprite.svg#arr-right"></use>
+                      <use
+                        xlink:href="img/sprite.svg#arr-right"
+                      ></use>
                     </svg>
                   </a>
                 </div>
               </div>
               <div class="swiper-slide">
-                <div class="prod-info__slide">
+                <div
+                  class="prod-info__slide"
+                  data-count="08"
+                >
                   <h4 class="prod-info__title capture">
                     Станции водоподготовки
                   </h4>
                   <p class="text prod-info__desc">
-                    Устройство обработки исходной воды доступной на объекте, с целью доведения ее до качества в соответствии с требованиями потребителей, к которым она подается. Предназначается для производственных технологий, нужд ЖКХ или объектов теплоэнергетики.
+                    Устройство обработки исходной воды
+                    доступной на объекте, с целью доведения
+                    ее до качества в соответствии с
+                    требованиями потребителей, к которым она
+                    подается. Предназначается для
+                    производственных технологий, нужд ЖКХ
+                    или объектов теплоэнергетики.
                   </p>
                   <a href="#" class="link prod-info__link">
                     Подробнее
                     <svg class="">
-                      <use xlink:href="img/sprite.svg#arr-right"></use>
+                      <use
+                        xlink:href="img/sprite.svg#arr-right"
+                      ></use>
                     </svg>
                   </a>
                 </div>
               </div>
               <div class="swiper-slide">
-                <div class="prod-info__slide">
+                <div
+                  class="prod-info__slide"
+                  data-count="09"
+                >
                   <h4 class="prod-info__title capture">
                     Блок-бокс
                   </h4>
                   <p class="text prod-info__desc">
-                    Контейнер небольших размеров, в котором размещается насосное оборудование с автоматикой и обслуживающими его внутренними системами. Одно из применений - установка в составе комплекта оборудования фильтров с плавающей загрузкой (Отстойник-фильтр).
+                    Контейнер небольших размеров, в котором
+                    размещается насосное оборудование с
+                    автоматикой и обслуживающими его
+                    внутренними системами. Одно из
+                    применений - установка в составе
+                    комплекта оборудования фильтров с
+                    плавающей загрузкой (Отстойник-фильтр).
                   </p>
                   <a href="#" class="link prod-info__link">
                     Подробнее
                     <svg class="">
-                      <use xlink:href="img/sprite.svg#arr-right"></use>
+                      <use
+                        xlink:href="img/sprite.svg#arr-right"
+                      ></use>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div
+                  class="prod-info__slide"
+                  data-count="10"
+                >
+                  <h4 class="prod-info__title capture">
+                    Модули приготовления и дозирования
+                    реагентов
+                  </h4>
+                  <p class="text prod-info__desc">
+                    Установка приготовления реагентов (МПР)
+                    предназначена для приготовления и
+                    дозирования различных растворов
+                    реагентов (коагулянт, щелочь, флокулянт
+                    и пр.) в больших объемах
+                  </p>
+                  <a href="#" class="link prod-info__link">
+                    Подробнее
+                    <svg class="">
+                      <use
+                        xlink:href="img/sprite.svg#arr-right"
+                      ></use>
                     </svg>
                   </a>
                 </div>
@@ -892,9 +1021,258 @@
         </div>
       </div>
     </div>
+
+    <div
+      class="prod-items__container prod-items__container--mob"
+    >
+      <h2 class="title3 prod-items__title">Продукция</h2>
+
+      <div class="prod-items__items">
+        <div class="prod-item prod__item prod-info">
+          <div
+            class="prod-item__title text prod-info__title"
+          >
+            Блочно-модульные очистные сооружения
+          </div>
+          <div class="prod-item__img prod-info__img">
+            <img src="./img/prod/01.webp" alt="" />
+          </div>
+          <div class="prod-info__bottom">
+            <a
+              href="./single-prod-bl.html"
+              class="link prod-info__link"
+            >
+              Подробнее
+              <svg class="">
+                <use
+                  xlink:href="img/sprite.svg#arr-right"
+                ></use>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="prod-item prod__item prod-info">
+          <div
+            class="prod-item__title text prod-info__title"
+          >
+            Фильтры с плавающей загрузкой
+          </div>
+          <div class="prod-item__img prod-info__img">
+            <img src="./img/prod/02.webp" alt="" />
+          </div>
+          <div class="prod-info__bottom">
+            <a
+              href="./single-prod-filt.html"
+              class="link prod-info__link"
+            >
+              Подробнее
+              <svg class="">
+                <use
+                  xlink:href="img/sprite.svg#arr-right"
+                ></use>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="prod-item prod__item prod-info">
+          <div
+            class="prod-item__title text prod-info__title"
+          >
+            Станция приема сточных вод
+          </div>
+          <div class="prod-item__img prod-info__img">
+            <img src="./img/prod/03.webp" alt="" />
+          </div>
+          <div class="prod-info__bottom">
+            <a
+              href="./single-prod-stat.html"
+              class="link prod-info__link"
+            >
+              Подробнее
+              <svg class="">
+                <use
+                  xlink:href="img/sprite.svg#arr-right"
+                ></use>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="prod-item prod__item prod-info">
+          <div
+            class="prod-item__title text prod-info__title"
+          >
+            Канализационная насосная станция
+          </div>
+          <div class="prod-item__img prod-info__img">
+            <img src="./img/prod/04.webp" alt="" />
+          </div>
+          <div class="prod-info__bottom">
+            <a
+              href="./single-prod-kan.html"
+              class="link prod-info__link"
+            >
+              Подробнее
+              <svg class="">
+                <use
+                  xlink:href="img/sprite.svg#arr-right"
+                ></use>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="prod-item prod__item prod-info">
+          <div
+            class="prod-item__title text prod-info__title"
+          >
+            Трубчатые аэраторы
+          </div>
+          <div class="prod-item__img prod-info__img">
+            <img src="./img/prod/05.webp" alt="" />
+          </div>
+          <div class="prod-info__bottom">
+            <a
+              href="./single-prod-aero.html"
+              class="link prod-info__link"
+            >
+              Подробнее
+              <svg class="">
+                <use
+                  xlink:href="img/sprite.svg#arr-right"
+                ></use>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="prod-item prod__item prod-info">
+          <div
+            class="prod-item__title text prod-info__title"
+          >
+            Плоскостная загрузка
+          </div>
+          <div class="prod-item__img prod-info__img">
+            <img src="./img/prod/06.webp" alt="" />
+          </div>
+          <div class="prod-info__bottom">
+            <a
+              href="./single-prod-plosk.html"
+              class="link prod-info__link"
+            >
+              Подробнее
+              <svg class="">
+                <use
+                  xlink:href="img/sprite.svg#arr-right"
+                ></use>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="prod-item prod__item prod-info">
+          <div
+            class="prod-item__title text prod-info__title"
+          >
+            Мешковая сушилка
+          </div>
+          <div class="prod-item__img prod-info__img">
+            <img src="./img/prod/07.webp" alt="" />
+          </div>
+          <div class="prod-info__bottom">
+            <a
+              href="./single-prod-mesk.html"
+              class="link prod-info__link"
+            >
+              Подробнее
+              <svg class="">
+                <use
+                  xlink:href="img/sprite.svg#arr-right"
+                ></use>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="prod-item prod__item prod-info">
+          <div
+            class="prod-item__title text prod-info__title"
+          >
+            Станции водоподготовки
+          </div>
+          <div class="prod-item__img prod-info__img">
+            <img src="./img/prod/08.webp" alt="" />
+          </div>
+          <div class="prod-info__bottom">
+            <a
+              href="./single-prod-ready.html"
+              class="link prod-info__link"
+            >
+              Подробнее
+              <svg class="">
+                <use
+                  xlink:href="img/sprite.svg#arr-right"
+                ></use>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="prod-item prod__item prod-info">
+          <div
+            class="prod-item__title text prod-info__title"
+          >
+            Блок-бокс
+          </div>
+          <div class="prod-item__img prod-info__img">
+            <img src="./img/prod/09.webp" alt="" />
+          </div>
+          <div class="prod-info__bottom">
+            <a
+              href="./single-prod-box.html"
+              class="link prod-info__link"
+            >
+              Подробнее
+              <svg class="">
+                <use
+                  xlink:href="img/sprite.svg#arr-right"
+                ></use>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="prod-item prod__item prod-info">
+          <div
+            class="prod-item__title text prod-info__title"
+          >
+            Модули приготовления и дозирования реагентов
+          </div>
+          <div class="prod-item__img prod-info__img">
+            <img src="./img/prod/10.webp" alt="" />
+          </div>
+          <div class="prod-info__bottom">
+            <a
+              href="./single-prod-mod.html"
+              class="link prod-info__link"
+            >
+              Подробнее
+              <svg class="">
+                <use
+                  xlink:href="img/sprite.svg#arr-right"
+                ></use>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
-</div>
+
+            </div>
           </div>
           <aside class="sidebar">
   <div class="sidebar__container">

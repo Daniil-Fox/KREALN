@@ -2,6 +2,12 @@
   &__capture {
     text-align: left;
     margin-bottom: 3rem;
+    @include tablet {
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      text-align: center;
+      font-weight: 700;
+    }
   }
 
   &__capture.centered {
@@ -13,9 +19,15 @@
 
     padding: 0;
     max-width: 40rem;
-
+    @include tablet {
+      max-width: 22rem;
+      padding-left: 2rem;
+    }
     &:not(:last-child) {
       margin-bottom: 6rem;
+      @include tablet {
+        margin-bottom: 1rem;
+      }
     }
   }
 
@@ -23,7 +35,9 @@
     border-radius: 2rem;
     overflow: hidden;
     border: 1px solid #000;
-
+    @include tablet {
+      border-radius: 1rem;
+    }
     img {
       width: 100%;
       height: auto;

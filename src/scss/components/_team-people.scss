@@ -1,9 +1,15 @@
 .team-people {
   padding: 12rem 0;
   height: 100%;
-  background: linear-gradient(180deg, #f4f4f4 0%, #d1e3f9 100%);
+  background: linear-gradient(
+    180deg,
+    #f4f4f4 0%,
+    #d1e3f9 100%
+  );
   overflow: hidden;
-
+  @include tablet {
+    padding: 3rem 0;
+  }
   .container,
   .team-people__container {
     height: 100%;
@@ -13,26 +19,43 @@
     display: flex;
     flex-direction: column;
     gap: 6rem;
+
+    @include tablet {
+      gap: 3rem;
+    }
   }
 
   &__title {
     margin-bottom: 3rem;
+    @include tablet {
+      margin-bottom: 1rem;
+    }
   }
 
   &__header {
     max-width: 53rem;
     margin: 0 auto;
     text-align: center;
+    @include tablet {
+      max-width: 100%;
+    }
   }
 
   &__slider {
     max-width: 100%;
     min-width: 0;
   }
+
+  &__text {
+    @include tablet {
+      font-size: 1rem;
+    }
+  }
 }
 
-
 .team-p {
+  height: auto;
+
   padding: 2.8rem 10rem;
   display: flex;
   flex-direction: column;
@@ -43,7 +66,12 @@
   flex-shrink: 0;
   box-sizing: border-box;
   width: 46rem;
-
+  @include tablet {
+    padding: 1.5rem 2rem;
+    padding-bottom: 3rem;
+    width: 21.8rem;
+    gap: 3rem;
+  }
   &__img {
     width: 19rem;
     height: 19rem;
@@ -51,15 +79,32 @@
     background-color: #d9d9d9;
     overflow: hidden;
 
+    @include tablet {
+      width: 10rem;
+      height: 10rem;
+    }
+
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      // object-position: top;
     }
   }
-
+  &__name,
+  &__spec {
+    @include tablet {
+      font-size: 1.2rem;
+    }
+  }
+  &__desc {
+    @include tablet {
+      // margin-top: auto;
+    }
+  }
   &__capture {
     margin-bottom: auto;
+    @include tablet {
+      // margin: 0;
+    }
   }
 }

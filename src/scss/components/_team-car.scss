@@ -1,6 +1,14 @@
 .team-car {
   height: 100%;
-  background: linear-gradient(360deg, #f4f4f4 0%, #d1e3f9 100%);
+  background: linear-gradient(
+    360deg,
+    #f4f4f4 0%,
+    #d1e3f9 100%
+  );
+
+  @include tablet {
+    padding: 3rem 0;
+  }
 
   .container {
     height: 100%;
@@ -9,6 +17,10 @@
   &__container {
     height: 100%;
     display: flex;
+
+    @include tablet {
+      flex-direction: column;
+    }
   }
 
   &__left,
@@ -17,6 +29,10 @@
     padding-left: 7.2rem;
     padding-right: 7.2rem;
     padding-bottom: 5rem;
+
+    @include tablet {
+      padding: 0;
+    }
   }
 
   &__text {
@@ -26,7 +42,12 @@
   &__left {
     flex-basis: 93rem;
     flex-shrink: 0;
-    border-right: 1px solid rgba(#141414, .1);
+    border-right: 1px solid rgba(#141414, 0.1);
+
+    @include tablet {
+      flex: unset;
+      border: none;
+    }
   }
 
   &__right {
@@ -34,6 +55,10 @@
     flex-direction: column;
     flex-grow: 1;
     gap: 1rem;
+
+    @include tablet {
+      display: none;
+    }
   }
 
   &__content {
@@ -74,7 +99,24 @@
 
   position: relative;
   z-index: 3;
+  @include tablet {
+    display: none;
+  }
+  &__items {
+    @include tablet {
+      position: relative;
+      z-index: 4;
+    }
+    &--mob {
+      display: none;
+      @include tablet {
+        display: grid;
+      }
+    }
 
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem 1.4rem;
+  }
   &__arrow {
     margin: 0 auto;
     width: 70rem;
@@ -90,7 +132,6 @@
       height: 100%;
       object-fit: cover;
     }
-
   }
 
   &__item {
@@ -98,7 +139,7 @@
     z-index: -1;
     padding: 1.4rem;
     width: 22.5rem;
-    border: 0.50px solid rgba(0, 0, 0, 0.5);
+    border: 0.05rem solid rgba(0, 0, 0, 0.5);
     text-align: center;
 
     font-weight: 600;
@@ -131,15 +172,27 @@
       top: calc(100% + 13rem);
     }
 
+    @include tablet {
+      width: auto;
+      position: static;
+      transform: none !important;
+      font-size: 1.2rem;
+      padding: 2rem;
+    }
+
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       z-index: -1;
       left: 50%;
       bottom: 100%;
       transform: translateX(-50%);
       height: 22rem;
-      border: 0.50px solid rgba(0, 0, 0, 0.6);
+      border: 0.5px solid rgba(0, 0, 0, 0.6);
+
+      @include tablet {
+        display: none;
+      }
     }
   }
 }

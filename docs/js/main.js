@@ -9636,13 +9636,13 @@ const timeline = gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.timeline({
   onComplete: () => {
     const rmAnimating = document.querySelector('.site-screen-rm');
     window.matchMedia('(min-width: 1025px)').matches ? (0,_scroll_js__WEBPACK_IMPORTED_MODULE_0__.goToOtherSlide)(1) : null;
+    if (document.querySelector('.swiper-slide-active .prod-items__arr')) {
+      animateArrow(document.querySelector('.swiper-slide-active .prod-items__arr'));
+    }
     if (rmAnimating) {
       setTimeout(() => {
         rmAnimating.remove();
         (0,_scroll_js__WEBPACK_IMPORTED_MODULE_0__.resetScrollSettings)();
-        if (document.querySelector('.swiper-slide-active .prod-items__arr')) {
-          animateArrow(document.querySelector('.swiper-slide-active .prod-items__arr'));
-        }
       }, _scroll_js__WEBPACK_IMPORTED_MODULE_0__.delayAnim + 10);
     }
   }
@@ -10404,7 +10404,6 @@ const someFunc = instance => {
 licTabs.forEach((el, idx) => {
   el.addEventListener('click', e => {
     e.preventDefault();
-    console.log(el);
     const dataset = el.dataset.tab;
     if (dataset == document.querySelector(`.team-lic__wrapper.active`).dataset.tab) return;else {
       clearActive();
@@ -10423,10 +10422,22 @@ slidersTeamLic.forEach((el, idx) => {
   toggleSwiper(el, el.querySelector('.swiper'), {
     direction: 'vertical',
     slidesPerView: 'auto',
-    spaceBetween: 40
+    spaceBetween: 40,
+    breakpoints: {
+      320: {
+        spaceBetween: 20,
+        direction: 'horizontal',
+        centeredSlides: true
+      },
+      1025: {
+        direction: 'vertical',
+        centeredSlides: false,
+        spaceBetween: 40
+      }
+    }
   }, licTabs[idx]);
 });
-const prodPagination = ['Блочно - модульные очистные сооружения', 'Фильтры с плавающей загрузкой', 'Станция приема сточных вод', 'Канализационная насосная станция', 'Трубчатые аэраторы', 'Плоскостная загрузка', 'Мешковая сушилка', 'Станции водоподготовки', 'Блок-бокс'];
+const prodPagination = ['Блочно - модульные очистные сооружения', 'Фильтры с плавающей загрузкой', 'Станция приема сточных вод', 'Канализационная насосная станция', 'Трубчатые аэраторы', 'Плоскостная загрузка', 'Мешковая сушилка', 'Станции водоподготовки', 'Блок-бокс', 'Модули приготовления и дозирования реагентов '];
 const prodMainSlider = new swiper__WEBPACK_IMPORTED_MODULE_0__.Swiper('.prod-items__slider', {
   slidesPerView: 1,
   speed: 100,
@@ -10522,6 +10533,15 @@ window.addEventListener('DOMContentLoaded', () => {
       nextEl: '.blog-slider__btn--next'
     }
   }, someFunc);
+  resizableSwiper('(max-width: 1024px)', '.spb-circle__slider', {
+    slidesPerView: 1,
+    spaceBetween: 20,
+    speed: 500
+  });
+  resizableSwiper('(max-width: 1024px)', '.sp-slider-swiper', {
+    slidesPerView: 'auto',
+    speed: 500
+  });
 });
 new swiper__WEBPACK_IMPORTED_MODULE_0__.Swiper('.eco-block__slider', {
   slidesPerView: 'auto',

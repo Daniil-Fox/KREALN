@@ -1,18 +1,53 @@
 .sp-block-solv {
   height: 100%;
-  background: linear-gradient(180deg, #fff 0%, #dcecff 100%);
-
-  &--aero {
-    background: linear-gradient(180deg, #fff 0%, #dcecff 49.4%, #fff 100%);
+  background: linear-gradient(
+    180deg,
+    #fff 0%,
+    #dcecff 100%
+  );
+  @include tablet {
+    padding: 3rem 0;
   }
-
+  &--aero {
+    background: linear-gradient(
+      180deg,
+      #fff 0%,
+      #dcecff 49.4%,
+      #fff 100%
+    );
+    @include tablet {
+      background: linear-gradient(
+        180deg,
+        #fff 0%,
+        #dcecff 100%
+      );
+    }
+  }
+  &--mod {
+    @include tablet {
+      background: linear-gradient(
+        180deg,
+        #fff 0%,
+        #fff 100%
+      );
+    }
+  }
+  &--ready {
+    @include tablet {
+      background: #feffff;
+    }
+  }
+  &--kan {
+    @include tablet {
+      display: none;
+    }
+  }
   .container {
     min-height: 100%;
     height: 100%;
   }
 
   &__extra {
-
     &:not(:last-child) {
       margin-bottom: 3rem;
     }
@@ -21,13 +56,21 @@
       margin: 0;
 
       &:not(:last-child) {
-        margin-bottom: .5rem;
+        margin-bottom: 0.5rem;
       }
     }
   }
 
   &__title {
     margin-bottom: 6rem;
+
+    @include tablet {
+      text-align: center;
+      font-size: 2.3rem;
+      margin-bottom: 3rem;
+      margin-right: -2rem;
+      margin-left: -2rem;
+    }
   }
 
   &__container {
@@ -37,6 +80,10 @@
     padding-bottom: 12rem;
     position: relative;
 
+    @include tablet {
+      padding: 0;
+    }
+
     &--flex {
       display: flex;
       padding: 0;
@@ -44,15 +91,15 @@
     }
   }
 
-
-
   &__arr {
     position: absolute;
     right: 2rem;
     top: 0;
     height: 100%;
     width: auto;
-
+    @include tablet {
+      display: none;
+    }
     img {
       height: 100%;
       width: auto;
@@ -61,6 +108,11 @@
 
   &__btn {
     padding: 2rem 3.5rem;
+    @include tablet {
+      padding: 1.2rem 2.6rem;
+      font-size: 1.4rem;
+      margin: 0 auto;
+    }
   }
 
   &__back {
@@ -72,6 +124,12 @@
     position: relative;
     z-index: 4;
     max-width: 69rem;
+    @include tablet {
+      display: flex;
+      flex-direction: column;
+      font-size: 1rem;
+      max-width: 100%;
+    }
 
     ul {
       margin: 0;
@@ -81,7 +139,10 @@
       color: rgba(20, 20, 20, 0.7);
 
       margin-bottom: 9.7rem;
-
+      @include tablet {
+        margin-bottom: 3rem;
+        max-width: 100%;
+      }
       li:not(:last-child) {
         margin-bottom: 1.5rem;
       }
@@ -114,6 +175,11 @@
     border-right: 1px solid rgba(#141414, 0.1);
     padding: 12rem;
     max-width: 100%;
+
+    @include tablet {
+      padding: 0;
+      border: none;
+    }
   }
 
   &__right {
@@ -127,7 +193,11 @@
     text-align: left;
     margin-bottom: 2rem;
     font-weight: 500;
-
+    @include tablet {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
     &--center {
       text-align: center;
     }

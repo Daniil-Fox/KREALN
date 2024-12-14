@@ -1,6 +1,8 @@
 .prod-hero {
   height: 100%;
-
+  @include tablet {
+    height: 100vh;
+  }
   &__container {
     height: 100%;
     background-color: #f4f4f4;
@@ -11,10 +13,11 @@
 
   &__title {
     padding: 0 22.7rem;
-
+    @include tablet {
+      padding: 0 4.5rem;
+    }
     span:last-child {
       text-align: right;
     }
   }
-
 }

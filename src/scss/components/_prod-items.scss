@@ -1,7 +1,12 @@
 .prod-items {
   height: 100%;
   background-color: #fff;
+  @include tablet {
+    padding: 3rem 0;
+    padding-bottom: 8.5rem;
 
+    background: #f6f6f6;
+  }
   .container {
     height: 100%;
   }
@@ -9,8 +14,23 @@
   &__container {
     height: 100%;
     display: flex;
-  }
 
+    @include tablet {
+      display: none;
+    }
+
+    &--mob {
+      display: none;
+      @include tablet {
+        display: block;
+      }
+    }
+  }
+  &__items {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
   &__slider {
     flex-grow: 1;
     max-width: 100%;
@@ -61,7 +81,6 @@
       height: 100%;
       object-position: center;
     }
-
   }
 
   &__title {
@@ -70,7 +89,6 @@
   }
 
   &__arr {
-
     position: relative;
     z-index: 10;
 
@@ -88,14 +106,11 @@
         z-index: 10;
       }
 
-
-
       image {
         width: 100%;
         height: 100%;
         object-position: bottom;
-        transition: .5s ease-out;
-
+        transition: 0.5s ease-out;
       }
     }
 
@@ -105,7 +120,7 @@
       left: 0;
       top: 0;
       opacity: 0;
-      transition: .3s ease-out;
+      transition: 0.3s ease-out;
       height: 100%;
       overflow: visible;
       width: 100%;
@@ -117,7 +132,6 @@
       }
     }
   }
-
 
   &__right {
     flex-grow: 1;
@@ -133,6 +147,7 @@
     margin-bottom: 8rem;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 5rem;
   }
 
@@ -144,30 +159,81 @@
     svg {
       width: 100%;
       height: 100%;
-      stroke: #307FE2;
+      stroke: #307fe2;
     }
 
     &.swiper-button-disabled {
       svg {
-        stroke: #DBDBDB;
+        stroke: #dbdbdb;
       }
     }
   }
 }
 
-
 .prod-info {
   text-align: center;
+  height: 100%;
 
-  .swiper-slide {
-    width: 100%;
-    box-sizing: border-box;
+  @include tablet {
+    padding: 1rem 0.5rem;
+    background: #fff;
   }
 
+  .swiper,
+  .swiper-wrapper {
+    height: 100%;
+  }
+  .swiper-slide {
+    height: auto;
+    width: 100%;
+    box-sizing: border-box;
+
+    position: relative;
+  }
+  &__slide {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 1rem;
+
+    &::after {
+      content: attr(data-count);
+      display: block;
+      margin-top: auto;
+      font-weight: 700;
+      font-size: 22rem;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: transparent;
+      background-image: url('./../img/blue-bg.webp');
+      background-size: 200%;
+      background-clip: text;
+      background-position: center;
+      opacity: 0.5;
+    }
+  }
   &__title {
     margin: 0;
     margin-bottom: 3rem;
     color: #307fe2;
+
+    @include tablet {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+  }
+  &__img {
+    @include tablet {
+      height: 12rem;
+      margin-bottom: -1rem;
+    }
+
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+    }
   }
 
   &__desc {
@@ -180,7 +246,6 @@
     }
   }
 }
-
 
 .prod-pagination {
   margin-right: -3rem;
@@ -200,20 +265,13 @@
       font-weight: 600;
       opacity: 1;
 
-
       &::before {
-        width: 10.5rem;
+        width: 7.5rem;
       }
     }
   }
 }
 
 .prod-nav {
-  padding-right: 1rem;
-  padding-left: 1rem;
-  padding: 0;
-
-  left: 12.2rem;
-  transform: translateY(-50%);
   right: 1.2rem;
 }

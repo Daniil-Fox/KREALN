@@ -2,22 +2,44 @@
   height: 100%;
   background-color: #f4f4f4;
   overflow: hidden;
-
+  @include tablet {
+    padding-bottom: 8.5rem;
+  }
   .container {
     height: 100%;
   }
 
   &__container {
     height: 100%;
+
+    @include tablet {
+      gap: 6rem;
+    }
   }
 
   &__left {
     padding-left: 5.5rem;
     padding-right: 5.5rem;
+
+    @include tablet {
+      padding: 0;
+    }
+  }
+
+  &__right {
+    @include tablet {
+      display: block;
+    }
   }
 
   &__title {
     margin-bottom: 6rem;
+
+    @include tablet {
+      text-align: center;
+      margin: 0 1rem;
+      margin-bottom: 3rem;
+    }
   }
 
   &__circle {
@@ -26,6 +48,11 @@
     width: 63rem;
     height: 63rem;
     margin: 0 auto;
+
+    @include tablet {
+      width: 31rem;
+      height: 31rem;
+    }
 
     svg {
       width: 100%;
@@ -38,7 +65,6 @@
         transform: rotate(65deg);
       }
     }
-
   }
 
   &__number {
@@ -56,22 +82,40 @@
 
     background-clip: text;
 
-    transition: .3s ease-out;
+    transition: 0.3s ease-out;
     opacity: 0;
+
+    @include tablet {
+      font-size: 6rem;
+    }
 
     &:nth-of-type(1) {
       right: -10rem;
       top: -5.4rem;
+      @include tablet {
+        right: -1rem;
+        top: 0.5rem;
+      }
     }
 
     &:nth-of-type(2) {
       right: -10rem;
       bottom: -5.7rem;
+
+      @include tablet {
+        right: -1rem;
+        bottom: 0.5rem;
+      }
     }
 
     &:nth-of-type(3) {
       left: -13rem;
       bottom: -5.7rem;
+
+      @include tablet {
+        left: -1rem;
+        bottom: 0.5rem;
+      }
     }
 
     &.active {
@@ -84,13 +128,25 @@
     height: auto;
     margin-bottom: 2.4rem;
     // cursor: zoom-in;
-
+    @include tablet {
+      width: auto;
+      margin: 0 auto;
+      margin-bottom: 1rem;
+      height: 20rem;
+      width: 13.9rem;
+    }
     img {
       display: block;
       width: 100%;
       height: auto;
       object-fit: contain;
       max-height: 54.2rem;
+
+      @include tablet {
+        max-height: unset;
+        height: 100%;
+        width: 100%;
+      }
     }
   }
 
@@ -110,10 +166,17 @@
   &__info {
     text-align: center;
     padding: 0 3.4rem;
+    @include tablet {
+      padding: 0;
+    }
   }
 
   &__name {
     margin-bottom: 1rem;
+
+    @include tablet {
+      font-size: 0.8rem;
+    }
   }
 
   &__link {
@@ -130,14 +193,21 @@
     text-align: center;
     color: #307fe2;
 
+    @include tablet {
+      font-size: 0.8rem;
+    }
+
     img {
       display: block;
       width: 1.7rem;
       height: 1.7rem;
       object-fit: contain;
+      @include tablet {
+        width: 0.8rem;
+        height: 0.8rem;
+      }
     }
   }
-
 
   &__right {
     position: relative;
@@ -162,10 +232,11 @@
 
   &__slider .swiper-slide {
     height: auto;
+    @include tablet {
+      width: 18rem;
+    }
   }
 }
-
-
 
 .circle-text textPath {
   font-family: var(--font-family);
@@ -181,7 +252,7 @@
 
 .circle path,
 .circle text {
-  transition: fill .3s ease-out, opacity .3s ease-out;
+  transition: fill 0.3s ease-out, opacity 0.3s ease-out;
 }
 
 .animate-g {
@@ -197,7 +268,7 @@
 
   @include hover {
     path {
-      fill: rgba(#DBE1E9, 0.8);
+      fill: rgba(#dbe1e9, 0.8);
     }
 
     text {
@@ -207,7 +278,7 @@
 
   &.active {
     path {
-      fill: rgba(#DBE1E9, 0.8);
+      fill: rgba(#dbe1e9, 0.8);
     }
 
     text {

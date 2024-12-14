@@ -141,7 +141,6 @@ const someFunc = (instance) => {
 licTabs.forEach((el, idx) => {
   el.addEventListener('click', (e) => {
     e.preventDefault();
-    console.log(el);
     const dataset = el.dataset.tab;
 
     if (
@@ -179,6 +178,18 @@ slidersTeamLic.forEach((el, idx) => {
       direction: 'vertical',
       slidesPerView: 'auto',
       spaceBetween: 40,
+      breakpoints: {
+        320: {
+          spaceBetween: 20,
+          direction: 'horizontal',
+          centeredSlides: true,
+        },
+        1025: {
+          direction: 'vertical',
+          centeredSlides: false,
+          spaceBetween: 40,
+        },
+      },
     },
     licTabs[idx],
   );
@@ -194,6 +205,7 @@ const prodPagination = [
   'Мешковая сушилка',
   'Станции водоподготовки',
   'Блок-бокс',
+  'Модули приготовления и дозирования реагентов ',
 ];
 
 const prodMainSlider = new Swiper('.prod-items__slider', {
@@ -332,6 +344,25 @@ window.addEventListener('DOMContentLoaded', () => {
       },
     },
     someFunc,
+  );
+
+  resizableSwiper(
+    '(max-width: 1024px)',
+    '.spb-circle__slider',
+    {
+      slidesPerView: 1,
+      spaceBetween: 20,
+      speed: 500,
+    },
+  );
+
+  resizableSwiper(
+    '(max-width: 1024px)',
+    '.sp-slider-swiper',
+    {
+      slidesPerView: 'auto',
+      speed: 500,
+    },
   );
 });
 
