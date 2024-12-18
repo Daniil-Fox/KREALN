@@ -28,7 +28,9 @@
       flex-direction: column;
     }
   }
-
+  &__btn {
+    padding: 1.8rem 3rem;
+  }
   &__arr {
     position: fixed;
     left: 60rem;

@@ -592,6 +592,35 @@ ul li::marker {
   font-weight: 500;
   font-size: 1.8rem;
   color: #307fe2;
+  position: relative;
+  overflow: hidden;
+  -webkit-transition: color 0.3s ease-out;
+  transition: color 0.3s ease-out;
+}
+.btn::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #307fe2;
+  -webkit-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
+  -webkit-transform: translateY(110%);
+  -ms-transform: translateY(110%);
+  transform: translateY(110%);
+}
+@media (any-hover: hover) {
+  .btn:hover {
+    color: #fff;
+  }
+  .btn:hover::before {
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+  }
 }
 @media (max-width: 1024px) {
   .btn {
@@ -613,6 +642,8 @@ ul li::marker {
   stroke: currentColor;
   width: 0.6rem;
   height: 1.2rem;
+  -webkit-transition: fill 0.3s ease-out;
+  transition: fill 0.3s ease-out;
 }
 @media (max-width: 1024px) {
   .btn svg {
@@ -5770,6 +5801,9 @@ ul li::marker {
     -ms-flex-direction: column;
     flex-direction: column;
   }
+}
+.sp-block-kind__btn {
+  padding: 1.8rem 3rem;
 }
 .sp-block-kind__arr {
   position: fixed;
