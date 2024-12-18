@@ -4,7 +4,11 @@ const blogItems = [
   ),
 ];
 
-if (blogItems && blogItems.length > 0) {
+if (
+  window.matchMedia('(max-width: 1024px)').matches &&
+  blogItems &&
+  blogItems.length > 0
+) {
   const totalLength = blogItems.length;
   let visible = 3;
 

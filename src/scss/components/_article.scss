@@ -23,7 +23,9 @@
       }
     }
   }
-
+  strong {
+    font-weight: 600;
+  }
   .left {
     padding-top: 18rem;
     padding-left: 20.5rem;
@@ -91,7 +93,7 @@
 
   .row {
     display: flex;
-    gap: 7rem;
+    gap: 6.5rem;
     @include tablet {
       flex-direction: column;
       gap: 3rem;
@@ -107,7 +109,7 @@
     margin: 0;
     padding: 0;
     display: block;
-
+    line-height: 130%;
     font-family: var(--font-family);
     font-weight: 600;
     font-size: 3.2rem;
@@ -115,6 +117,7 @@
   }
   h1 {
     margin: 0;
+    margin-right: -3rem;
     margin-bottom: 6rem;
     font-family: var(--font-family);
     font-weight: 600;
@@ -132,13 +135,15 @@
 
   h2 {
     margin: 0;
-    margin-right: -3rem;
     margin-bottom: 3rem;
     font-weight: 500;
     font-size: 1.6rem;
     color: #141414;
     line-height: 130%;
-
+    b {
+      font-weight: inherit;
+      font-size: 2rem;
+    }
     @include tablet {
       margin: 0;
       margin-bottom: 1rem;
@@ -171,6 +176,15 @@
   ol,
   ul {
     text-align: left;
+    padding-left: 2.4rem;
+    color: #141414;
+
+    &:first-child {
+      margin-top: 0rem;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   p {

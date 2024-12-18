@@ -59,6 +59,12 @@
   }
 
   &__slider {
+    margin: 0 -10rem;
+    padding: 0 10rem;
+    @include tablet {
+      margin: 0 -2.4rem;
+      padding: 0 2.4rem;
+    }
     .swiper-slide {
       height: 62rem;
       width: auto;
@@ -103,6 +109,7 @@
     line-height: 130%;
     font-weight: 300;
     font-size: 2rem;
+    color: rgba(20, 20, 20, 0.7);
     @include tablet {
       text-align: center;
       font-size: 1.2rem;

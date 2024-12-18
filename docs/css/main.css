@@ -587,7 +587,7 @@ ul li::marker {
   -ms-flex-pack: center;
   justify-content: center;
   gap: 1.5rem;
-  border: 0.5px solid #141414;
+  border: 0.05rem solid rgba(20, 20, 20, 0.4);
   padding: 1.4rem 2.5rem;
   font-weight: 500;
   font-size: 1.8rem;
@@ -1248,7 +1248,7 @@ ul li::marker {
   background-color: #f4f4f4;
   border-top: 1px solid rgba(20, 20, 20, 0.25);
 }
-@media (max-width: 576px) {
+@media (max-width: 1024px) {
   .footer {
     display: none;
   }
@@ -7227,7 +7227,7 @@ ul li::marker {
 .proj-hero__title {
   margin-bottom: 3rem;
   color: #fff;
-  max-width: 80rem;
+  max-width: 90rem;
   font-weight: 400;
   line-height: 135%;
 }
@@ -7249,6 +7249,16 @@ ul li::marker {
   -ms-flex-pack: justify;
   justify-content: space-between;
   gap: 11.1rem;
+}
+.proj-hero__items--start {
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+}
+.proj-hero__items--wide .prhe-item__text {
+  max-width: 50rem;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
 }
 @media (max-width: 1024px) {
   .proj-hero__items {
@@ -7757,6 +7767,10 @@ ul li::marker {
     margin-bottom: 0;
   }
 }
+.proj-total__subtitle {
+  max-width: 111rem;
+  margin: 0 auto;
+}
 .proj-total__content {
   padding-top: 6rem;
   padding-bottom: 6rem;
@@ -7798,9 +7812,13 @@ ul li::marker {
   width: 100%;
   height: 100%;
 }
-.proj-total__items {
-  max-width: 88rem;
-  margin: 0 auto;
+.proj-total__wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }
 @media (max-width: 1024px) {
   .proj-total__items {
@@ -8057,11 +8075,24 @@ ul li::marker {
   position: relative;
   height: 56rem;
   text-align: center;
-  padding-top: 14.2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   margin-bottom: 3rem;
 }
 @media (max-width: 1024px) {
   .blog-slide__header {
+    display: block;
     height: auto;
     padding-top: 0;
     margin-bottom: 1rem;
@@ -8122,7 +8153,7 @@ ul li::marker {
 .blog-slide__title {
   position: relative;
   z-index: 6;
-  max-width: 120rem;
+  max-width: 124rem;
   margin: 0 auto;
   font-weight: 800;
   font-size: 4.8rem;
@@ -8202,6 +8233,9 @@ ul li::marker {
     margin: 0;
   }
 }
+.article strong {
+  font-weight: 600;
+}
 .article .left {
   padding-top: 18rem;
   padding-left: 20.5rem;
@@ -8273,7 +8307,7 @@ ul li::marker {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  gap: 7rem;
+  gap: 6.5rem;
 }
 @media (max-width: 1024px) {
   .article .row {
@@ -8300,6 +8334,7 @@ ul li::marker {
   margin: 0;
   padding: 0;
   display: block;
+  line-height: 130%;
   font-family: var(--font-family);
   font-weight: 600;
   font-size: 3.2rem;
@@ -8307,6 +8342,7 @@ ul li::marker {
 }
 .article h1 {
   margin: 0;
+  margin-right: -3rem;
   margin-bottom: 6rem;
   font-family: var(--font-family);
   font-weight: 600;
@@ -8324,12 +8360,15 @@ ul li::marker {
 }
 .article h2 {
   margin: 0;
-  margin-right: -3rem;
   margin-bottom: 3rem;
   font-weight: 500;
   font-size: 1.6rem;
   color: #141414;
   line-height: 130%;
+}
+.article h2 b {
+  font-weight: inherit;
+  font-size: 2rem;
 }
 @media (max-width: 1024px) {
   .article h2 {
@@ -8375,6 +8414,16 @@ ul li::marker {
 .article ol,
 .article ul {
   text-align: left;
+  padding-left: 2.4rem;
+  color: #141414;
+}
+.article ol:first-child,
+.article ul:first-child {
+  margin-top: 0rem;
+}
+.article ol:last-child,
+.article ul:last-child {
+  margin-bottom: 0;
 }
 @media (max-width: 1024px) {
   .article p {
@@ -8547,6 +8596,16 @@ ul li::marker {
     padding: 1rem 2.6rem;
   }
 }
+.eco-block__slider {
+  margin: 0 -10rem;
+  padding: 0 10rem;
+}
+@media (max-width: 1024px) {
+  .eco-block__slider {
+    margin: 0 -2.4rem;
+    padding: 0 2.4rem;
+  }
+}
 .eco-block__slider .swiper-slide {
   height: 62rem;
   width: auto;
@@ -8594,6 +8653,7 @@ ul li::marker {
   line-height: 130%;
   font-weight: 300;
   font-size: 2rem;
+  color: rgba(20, 20, 20, 0.7);
 }
 @media (max-width: 1024px) {
   .eco-block p {

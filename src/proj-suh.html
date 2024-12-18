@@ -11,7 +11,9 @@
             <div class="header__container">
               <a href="./" class="header__logo">
                 <svg class="">
-                  <use xlink:href="img/sprite.svg#logo"></use>
+                  <use
+                    xlink:href="img/sprite.svg#logo"
+                  ></use>
                 </svg>
               </a>
 
@@ -25,7 +27,9 @@
             </div>
           </div>
           <div class="site-wrapper">
-            <div class="site-screen site-screen-light nav-disable">
+            <div
+              class="site-screen site-screen-light nav-disable"
+            >
               @include('partials/proj-hero-suh.html')
             </div>
             <div class="site-screen">
@@ -35,7 +39,125 @@
               @include('partials/proj-ben-suh.html')
             </div>
             <div class="site-screen">
-              @include('partials/proj-total-nikel.html')
+              <section class="proj-total proj-total--nikel">
+                <div class="container">
+                  <div class="proj-total__container">
+                    <div class="proj-total__slider swiper">
+                      <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                          <img
+                            src="./img/proj/slides/02.webp"
+                            alt=""
+                          />
+                        </div>
+                        <div class="swiper-slide">
+                          <img
+                            src="./img/proj/slides/02.webp"
+                            alt=""
+                          />
+                        </div>
+                        <div class="swiper-slide">
+                          <img
+                            src="./img/proj/slides/02.webp"
+                            alt=""
+                          />
+                        </div>
+                        <div class="swiper-slide">
+                          <img
+                            src="./img/proj/slides/02.webp"
+                            alt=""
+                          />
+                        </div>
+                        <div class="swiper-slide">
+                          <img
+                            src="./img/proj/slides/02.webp"
+                            alt=""
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="proj-total__content">
+                      <div class="proj-total__heading">
+                        <h2
+                          class="title4 proj-total__title"
+                        >
+                          Итоги <span>проекта:</span>
+                        </h2>
+                        <p
+                          class="proj-total__subtitle desc"
+                        >
+                          Обеспечена нормативная очистка
+                          привозных хозяйственно-бытовых
+                          сточных вод
+                        </p>
+                      </div>
+                      <div class="proj-total__wrapper">
+                        <div class="proj-total__items">
+                          <div
+                            class="proj-total__item projt-item"
+                          >
+                            <div class="projt-item__img">
+                              <img
+                                src="./img/proj-items/01.webp"
+                                alt=""
+                              />
+                            </div>
+                            <div class="projt-item__info">
+                              <div
+                                class="projt-item__title desc"
+                              >
+                                ГУП “Топливно-энергетический
+                                комплекс Санкт-Петербурга”
+                              </div>
+                              <a
+                                href="#"
+                                class="link projt-item__link"
+                              >
+                                Следующий проект
+                                <svg class="">
+                                  <use
+                                    xlink:href="img/sprite.svg#arr-right"
+                                  ></use>
+                                </svg>
+                              </a>
+                            </div>
+                          </div>
+                          <div
+                            class="proj-total__item projt-item"
+                          >
+                            <div class="projt-item__img">
+                              <img
+                                src="./img/proj-items/01.webp"
+                                alt=""
+                              />
+                            </div>
+                            <div class="projt-item__info">
+                              <div
+                                class="projt-item__title desc"
+                              >
+                                ГУП “Топливно-энергетический
+                                комплекс Санкт-Петербурга”
+                              </div>
+                              <a
+                                href="#"
+                                class="link projt-item__link"
+                              >
+                                Следующий проект
+                                <svg class="">
+                                  <use
+                                    xlink:href="img/sprite.svg#arr-right"
+                                  ></use>
+                                </svg>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
             </div>
           </div>
           @include('partials/aside.html')

@@ -9964,7 +9964,7 @@ if (contactsInitCont && contactsInitCont.length > 0) {
 
 __webpack_require__.r(__webpack_exports__);
 const blogItems = [...document.querySelectorAll('.blog-slider__slider .swiper-slide')];
-if (blogItems && blogItems.length > 0) {
+if (window.matchMedia('(max-width: 1024px)').matches && blogItems && blogItems.length > 0) {
   const totalLength = blogItems.length;
   let visible = 3;
   const showMore = document.querySelector('.blog-show-more');

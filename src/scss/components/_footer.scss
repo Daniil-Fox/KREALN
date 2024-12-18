@@ -2,14 +2,13 @@
   background-color: #f4f4f4;
   border-top: 1px solid rgba(#141414, 0.25);
 
-  @include mobile {
+  @include tablet {
     display: none;
   }
 
   &__container {
     display: flex;
   }
-
 
   &__left {
     width: 30.5rem;
@@ -131,8 +130,6 @@
     font-weight: 300;
     font-size: 1.4rem;
     color: #000;
-
-
 
     &--bold {
       font-size: 2rem;
