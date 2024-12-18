@@ -931,6 +931,8 @@ ul li::marker {
 .nav ul li.active {
   font-weight: 600;
   opacity: 1;
+  pointer-events: none;
+  cursor: default;
 }
 .nav ul li.active::before {
   width: 7.4rem;
@@ -5752,10 +5754,10 @@ ul li::marker {
   }
 }
 .sp-block-kind .container {
-  height: 100%;
+  min-height: 100%;
 }
 .sp-block-kind__container {
-  height: 100%;
+  min-height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -5770,10 +5772,10 @@ ul li::marker {
   }
 }
 .sp-block-kind__arr {
-  position: absolute;
-  left: 30rem;
+  position: fixed;
+  left: 60rem;
   top: 0;
-  height: 100%;
+  bottom: 0;
 }
 @media (max-width: 1024px) {
   .sp-block-kind__arr {
@@ -5806,6 +5808,7 @@ ul li::marker {
   -ms-flex-negative: 0;
   flex-shrink: 0;
   border-right: 1px solid rgba(20, 20, 20, 0.1);
+  gap: 6rem;
 }
 @media (max-width: 1024px) {
   .sp-block-kind__left {
@@ -6223,6 +6226,7 @@ ul li::marker {
   height: 100%;
   background: -webkit-gradient(linear, left top, left bottom, from(#fefeff), to(#fff));
   background: linear-gradient(180deg, #fefeff 0%, #fff 100%);
+  overflow: hidden;
   padding-top: 12rem;
   padding-bottom: 17.3rem;
 }

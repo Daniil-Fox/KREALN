@@ -18,38 +18,36 @@
       color: #141414;
       cursor: pointer;
       opacity: 0.5;
-      transition: .3s ease-out;
+      transition: 0.3s ease-out;
 
       &:not(:last-child) {
         margin-bottom: 1.8rem;
       }
 
       &::before {
-        content: "";
+        content: '';
         position: absolute;
         right: calc(100% + 2rem);
-        top: .8rem;
+        top: 0.8rem;
         // transform: translateY(-50%);
         height: 1px;
         width: 2.5rem;
         background-color: currentColor;
-        transition: .3s ease-out;
+        transition: 0.3s ease-out;
       }
 
       &.active {
         font-weight: 600;
         opacity: 1;
-
+        pointer-events: none;
+        cursor: default;
         &::before {
           width: 7.4rem;
         }
       }
 
-
       a {
         color: inherit;
-
-
       }
     }
 
