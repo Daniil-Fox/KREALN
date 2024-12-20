@@ -9801,12 +9801,12 @@ if (contactsInitCont && contactsInitCont.length > 0) {
       gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.to(orbitActivePlanet, {
         rotateZ: () => turn % 2 ? '180' : '0',
         scale: () => turn % 2 ? '0.2' : '1',
-        onUpdate: () => turn % 2 ? orbitActivePlanet.classList.add('hide') : orbitActivePlanet.classList.remove('hide')
+        onUpdate: () => turn % 2 ? orbitActivePlanet.classList.add('hideit') : orbitActivePlanet.classList.remove('hideit')
       });
       gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.to(orbitActiveNext, {
         rotateZ: () => turn % 2 ? '180' : '0',
         scale: () => !(turn % 2) ? '0.2' : '1',
-        onUpdate: () => !(turn % 2) ? orbitActiveNext.classList.add('hide') : orbitActiveNext.classList.remove('hide')
+        onUpdate: () => !(turn % 2) ? orbitActiveNext.classList.add('hideit') : orbitActiveNext.classList.remove('hideit')
       });
       if (turn % 2) {
         let nextActiveSlide = orbitActive[idx + 1];
@@ -9850,12 +9850,12 @@ if (contactsInitCont && contactsInitCont.length > 0) {
       gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.to(orbitActivePlanet, {
         rotateZ: () => turn % 2 ? '180' : '0',
         scale: () => turn % 2 ? '0.2' : '1',
-        onUpdate: () => turn % 2 ? orbitActivePlanet.classList.add('hide') : orbitActivePlanet.classList.remove('hide')
+        onUpdate: () => turn % 2 ? orbitActivePlanet.classList.add('hideit') : orbitActivePlanet.classList.remove('hideit')
       });
       gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.to(orbitActiveNext, {
         rotateZ: () => turn % 2 ? '180' : '0',
         scale: () => !(turn % 2) ? '0.2' : '1',
-        onUpdate: () => !(turn % 2) ? orbitActiveNext.classList.add('hide') : orbitActiveNext.classList.remove('hide')
+        onUpdate: () => !(turn % 2) ? orbitActiveNext.classList.add('hideit') : orbitActiveNext.classList.remove('hideit')
       });
       if (turn % 2) {
         tl1.to(orbitActive[idx + 1], {

@@ -11,7 +11,6 @@
     border-radius: 0;
     aspect-ratio: unset;
     width: auto;
-
   }
 
   .dot {
@@ -78,7 +77,7 @@
     }
 
     &::after {
-      content: "";
+      content: '';
       position: absolute;
       z-index: 10;
       left: 0;
@@ -92,7 +91,6 @@
     }
 
     &--active {
-
       top: -14rem;
       left: -11.4rem;
     }
@@ -104,7 +102,7 @@
       right: -11.4rem;
     }
 
-    &.hide {
+    &.hideit {
       &::after {
         opacity: 1;
       }
@@ -153,10 +151,7 @@
       height: 100%;
     }
   }
-
-
 }
-
 
 .orbit-control {
   display: flex;

@@ -268,8 +268,8 @@ if (contactsInitCont && contactsInitCont.length > 0) {
         scale: () => (turn % 2 ? '0.2' : '1'),
         onUpdate: () =>
           turn % 2
-            ? orbitActivePlanet.classList.add('hide')
-            : orbitActivePlanet.classList.remove('hide'),
+            ? orbitActivePlanet.classList.add('hideit')
+            : orbitActivePlanet.classList.remove('hideit'),
       });
 
       gsap.to(orbitActiveNext, {
@@ -277,8 +277,8 @@ if (contactsInitCont && contactsInitCont.length > 0) {
         scale: () => (!(turn % 2) ? '0.2' : '1'),
         onUpdate: () =>
           !(turn % 2)
-            ? orbitActiveNext.classList.add('hide')
-            : orbitActiveNext.classList.remove('hide'),
+            ? orbitActiveNext.classList.add('hideit')
+            : orbitActiveNext.classList.remove('hideit'),
       });
 
       if (turn % 2) {
@@ -353,8 +353,8 @@ if (contactsInitCont && contactsInitCont.length > 0) {
         scale: () => (turn % 2 ? '0.2' : '1'),
         onUpdate: () =>
           turn % 2
-            ? orbitActivePlanet.classList.add('hide')
-            : orbitActivePlanet.classList.remove('hide'),
+            ? orbitActivePlanet.classList.add('hideit')
+            : orbitActivePlanet.classList.remove('hideit'),
       });
 
       gsap.to(orbitActiveNext, {
@@ -362,8 +362,8 @@ if (contactsInitCont && contactsInitCont.length > 0) {
         scale: () => (!(turn % 2) ? '0.2' : '1'),
         onUpdate: () =>
           !(turn % 2)
-            ? orbitActiveNext.classList.add('hide')
-            : orbitActiveNext.classList.remove('hide'),
+            ? orbitActiveNext.classList.add('hideit')
+            : orbitActiveNext.classList.remove('hideit'),
       });
 
       if (turn % 2) {
