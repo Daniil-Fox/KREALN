@@ -2,7 +2,11 @@
   padding-top: 22.7rem 3.5rem;
   padding-left: 7.5rem;
   height: 100%;
-  background: linear-gradient(180deg, #dcecff 0%, #feffff 100%);
+  background: linear-gradient(
+    180deg,
+    #dcecff 0%,
+    #feffff 100%
+  );
   overflow: visible;
 
   @include tablet {
@@ -26,7 +30,7 @@
   &__title {
     margin-bottom: 2.7rem;
     text-align: center;
-
+    line-height: 130%;
     @include tablet {
       font-size: 1.6rem;
       margin-bottom: 0.9rem;
@@ -38,7 +42,6 @@
   }
 
   &__text {
-
     p {
       text-align: center;
       margin: 0;
@@ -54,6 +57,10 @@
       padding: 0;
 
       padding-left: 6.5rem;
+
+      @include tablet {
+        padding-left: 2rem;
+      }
     }
   }
 
@@ -90,16 +97,6 @@
   }
 
   &--vodspb {
-
-    ul,
-    ol {
-      margin: 0 auto;
-      max-width: 36.4rem;
-    }
-  }
-
-  &--reknor {
-
     ul,
     ol {
       margin: 0 auto;
@@ -107,8 +104,15 @@
     }
   }
 
-  &--alrosa {
+  &--reknor {
+    ul,
+    ol {
+      margin: 0 auto;
+      max-width: 42rem;
+    }
+  }
 
+  &--alrosa {
     ul,
     ol {
       padding-left: 0;
@@ -116,9 +120,36 @@
       max-width: 60.2rem;
     }
   }
-
+  &--oskom {
+    ul,
+    ol {
+      padding-left: 2rem;
+      margin: 0 auto;
+      max-width: 48.2rem;
+    }
+  }
+  &--spm {
+    ul,
+    ol {
+      padding-left: 2rem;
+    }
+  }
+  &--stroy {
+    ul,
+    ol {
+      margin: 0 auto;
+      max-width: 52rem;
+    }
+  }
+  &--ufsin {
+    ul,
+    ol {
+      margin: 0 auto;
+      padding-left: 4rem;
+      max-width: 52rem;
+    }
+  }
   &--design {
-
     ul,
     ol {
       padding-left: 0;
@@ -160,7 +191,6 @@
     flex-direction: column;
     justify-content: flex-end;
 
-
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
@@ -191,7 +221,6 @@
   }
 
   &__sphere {
-
     position: absolute;
     height: calc(100% + 15rem);
     left: 50%;
@@ -205,7 +234,7 @@
     }
 
     &::before {
-      content: "";
+      content: '';
       height: 100%;
       position: absolute;
       top: 0;
@@ -213,12 +242,11 @@
       width: 3.5rem;
       height: 3.5rem;
       border-radius: 100%;
-      background-color: #307FE2;
+      background-color: #307fe2;
 
       @include tablet {
         width: 1.5rem;
         height: 1.5rem;
-
       }
     }
 
@@ -235,15 +263,15 @@
         height: 2rem;
 
         @include tablet {
-          width: .6rem;
-          height: .6rem;
+          width: 0.6rem;
+          height: 0.6rem;
         }
       }
     }
 
     &:nth-of-type(3) {
       height: calc(100% + 13rem);
-      animation-delay: .3s;
+      animation-delay: 0.3s;
 
       @include tablet {
         height: calc(100% + 4.5rem);
@@ -253,10 +281,9 @@
         width: 1.2rem;
         height: 1.2rem;
 
-
         @include tablet {
-          width: .6rem;
-          height: .6rem;
+          width: 0.6rem;
+          height: 0.6rem;
         }
       }
     }

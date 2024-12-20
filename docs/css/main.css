@@ -7237,6 +7237,15 @@ ul li::marker {
 .proj-hero .container, .proj-hero__container {
   height: 100%;
 }
+.proj-hero__link {
+  font-size: 2rem;
+  color: #307fe2;
+}
+.proj-hero__link svg {
+  width: 0.7rem;
+  height: 1.2rem;
+  stroke-width: 0.2rem;
+}
 @media (max-width: 1024px) {
   .proj-hero__link {
     display: none;
@@ -7326,6 +7335,9 @@ ul li::marker {
 }
 .proj-hero--stroy .prhe-item__text:last-child {
   max-width: 46.6rem;
+}
+.proj-hero--ust .proj-hero__title {
+  max-width: 100rem;
 }
 
 @media (max-width: 1024px) {
@@ -7421,7 +7433,7 @@ ul li::marker {
   }
 }
 .proj-obj__title span {
-  font-weight: 700;
+  font-weight: 600;
 }
 .proj-obj__capture {
   margin-bottom: 1.5rem;
@@ -7438,7 +7450,7 @@ ul li::marker {
   font-weight: 400;
   color: rgba(0, 0, 0, 0.7);
   letter-spacing: -0.01em;
-  max-width: 90rem;
+  max-width: 92rem;
 }
 .proj-obj__desc--wide {
   max-width: 95rem;
@@ -7451,9 +7463,13 @@ ul li::marker {
   margin: 0;
   padding-left: 2.5rem;
 }
-.proj-obj__desc a {
+.proj-obj__desc li {
   color: inherit;
   text-decoration: underline;
+}
+.proj-obj__desc a {
+  color: inherit;
+  pointer-events: none;
 }
 .proj-obj__block:not(:last-child) {
   margin-bottom: 3rem;
@@ -7513,6 +7529,7 @@ ul li::marker {
 .proj-ben__title {
   margin-bottom: 2.7rem;
   text-align: center;
+  line-height: 130%;
 }
 @media (max-width: 1024px) {
   .proj-ben__title {
@@ -7535,6 +7552,12 @@ ul li::marker {
   margin: 0;
   padding: 0;
   padding-left: 6.5rem;
+}
+@media (max-width: 1024px) {
+  .proj-ben__text ul,
+  .proj-ben__text ol {
+    padding-left: 2rem;
+  }
 }
 .proj-ben__block:not(:last-child) {
   margin-bottom: 6rem;
@@ -7573,18 +7596,39 @@ ul li::marker {
 .proj-ben--vodspb ul,
 .proj-ben--vodspb ol {
   margin: 0 auto;
-  max-width: 36.4rem;
+  max-width: 40rem;
 }
 .proj-ben--reknor ul,
 .proj-ben--reknor ol {
   margin: 0 auto;
-  max-width: 40rem;
+  max-width: 42rem;
 }
 .proj-ben--alrosa ul,
 .proj-ben--alrosa ol {
   padding-left: 0;
   margin: 0 auto;
   max-width: 60.2rem;
+}
+.proj-ben--oskom ul,
+.proj-ben--oskom ol {
+  padding-left: 2rem;
+  margin: 0 auto;
+  max-width: 48.2rem;
+}
+.proj-ben--spm ul,
+.proj-ben--spm ol {
+  padding-left: 2rem;
+}
+.proj-ben--stroy ul,
+.proj-ben--stroy ol {
+  margin: 0 auto;
+  max-width: 52rem;
+}
+.proj-ben--ufsin ul,
+.proj-ben--ufsin ol {
+  margin: 0 auto;
+  padding-left: 4rem;
+  max-width: 52rem;
 }
 .proj-ben--design ul,
 .proj-ben--design ol {
@@ -7688,7 +7732,7 @@ ul li::marker {
   width: 3.5rem;
   height: 3.5rem;
   border-radius: 100%;
-  background-color: #307FE2;
+  background-color: #307fe2;
 }
 @media (max-width: 1024px) {
   .pben-circle__sphere::before {
@@ -8453,7 +8497,6 @@ ul li::marker {
 .article ul {
   text-align: left;
   padding-left: 2.4rem;
-  color: #141414;
 }
 .article ol:first-child,
 .article ul:first-child {
