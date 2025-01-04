@@ -12,13 +12,25 @@ let anim = false;
 let pause = false;
 let checkTopScreen = false;
 
+let ind = 0;
+let an = false;
+let sc = 0;
+let svc = 0;
 // functions
 let goToOtherSlide = null;
 let resetScrollSettings = null;
 
 if (window.matchMedia('(min-width: 1025px)').matches) {
   const siteSlider = document.querySelector('.site-slider');
-
+  const testiTabs = document.querySelectorAll(
+    '.testi-cont__tab',
+  );
+  testiTabs.forEach((el, idx) => {
+    el.addEventListener('click', (e) => {
+      console.log('click');
+      goToOtherSlide(idx);
+    });
+  });
   if (siteSlider) {
     let siteSlides =
       siteSlider.querySelectorAll('.site-screen');
@@ -64,7 +76,9 @@ if (window.matchMedia('(min-width: 1025px)').matches) {
     );
     let navItems;
     if (nav) {
-      navItems = nav.querySelectorAll('li');
+      navItems = nav.querySelectorAll(
+        'li:not(.no-clickable)',
+      );
       navItems[0].classList.add('active');
     }
 
@@ -81,7 +95,7 @@ if (window.matchMedia('(min-width: 1025px)').matches) {
     initSlides();
     function mainFunc(e) {
       delta = e.wheelDeltaY;
-
+      let scrr = 0;
       if (delta > 0) {
         direction = 'up';
         if (window.scrollY != 0) {
@@ -202,7 +216,6 @@ if (window.matchMedia('(min-width: 1025px)').matches) {
 
     function handleScroll() {
       handleVars();
-      console.log('pause: ' + pause);
       if (!anim && !pause) {
         goToSlide();
       }
@@ -212,10 +225,10 @@ if (window.matchMedia('(min-width: 1025px)').matches) {
       // Проверяем высоту слайда, если выше - включаем в него скролл
       const currentSection =
         siteSlides[windPos].querySelector('section');
-
-      if (currentSection.querySelector('.hor-scroll')) {
-        const horScroll =
-          currentSection.querySelector('.hor-scroll');
+      const horScroll =
+        currentSection?.querySelector('.hor-scroll');
+      if (horScroll) {
+        const horScroll = horScroll;
         const horScrollContainer =
           currentSection.querySelector(
             '.hor-scroll-container',
@@ -272,18 +285,9 @@ if (window.matchMedia('(min-width: 1025px)').matches) {
         }
       }
       if (
+        currentSection &&
         currentSection.scrollHeight > window.innerHeight
       ) {
-        // Обработка слайдов, у которых высота больше, чем высота экрана
-        // <-- 18.11 MAYBE DELETE THIS
-        // currentSection.addEventListener("scroll", (e) => {
-        //   e.preventDefault();
-
-        //   if (window.scrollY != 0) {
-        //     window.scrollTo(0, 0);
-        //   }
-        // });
-        // -->
         pause = true;
         if (
           direction == 'down' &&
@@ -362,7 +366,21 @@ if (window.matchMedia('(min-width: 1025px)').matches) {
         target.classList.add('active');
         checkSlide(siteSlides[windPos]);
       }
-
+      const testiArray = document.querySelector(
+        '.testi-cont__arr',
+      );
+      if (testiArray) {
+        if (windPos > 0) {
+          testiTabs[0].classList.remove('active');
+          testiTabs[1].classList.add('active');
+          testiArray.style.transform =
+            'translate(-50%, 47rem)';
+        } else {
+          testiTabs[1].classList.remove('active');
+          testiTabs[0].classList.add('active');
+          testiArray.style.transform = 'translate(-50%, 0)';
+        }
+      }
       if (nav) {
         setNavItem(navPos);
       }

@@ -1,0 +1,161 @@
+.vak {
+  background: linear-gradient(
+    180deg,
+    #f4f4f4 0%,
+    #dcecff 100%
+  );
+  .container,
+  &__container {
+    min-height: 100%;
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+  &__container {
+    flex-grow: 1;
+    display: flex;
+
+    @include tablet {
+      display: block;
+    }
+  }
+  &__left {
+    width: 93rem;
+    flex-shrink: 0;
+    border-right: 1px solid rgba(#141414, 0.25);
+    padding: 12rem 7.5rem;
+
+    @include tablet {
+      width: 100%;
+      padding: 3rem 0 6rem;
+      border: none;
+    }
+  }
+  &__close {
+    display: none;
+    position: absolute;
+    right: 2rem;
+    top: 2rem;
+
+    width: 2rem;
+    height: 2rem;
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    @include tablet {
+      display: block;
+    }
+  }
+  &__right {
+    flex: 1;
+    max-height: 100vh;
+    position: sticky;
+    top: 0;
+    padding: 12rem 9.6rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    transition: opacity 0.15s ease-out,
+      z-index 0.15s ease-out;
+    @include tablet {
+      position: fixed;
+      left: 0;
+      top: 0;
+      background-color: #fff;
+      padding: 10rem 2.5rem;
+      width: 100%;
+      height: 100%;
+
+      opacity: 0;
+      z-index: -100;
+    }
+
+    &.active {
+      opacity: 1;
+      z-index: 100;
+    }
+  }
+  &__mob {
+    display: none;
+    @include tablet {
+      display: flex;
+      justify-content: center;
+    }
+  }
+  &__link {
+    @include tablet {
+      display: none;
+    }
+  }
+  &__title {
+    text-align: center;
+  }
+  &__header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+
+    margin-bottom: 6rem;
+
+    @include tablet {
+      margin-bottom: 3rem;
+      gap: 2rem;
+    }
+  }
+  &__text {
+    color: rgba(20, 20, 20, 0.7);
+
+    &--tt {
+      display: flex;
+      justify-content: center;
+
+      ul,
+      ol {
+        padding: 0;
+      }
+    }
+  }
+  &__req {
+    font-weight: 500;
+    font-size: 2rem;
+    color: #307fe2;
+    @include tablet {
+      font-size: 1rem;
+    }
+  }
+
+  &__capture {
+    margin: 0;
+    margin-bottom: 2rem;
+    font-size: 2.4rem;
+    font-weight: 600;
+    @include tablet {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+  }
+
+  &__body {
+    &:not(:last-child) {
+      margin-bottom: 3rem;
+    }
+  }
+}
+
+.vak-form {
+  width: 100%;
+  max-width: 100%;
+  &__capture {
+    text-align: center;
+    margin-bottom: 3.6rem;
+    font-size: 2rem;
+    font-weight: 600;
+  }
+}

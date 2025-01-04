@@ -1,0 +1,115 @@
+.form {
+  max-width: 100%;
+  width: 100%;
+  &__input {
+    display: block;
+    padding: 2rem;
+    border: 0.5px solid rgba(#141414, 0.5);
+    background: none;
+    height: 5.4rem;
+    width: 100%;
+    max-width: 34rem;
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 1.8rem;
+    color: #141414;
+
+    &::placeholder {
+      color: rgba(20, 20, 20, 0.5);
+    }
+    @include tablet {
+      font-size: 1.2rem;
+      padding: 1rem 2rem;
+      height: 4rem;
+    }
+  }
+  &__label {
+    display: block;
+    &:not(:last-child) {
+      margin-bottom: 2rem;
+      @include tablet {
+        margin-bottom: 1.4rem;
+      }
+    }
+  }
+  &__file {
+    height: 5.4rem;
+    text-align: center;
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 1.8rem;
+    color: #307fe2;
+    border: 0.5px solid #307fe2;
+    display: -webkit-box;
+    max-width: 34rem;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1;
+    padding: 1.4rem 2rem;
+    width: 100%;
+    @include tablet {
+      font-size: 1.2rem;
+      padding: 1rem 2rem;
+      height: 4rem;
+      width: 100%;
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 2rem;
+      @include tablet {
+        margin-bottom: 1.4rem;
+      }
+    }
+    @include tablet {
+      max-width: 100%;
+    }
+  }
+  &__btn {
+    width: 100%;
+    max-width: 34rem;
+    border-color: #307fe2;
+    height: 5.4rem;
+
+    @include tablet {
+      height: 4rem;
+    }
+    &:not(:last-child) {
+      margin-bottom: 2rem;
+      @include tablet {
+        margin-bottom: 1.4rem;
+      }
+    }
+  }
+  &__agree {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    font-weight: 400;
+    font-size: 1.1rem;
+    color: #141414;
+    cursor: pointer;
+    input:checked ~ .form__check {
+      background-color: #307fe2;
+    }
+
+    @include tablet {
+      font-size: 0.8rem;
+      gap: 1rem;
+    }
+  }
+  &__check {
+    background-color: transparent;
+    border: 0.5px solid rgba(#141414, 0.5);
+    display: block;
+    flex-shrink: 0;
+    width: 1.9rem;
+    height: 1.9rem;
+
+    @include tablet {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+}
