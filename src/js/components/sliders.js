@@ -358,6 +358,17 @@ window.addEventListener('DOMContentLoaded', () => {
 
   resizableSwiper(
     '(max-width: 1024px)',
+    '.testi-mob__slider',
+    {
+      slidesPerView: 'auto',
+      spaceBetween: 30,
+      loop: true,
+      speed: 500,
+    },
+  );
+
+  resizableSwiper(
+    '(max-width: 1024px)',
     '.sp-slider-swiper',
     {
       slidesPerView: 'auto',

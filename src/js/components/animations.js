@@ -27,7 +27,8 @@ const timeline = gsap.timeline({
         ),
       );
     }
-    if (rmAnimating) {
+    if (rmAnimating && window.matchMedia('(min-width: 1025px)').matches) {
+
       setTimeout(() => {
         rmAnimating.remove();
         resetScrollSettings();

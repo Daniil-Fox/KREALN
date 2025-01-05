@@ -186,6 +186,14 @@ section {
 .site-slider {
   position: relative;
   height: 100vh;
+  transition: background 0.3s ease-out;
+  // &.grad {
+  //   background: linear-gradient(
+  //     180deg,
+  //     #fff 0%,
+  //     #dcecff 100%
+  //   );
+  // }
   &--eco {
     background: #f4f4f4;
     @include tablet {
@@ -306,6 +314,9 @@ section {
     .header__nav {
       transform: translate(-300%, -50%);
     }
+    .testi-cont__right {
+      opacity: 0;
+    }
   }
 }
 .hide {
@@ -363,7 +374,9 @@ section {
   //   }
   // }
 }
-
+// .site-screen-grad {
+//   background: linear-gradient(180deg, #fff 0%, #dcecff 100%);
+// }
 .capture {
   margin: 0;
 
@@ -651,4 +664,7 @@ ul {
 }
 .header__nav--testi ul ul li::before {
   top: 0.4rem;
+}
+.hide-side {
+  transition: 0.3s ease-out;
 }
