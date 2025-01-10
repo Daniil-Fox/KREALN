@@ -10288,12 +10288,15 @@ if (window.matchMedia('(min-width: 1025px)').matches) {
           target.style.transform = 'translateY(100%)';
         }, delatSizeUp);
       }
-      if (windPos == siteSlides.length - 1) {
-        if (siteSlider.classList.contains('grad')) {
-          siteSlider.querySelector('.testi-cont-grad').style.background = 'linear-gradient(180deg, #fff 0%, #dcecff 100%)';
+      const contGrad = siteSlider.querySelector('.testi-cont-grad');
+      if (contGrad) {
+        if (windPos == siteSlides.length - 1) {
+          if (siteSlider.classList.contains('grad')) {
+            contGrad.style.background = 'linear-gradient(180deg, #fff 0%, #dcecff 100%)';
+          }
+        } else {
+          contGrad.style.background = null;
         }
-      } else {
-        siteSlider.querySelector('.testi-cont-grad').style.background = null;
       }
       changeOpacity();
       if (target) {

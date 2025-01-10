@@ -52,10 +52,13 @@ if (window.matchMedia('(min-width: 1025px)').matches) {
     function checkSlide(slide) {
       if (slide.classList.contains('site-screen-start')) {
         siteSlider.classList.add('hide-control');
-
       } else {
         siteSlider.classList.remove('hide-control');
-        document.querySelector('.testi-cont__right') ? document.querySelector('.testi-cont__right').style.opacity = 1 : null
+        document.querySelector('.testi-cont__right')
+          ? (document.querySelector(
+              '.testi-cont__right',
+            ).style.opacity = 1)
+          : null;
       }
 
       if (slide.classList.contains('site-screen-light')) {
@@ -134,7 +137,7 @@ if (window.matchMedia('(min-width: 1025px)').matches) {
           return indices;
         }
         findIndicesOfOnes();
-        console.log(indices)
+        console.log(indices);
         navItems.forEach((item, index) => {
           item.addEventListener('click', (e) => {
             e.preventDefault();
@@ -159,7 +162,6 @@ if (window.matchMedia('(min-width: 1025px)').matches) {
         siteSlider.querySelectorAll('.site-screen');
       initSlides();
       initNavigation();
-
     };
 
     goToOtherSlide = (slideIndex) => {
@@ -330,20 +332,34 @@ if (window.matchMedia('(min-width: 1025px)').matches) {
         });
       }
     }
-    function changeOpacity(){
-      if(direction == 'down'){
-        if(siteSlides[windPos - 1].querySelector('.hide-side') && siteSlides[windPos].querySelector(
-          '.hide-side'
-        )){
-          siteSlides[windPos - 1].querySelector('.hide-side').style.opacity = 0;
-          siteSlides[windPos].querySelector('.hide-side').style.opacity = 1;
+    function changeOpacity() {
+      if (direction == 'down') {
+        if (
+          siteSlides[windPos - 1].querySelector(
+            '.hide-side',
+          ) &&
+          siteSlides[windPos].querySelector('.hide-side')
+        ) {
+          siteSlides[windPos - 1].querySelector(
+            '.hide-side',
+          ).style.opacity = 0;
+          siteSlides[windPos].querySelector(
+            '.hide-side',
+          ).style.opacity = 1;
         }
       } else {
-        if(siteSlides[windPos + 1].querySelector('.hide-side') && siteSlides[windPos].querySelector(
-          '.hide-side'
-        )){
-          siteSlides[windPos + 1].querySelector('.hide-side').style.opacity = 0;
-          siteSlides[windPos].querySelector('.hide-side').style.opacity = 1;
+        if (
+          siteSlides[windPos + 1].querySelector(
+            '.hide-side',
+          ) &&
+          siteSlides[windPos].querySelector('.hide-side')
+        ) {
+          siteSlides[windPos + 1].querySelector(
+            '.hide-side',
+          ).style.opacity = 0;
+          siteSlides[windPos].querySelector(
+            '.hide-side',
+          ).style.opacity = 1;
         }
       }
     }
@@ -366,9 +382,6 @@ if (window.matchMedia('(min-width: 1025px)').matches) {
           navPos++;
         target = siteSlides[++windPos];
 
-
-
-
         setTimeout(() => {
           target.style.transform = 'translateY(0%)';
         }, delatSizeUp);
@@ -383,18 +396,22 @@ if (window.matchMedia('(min-width: 1025px)').matches) {
           navPos--;
         target = siteSlides[windPos--];
 
-
         setTimeout(() => {
           target.style.transform = 'translateY(100%)';
         }, delatSizeUp);
       }
-      if (windPos == siteSlides.length - 1) {
-        if (siteSlider.classList.contains('grad')) {
-          siteSlider.querySelector('.testi-cont-grad').style.background =
-            'linear-gradient(180deg, #fff 0%, #dcecff 100%)';
+      const contGrad = siteSlider.querySelector(
+        '.testi-cont-grad',
+      );
+      if (contGrad) {
+        if (windPos == siteSlides.length - 1) {
+          if (siteSlider.classList.contains('grad')) {
+            contGrad.style.background =
+              'linear-gradient(180deg, #fff 0%, #dcecff 100%)';
+          }
+        } else {
+          contGrad.style.background = null;
         }
-      } else {
-        siteSlider.querySelector('.testi-cont-grad').style.background = null;
       }
       changeOpacity();
       if (target) {
