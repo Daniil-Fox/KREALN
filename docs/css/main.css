@@ -322,6 +322,10 @@ section::-webkit-scrollbar {
     background: none;
   }
 }
+.site-slider--eco .site-screen--long {
+  height: auto;
+  overflow: visible;
+}
 .site-slider--eco .site-screen:nth-child(3) section {
   background: -webkit-gradient(linear, left top, left bottom, from(#f4f4f4), to(#d1e3f9));
   background: linear-gradient(180deg, #f4f4f4 0%, #d1e3f9 100%);
@@ -508,10 +512,8 @@ section::-webkit-scrollbar {
 }
 
 .hor-scroll {
-  -webkit-transition: -webkit-transform 1s linear;
-  transition: -webkit-transform 1s linear;
-  transition: transform 1s linear;
-  transition: transform 1s linear, -webkit-transform 1s linear;
+  -webkit-transition: 0.7s linear;
+  transition: 0.7s linear;
 }
 
 .title2 {

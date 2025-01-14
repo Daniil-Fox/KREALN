@@ -216,7 +216,10 @@ section {
           background: none;
         }
       }
-
+      &--long {
+        height: auto;
+        overflow: visible;
+      }
       &:nth-child(3) {
         section {
           background: linear-gradient(
@@ -428,7 +431,7 @@ section {
 }
 
 .hor-scroll {
-  transition: transform 1s linear;
+  transition: 0.7s linear;
 }
 
 .title2 {

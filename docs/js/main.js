@@ -9599,7 +9599,7 @@ TweenMaxWithCSS = gsapWithCSS.core.Tween;
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_sliders_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/sliders.js */ "./src/js/components/sliders.js");
-/* harmony import */ var _components_scroll_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/scroll.js */ "./src/js/components/scroll.js");
+/* harmony import */ var _components_scroll_new_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/scroll-new.js */ "./src/js/components/scroll-new.js");
 /* harmony import */ var _components_animations_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/animations.js */ "./src/js/components/animations.js");
 /* harmony import */ var _components_survey_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/survey.js */ "./src/js/components/survey.js");
 /* harmony import */ var _components_contacts_tab_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/contacts-tab.js */ "./src/js/components/contacts-tab.js");
@@ -9625,27 +9625,37 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   animateArrow: () => (/* binding */ animateArrow)
 /* harmony export */ });
-/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
-/* harmony import */ var gsap_ScrollTrigger_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! gsap/ScrollTrigger.js */ "./node_modules/gsap/ScrollTrigger.js");
-/* harmony import */ var _scroll_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./scroll.js */ "./src/js/components/scroll.js");
+/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
+/* harmony import */ var gsap_ScrollTrigger_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! gsap/ScrollTrigger.js */ "./node_modules/gsap/ScrollTrigger.js");
 
 
-
-gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.registerPlugin(gsap_ScrollTrigger_js__WEBPACK_IMPORTED_MODULE_2__.ScrollTrigger);
-const timeline = gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.timeline({
-  onComplete: () => {
-    const rmAnimating = document.querySelector('.site-screen-rm');
-    window.matchMedia('(min-width: 1025px)').matches ? (0,_scroll_js__WEBPACK_IMPORTED_MODULE_0__.goToOtherSlide)(1) : null;
-    if (document.querySelector('.swiper-slide-active .prod-items__arr')) {
-      animateArrow(document.querySelector('.swiper-slide-active .prod-items__arr'));
-    }
-    if (rmAnimating && window.matchMedia('(min-width: 1025px)').matches) {
-      setTimeout(() => {
-        rmAnimating.remove();
-        (0,_scroll_js__WEBPACK_IMPORTED_MODULE_0__.resetScrollSettings)();
-      }, _scroll_js__WEBPACK_IMPORTED_MODULE_0__.delayAnim + 10);
-    }
-  }
+gsap__WEBPACK_IMPORTED_MODULE_0__.gsap.registerPlugin(gsap_ScrollTrigger_js__WEBPACK_IMPORTED_MODULE_1__.ScrollTrigger);
+const timeline = gsap__WEBPACK_IMPORTED_MODULE_0__.gsap.timeline({
+  // onComplete: () => {
+  //   const rmAnimating = document.querySelector(
+  //     '.site-screen-rm',
+  //   );
+  //   window.matchMedia('(min-width: 1025px)').matches
+  //     ? goToOtherSlide(1)
+  //     : null;
+  //   if (
+  //     document.querySelector(
+  //       '.swiper-slide-active .prod-items__arr',
+  //     )
+  //   ) {
+  //     animateArrow(
+  //       document.querySelector(
+  //         '.swiper-slide-active .prod-items__arr',
+  //       ),
+  //     );
+  //   }
+  //   if (rmAnimating && window.matchMedia('(min-width: 1025px)').matches) {
+  //     setTimeout(() => {
+  //       rmAnimating.remove();
+  //       resetScrollSettings();
+  //     }, delayAnim + 10);
+  //   }
+  // },
 });
 const animateSpan = document.querySelectorAll('.animate-title span');
 animateSpan.forEach((el, i) => {
@@ -9665,13 +9675,13 @@ timeline.fromTo('.team-main__desc', {
   opacity: 1,
   y: 0
 }, '-=0.6');
-gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.set('.arr1', {
+gsap__WEBPACK_IMPORTED_MODULE_0__.gsap.set('.arr1', {
   y: 800
 });
-gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.set('.arr2', {
+gsap__WEBPACK_IMPORTED_MODULE_0__.gsap.set('.arr2', {
   y: 800
 });
-gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.set('.arr3', {
+gsap__WEBPACK_IMPORTED_MODULE_0__.gsap.set('.arr3', {
   y: 800
 });
 function animateArrow(cont) {
@@ -9680,7 +9690,7 @@ function animateArrow(cont) {
   const arr3 = cont?.querySelector('.arr3');
   const img = cont?.querySelector('.anim-img');
   const imgMask = cont?.querySelector('.mask-arr');
-  const tl = gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.timeline({
+  const tl = gsap__WEBPACK_IMPORTED_MODULE_0__.gsap.timeline({
     duration: 1.2,
     onComplete: () => {
       img.style.opacity = 1;
@@ -9702,7 +9712,7 @@ function animateArrow(cont) {
 if (window.matchMedia('(min-width: 1025px)').matches) {
   const mapContainer = document.querySelector('.contacts-main__map');
   const mapBack = document.querySelector('.contacts-main__back');
-  const tl = gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.timeline({
+  const tl = gsap__WEBPACK_IMPORTED_MODULE_0__.gsap.timeline({
     paused: true
   });
   tl.to(mapContainer, {
@@ -9768,42 +9778,42 @@ if (contactsInitCont && contactsInitCont.length > 0) {
     const orbitCounter = container.querySelector('.orbit__counter');
     const orbitActivePlanet = container.querySelector('.orbit__planet--active');
     const orbitActiveNext = container.querySelector('.orbit__planet--next');
-    gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.set(orbitActive, {
+    gsap__WEBPACK_IMPORTED_MODULE_0__.gsap.set(orbitActive, {
       zIndex: -1,
       opacity: 0
     });
-    gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.set(orbitNext, {
+    gsap__WEBPACK_IMPORTED_MODULE_0__.gsap.set(orbitNext, {
       zIndex: -1,
       opacity: 0
     });
     const nextBtn = container.querySelector('.orbit-control__btn--next');
     const prevBtn = container.querySelector('.orbit-control__btn--prev');
     const orbitNav = container.querySelectorAll('.contacts-ways__nav li');
-    const tl1 = gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.timeline();
+    const tl1 = gsap__WEBPACK_IMPORTED_MODULE_0__.gsap.timeline();
     function setOrbitCounter() {
       orbitCounter.textContent = currentIndex < 10 ? `0${currentIndex + 1}` : `${currentIndex + 1}`;
     }
     function changeSlideFw(idx) {
       const prev = currentIndex;
       turn++;
-      gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.to(container.querySelector('.orbit__wrapper'), {
+      gsap__WEBPACK_IMPORTED_MODULE_0__.gsap.to(container.querySelector('.orbit__wrapper'), {
         rotateZ: () => rotation += 180,
         duration: 1
       });
-      gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.set(container.querySelectorAll('.orbit__planet--active .orbit__img'), {
+      gsap__WEBPACK_IMPORTED_MODULE_0__.gsap.set(container.querySelectorAll('.orbit__planet--active .orbit__img'), {
         zIndex: -2,
         opacity: 0
       });
-      gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.set(container.querySelectorAll('.orbit__planet--next .orbit__img'), {
+      gsap__WEBPACK_IMPORTED_MODULE_0__.gsap.set(container.querySelectorAll('.orbit__planet--next .orbit__img'), {
         zIndex: -2,
         opacity: 0
       });
-      gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.to(orbitActivePlanet, {
+      gsap__WEBPACK_IMPORTED_MODULE_0__.gsap.to(orbitActivePlanet, {
         rotateZ: () => turn % 2 ? '180' : '0',
         scale: () => turn % 2 ? '0.2' : '1',
         onUpdate: () => turn % 2 ? orbitActivePlanet.classList.add('hideit') : orbitActivePlanet.classList.remove('hideit')
       });
-      gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.to(orbitActiveNext, {
+      gsap__WEBPACK_IMPORTED_MODULE_0__.gsap.to(orbitActiveNext, {
         rotateZ: () => turn % 2 ? '180' : '0',
         scale: () => !(turn % 2) ? '0.2' : '1',
         onUpdate: () => !(turn % 2) ? orbitActiveNext.classList.add('hideit') : orbitActiveNext.classList.remove('hideit')
@@ -9835,24 +9845,24 @@ if (contactsInitCont && contactsInitCont.length > 0) {
     function changeSlideBack(idx) {
       const prev = currentIndex;
       turn++;
-      gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.to(container.querySelector('.orbit__wrapper'), {
+      gsap__WEBPACK_IMPORTED_MODULE_0__.gsap.to(container.querySelector('.orbit__wrapper'), {
         rotateZ: () => rotation -= 180,
         duration: 1
       });
-      gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.set(container.querySelectorAll('.orbit__planet--active .orbit__img'), {
+      gsap__WEBPACK_IMPORTED_MODULE_0__.gsap.set(container.querySelectorAll('.orbit__planet--active .orbit__img'), {
         zIndex: -2,
         opacity: 0
       });
-      gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.set(container.querySelectorAll('.orbit__planet--next .orbit__img'), {
+      gsap__WEBPACK_IMPORTED_MODULE_0__.gsap.set(container.querySelectorAll('.orbit__planet--next .orbit__img'), {
         zIndex: -2,
         opacity: 0
       });
-      gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.to(orbitActivePlanet, {
+      gsap__WEBPACK_IMPORTED_MODULE_0__.gsap.to(orbitActivePlanet, {
         rotateZ: () => turn % 2 ? '180' : '0',
         scale: () => turn % 2 ? '0.2' : '1',
         onUpdate: () => turn % 2 ? orbitActivePlanet.classList.add('hideit') : orbitActivePlanet.classList.remove('hideit')
       });
-      gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.to(orbitActiveNext, {
+      gsap__WEBPACK_IMPORTED_MODULE_0__.gsap.to(orbitActiveNext, {
         rotateZ: () => turn % 2 ? '180' : '0',
         scale: () => !(turn % 2) ? '0.2' : '1',
         onUpdate: () => !(turn % 2) ? orbitActiveNext.classList.add('hideit') : orbitActiveNext.classList.remove('hideit')
@@ -9918,11 +9928,11 @@ if (contactsInitCont && contactsInitCont.length > 0) {
         return currentIndex % 2;
       }
     }
-    gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.set(orbitActive[currentIndex], {
+    gsap__WEBPACK_IMPORTED_MODULE_0__.gsap.set(orbitActive[currentIndex], {
       zIndex: 2,
       opacity: 1
     });
-    gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.set(orbitNext[currentIndex + 1], {
+    gsap__WEBPACK_IMPORTED_MODULE_0__.gsap.set(orbitNext[currentIndex + 1], {
       zIndex: 2,
       opacity: 1
     });
@@ -10007,338 +10017,220 @@ if (tabs && tabs.length > 0) {
 
 /***/ }),
 
-/***/ "./src/js/components/scroll.js":
-/*!*************************************!*\
-  !*** ./src/js/components/scroll.js ***!
-  \*************************************/
+/***/ "./src/js/components/scroll-new.js":
+/*!*****************************************!*\
+  !*** ./src/js/components/scroll-new.js ***!
+  \*****************************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   delayAnim: () => (/* binding */ delayAnim),
-/* harmony export */   goToOtherSlide: () => (/* binding */ goToOtherSlide),
-/* harmony export */   resetScrollSettings: () => (/* binding */ resetScrollSettings)
-/* harmony export */ });
 /* harmony import */ var _functions_throttle_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../functions/throttle.js */ "./src/js/functions/throttle.js");
 
+
+// -------------------- Глобальные переменные --------------------
 let delta, direction;
-const delatSizeUp = 0;
-const delayAnim = 1300;
-let windPos = 0;
-let navPos = 0;
-let scroll = 0;
-let anim = false;
-let pause = false;
-let checkTopScreen = false;
-let ind = 0;
-let an = false;
-let sc = 0;
-let svc = 0;
-// functions
-let goToOtherSlide = null;
-let resetScrollSettings = null;
-if (window.matchMedia('(min-width: 1025px)').matches) {
-  const siteSlider = document.querySelector('.site-slider');
-  const testiTabs = document.querySelectorAll('.testi-cont__tab');
-  const testiArray = document.querySelector('.testi-cont__arr');
-  testiTabs.forEach((el, idx) => {
-    el.addEventListener('click', e => {
-      goToOtherSlide(idx);
+const delayAnim = 1300; // Задержка на переключение слайдов
+let windPos = 0; // Индекс текущего слайда
+const HOR_SCROLL_STEP = 100; // Шаг прокрутки в hor-scroll
+let anim = false; // Флаг блокировки анимации
+let pause = false; // Пауза прокрутки
+let isPageScrollEnabled = false; // Включение стандартного скролла
+let footerVisible = false; // Флаг видимости футера
+
+let horScrollSec = 0;
+// -------------------- Утилитарные функции --------------------
+
+// Отключение/включение стандартной прокрутки страницы
+const setBodyScroll = enabled => {
+  document.body.style.overflow = enabled ? 'auto' : 'hidden';
+};
+
+// Инициализация слайдов
+const initSlides = siteSlides => {
+  siteSlides.forEach((slide, i) => {
+    slide.style.zIndex = i;
+    slide.style.transform = i === 0 ? 'translateY(0)' : 'translateY(100%)'; // Первый слайд виден, остальные спрячем
+  });
+};
+
+// Смещение к слайду
+const setPosition = (newPos, siteSlides, navItems) => {
+  if (newPos < 0 || newPos >= siteSlides.length) return;
+  const dir = newPos > windPos ? 'down' : 'up';
+
+  // Переключение слайдов
+  if (dir === 'down') {
+    for (let i = windPos; i <= newPos; i++) {
+      siteSlides[i].style.transform = 'translateY(0)';
+    }
+  } else if (dir === 'up') {
+    for (let i = newPos; i < windPos; i++) {
+      siteSlides[i + 1].style.transform = 'translateY(100%)';
+    }
+  }
+  windPos = newPos;
+
+  // Обновляем навигацию
+  setNavItem(windPos, siteSlides, navItems);
+
+  // Отдельно обрабатываем случай последнего слайда
+  // Разрешаем стандартный скролл ТОЛЬКО после завершения анимации
+  if (windPos === siteSlides.length - 1) {
+    setTimeout(() => {
+      isPageScrollEnabled = true;
+      setBodyScroll(true);
+    }, delayAnim); // Включаем стандартный скролл после завершения анимации
+  } else {
+    isPageScrollEnabled = false;
+    setBodyScroll(false); // Отключаем стандартный скролл для всех других слайдов
+  }
+};
+
+// -------------------- Навигация --------------------
+
+// Очистка класса активного элемента навигации
+const clearNav = navItems => {
+  navItems.forEach(el => el.classList.remove('active'));
+};
+
+// Подсветка активного пункта навигации
+const setNavItem = (windPos, siteSlides, navItems) => {
+  clearNav(navItems);
+  const visibleSlides = siteSlides.filter(slide => !slide.classList.contains('nav-disable'));
+  const activeIndex = visibleSlides.indexOf(siteSlides[windPos]);
+  if (activeIndex !== -1 && navItems[activeIndex]) {
+    navItems[activeIndex].classList.add('active');
+  }
+};
+
+// Добавление обработчиков кликов для навигации
+const initNavigationClicks = (navItems, siteSlides) => {
+  navItems.forEach((item, index) => {
+    item.addEventListener('click', e => {
+      e.preventDefault(); // Отключаем стандартное поведение ссылок
+      if (anim) return; // Блокируем, если идёт анимация
+      if (window.scrollY != 0) window.scrollTo(0, 0);
+      setPosition(index, siteSlides, navItems); // Переход к слайду по индексу
     });
   });
-  if (siteSlider) {
-    let siteSlides = siteSlider.querySelectorAll('.site-screen');
-    function setLightBody(flag) {
-      flag ? document.body.classList.add('body-light') : document.body.classList.remove('body-light');
-    }
-    function checkOverflow() {
-      if (siteSlides.length > 1 && window.scrollY == 0) {
-        document.body.style.overflow = 'hidden';
-      }
-    }
-    function checkSlide(slide) {
-      if (slide.classList.contains('site-screen-start')) {
-        siteSlider.classList.add('hide-control');
-      } else {
-        siteSlider.classList.remove('hide-control');
-        document.querySelector('.testi-cont__right') ? document.querySelector('.testi-cont__right').style.opacity = 1 : null;
-      }
-      if (slide.classList.contains('site-screen-light')) {
-        setLightBody(1);
-      } else {
-        setLightBody(0);
-      }
-      if (slide.classList.contains('site-screen-hide-nav')) {
-        siteSlider.classList.add('hide-nav');
-      } else {
-        siteSlider.classList.remove('hide-nav');
-      }
-    }
-    checkOverflow();
-    checkSlide(siteSlides[0]);
-    const nav = document.querySelector('.header__nav:not(.no-active)');
-    let navItems;
-    if (nav) {
-      navItems = nav.querySelectorAll('li:not(.no-clickable)');
-      navItems[0].classList.add('active');
-    }
-    function initSlides() {
-      siteSlides.forEach((slide, i) => {
-        slide.style.zIndex = i;
-        if (i != 0) {
-          slide.style.transform = 'translateY(100%)';
-        }
-      });
-    }
-    initSlides();
-    function mainFunc(e) {
-      delta = e.wheelDeltaY;
-      let scrr = 0;
-      if (delta > 0) {
-        direction = 'up';
-        if (window.scrollY != 0) {
-          window.scrollTo(0, 0);
-        }
-      } else {
-        direction = 'down';
-      }
-      handleScroll();
-    }
-    let func = (0,_functions_throttle_js__WEBPACK_IMPORTED_MODULE_0__.throttle)(mainFunc);
-    window.addEventListener('wheel', func);
+};
 
-    // Логика для навигации сбоку
+// -------------------- Горизонтальная прокрутка (.hor-scroll) --------------------
 
-    function clearNav() {
-      navItems.forEach(el => el.classList.remove('active'));
-    }
-    function initNavigation() {
-      if (nav) {
-        const indices = [];
-        function findIndicesOfOnes() {
-          siteSlides.forEach((value, index) => {
-            if (!value.classList.contains('nav-disable')) {
-              indices.push(index);
-            }
-          });
-          return indices;
-        }
-        findIndicesOfOnes();
-        console.log(indices);
-        navItems.forEach((item, index) => {
-          item.addEventListener('click', e => {
-            e.preventDefault();
-            if (!checkNavDisabled()) {
-              goToOtherSlide(indices[index]);
-              setNavItem(index);
-              if (index != navItems.length - 1) {
-                window.scrollTo(0, 0);
-                disableScrollSlides();
-              }
-            }
-          });
-        });
-      }
-    }
-    initNavigation();
-    resetScrollSettings = () => {
-      windPos = 0;
-      navPos = 0;
-      siteSlides = siteSlider.querySelectorAll('.site-screen');
-      initSlides();
-      initNavigation();
-    };
-    goToOtherSlide = slideIndex => {
-      setPosition(slideIndex);
-      goToSlide();
-    };
-    const renewPosSlidesDown = (start, end) => {
-      for (let i = start; i < end; i++) {
-        siteSlides[i].style.transform = 'translateY(0)';
-      }
-    };
-    const renewPosSlidesUp = (start, end) => {
-      for (let i = start; i < end; i++) {
-        siteSlides[i].style.transform = 'translateY(100%)';
-      }
-    };
-    function setPosition(newPos) {
-      if (newPos > windPos) {
-        direction = 'down';
-        renewPosSlidesDown(windPos, newPos);
-        windPos = newPos - 1;
-      } else if (newPos < windPos) {
-        direction = 'up';
-        renewPosSlidesUp(newPos + 1, windPos + 1);
-        windPos = newPos + 1;
-      } else return;
-    }
-
-    // Подсветка активного пункта навигации
-    function setNavItem(pos) {
-      clearNav();
-      navPos = pos;
-      navItems[navPos].classList.add('active');
-    }
-    function checkNavDisabled() {
-      return nav && nav.classList.contains('disabled');
-    }
-    function isEnd() {
-      return direction == 'down' && windPos == siteSlides.length - 1;
-    }
-    function disableScrollSlides() {
-      if (isEnd()) {
-        setTimeout(() => {
-          pause = true;
-          document.body.style.overflow = null;
-        }, delayAnim);
-      } else {
-        document.body.style.overflow = 'hidden';
-      }
-    }
-    function handleScroll() {
-      handleVars();
-      if (!anim && !pause) {
-        goToSlide();
-      }
-    }
-    function handleVars() {
-      // Проверяем высоту слайда, если выше - включаем в него скролл
-      const currentSection = siteSlides[windPos].querySelector('section');
-      const horScroll = currentSection?.querySelector('.hor-scroll');
-      if (horScroll) {
-        const horScrollContainer = currentSection.querySelector('.hor-scroll-container');
-        let finish = horScroll.scrollWidth - horScrollContainer.clientWidth;
-        const STEP = 20;
-        if (horScroll.scrollWidth > horScrollContainer.clientWidth) {
-          function horWheel(e) {
-            pause = true;
-            if (e.wheelDeltaY < 0) {
-              scroll -= STEP;
-              scroll = Math.max(scroll, -finish);
-              horScroll.style.transform = `translateX(${scroll}px)`;
-              horScroll.addEventListener('transitionend', e => {
-                if (scroll == -finish) {
-                  pause = false;
-                  currentSection.removeEventListener('wheel', horWheel);
-                }
-              });
-            } else if (e.wheelDeltaY > 0) {
-              scroll += STEP;
-              scroll = Math.min(scroll, 0);
-              horScroll.style.transform = `translateX(${scroll}px)`;
-              horScroll.addEventListener('transitionend', e => {
-                if (scroll == 0) {
-                  pause = false;
-                  currentSection.removeEventListener('wheel', horWheel);
-                }
-              });
-            }
-          }
-          currentSection.addEventListener('wheel', horWheel);
-        }
-      }
-      if (currentSection && currentSection.scrollHeight > window.innerHeight) {
-        pause = true;
-        if (direction == 'down' && currentSection.scrollHeight - currentSection.scrollTop >= currentSection.clientHeight - 20) {
-          pause = false;
-        } else if (direction == 'up' && currentSection.scrollTop <= 1) {
-          pause = false;
-        }
-        currentSection.addEventListener('wheel', e => {
-          if (e.wheelDeltaY < 0 && currentSection.scrollHeight - currentSection.scrollTop === currentSection.clientHeight) {
-            setTimeout(() => {
-              pause = false;
-            }, 300);
-          } else if (e.wheelDeltaY > 0 && currentSection.scrollTop == 0) {
-            setTimeout(() => {
-              pause = false;
-            }, 300);
-          }
-        });
-      }
-    }
-    function changeOpacity() {
-      if (direction == 'down') {
-        if (siteSlides[windPos - 1].querySelector('.hide-side') && siteSlides[windPos].querySelector('.hide-side')) {
-          siteSlides[windPos - 1].querySelector('.hide-side').style.opacity = 0;
-          siteSlides[windPos].querySelector('.hide-side').style.opacity = 1;
-        }
-      } else {
-        if (siteSlides[windPos + 1].querySelector('.hide-side') && siteSlides[windPos].querySelector('.hide-side')) {
-          siteSlides[windPos + 1].querySelector('.hide-side').style.opacity = 0;
-          siteSlides[windPos].querySelector('.hide-side').style.opacity = 1;
-        }
-      }
-    }
-    // Переход к следующим слайдам относительно winPos
-    function goToSlide() {
-      anim = true;
-      let target;
-      if (direction == 'down' && windPos + 1 != siteSlides.length) {
-        if (nav && !siteSlides[windPos].classList.contains('nav-disable') && navPos + 1 < navItems.length) navPos++;
-        target = siteSlides[++windPos];
-        setTimeout(() => {
-          target.style.transform = 'translateY(0%)';
-        }, delatSizeUp);
-      } else if (direction == 'up' && windPos - 1 > -1) {
-        if (nav && !siteSlides[windPos].classList.contains('nav-disable') && navPos - 1 > -1) navPos--;
-        target = siteSlides[windPos--];
-        setTimeout(() => {
-          target.style.transform = 'translateY(100%)';
-        }, delatSizeUp);
-      }
-      const contGrad = siteSlider.querySelector('.testi-cont-grad');
-      if (contGrad) {
-        if (windPos == siteSlides.length - 1) {
-          if (siteSlider.classList.contains('grad')) {
-            contGrad.style.background = 'linear-gradient(180deg, #fff 0%, #dcecff 100%)';
-          }
-        } else {
-          contGrad.style.background = null;
-        }
-      }
-      changeOpacity();
-      if (target) {
-        target.classList.add('active');
-        checkSlide(siteSlides[windPos]);
-      }
-      if (testiArray) {
-        if (navPos != 0) {
-          testiTabs[0].classList.remove('active');
-          testiTabs[1].classList.add('active');
-          testiArray.style.transform = 'translate(-50%, 40vh)';
-        } else {
-          testiTabs[1].classList.remove('active');
-          testiTabs[0].classList.add('active');
-          testiArray.style.transform = 'translate(-50%, 0)';
-        }
-      }
-      if (nav) {
-        setNavItem(navPos);
-      }
-      if (target == siteSlides[siteSlides.length - 1]) {
-        disableScrollSlides();
-      }
-      setTimeout(() => {
-        anim = false;
-        target?.classList.remove('active');
-        direction == 'down' && !pause;
-      }, delayAnim);
-
-      // Если слайд последний и скролл вниз включаем обычный скролл
-    }
-    window.addEventListener('scroll', e => {
-      if (pause && window.scrollY == 0 && direction == 'up') {
-        checkOverflow();
-        setTimeout(() => {
-          pause = false;
-        }, 300);
-      } else {}
+// Карта для хранения состояния translateX каждого элемента .hor-scroll
+const horizontalState = new WeakMap();
+const initHorizontalState = element => {
+  if (!horizontalState.has(element)) {
+    horizontalState.set(element, {
+      currentTranslateX: 0
     });
   }
-}
+};
+const handleHorizontalScroll = (horScroll, delta) => {
+  const state = horizontalState.get(horScroll);
+  const horContainerWidth = horScroll.parentElement.clientWidth;
+  const maxTranslateX = horScroll.scrollWidth - horContainerWidth; // Крайняя точка вправо
 
+  let newTranslateX = state.currentTranslateX;
+  // Прокрутка вниз (вправо)
+  if (delta < 0) {
+    horScrollSec += HOR_SCROLL_STEP;
+    horScrollSec = Math.min(maxTranslateX, horScrollSec);
+  }
+  // Прокрутка вверх (влево)
+  else if (delta > 0) {
+    horScrollSec -= HOR_SCROLL_STEP;
+    horScrollSec = Math.max(0, horScrollSec);
+  }
+  horScroll.style.transform = `translateX(-${horScrollSec}px)`;
+  state.currentTranslateX = newTranslateX;
+
+  // Возвращаем статус прокрутки
+  if (horScrollSec === maxTranslateX) return 'endRight';
+  if (horScrollSec === 0) return 'endLeft';
+  return 'inProgress';
+};
+
+// -------------------- Обработка прокрутки --------------------
+
+const handleScroll = (siteSlides, navItems) => {
+  if (anim || pause || isPageScrollEnabled) return;
+  const currentSlide = siteSlides[windPos];
+  const horScroll = currentSlide.querySelector('.hor-scroll');
+  if (horScroll) {
+    initHorizontalState(horScroll);
+    const scrollStatus = handleHorizontalScroll(horScroll, delta);
+    if (scrollStatus === 'endRight' && delta < 0) {
+      setPosition(windPos + 1, siteSlides, navItems);
+    } else if (scrollStatus === 'endLeft' && delta > 0) {
+      setPosition(windPos - 1, siteSlides, navItems);
+    }
+    return; // Прекращаем выполнение, так как был обработан hor-scroll
+  }
+
+  // Если нет hor-scroll, продолжаем работу эталонного кода
+  anim = true;
+  if (direction === 'down' && windPos + 1 < siteSlides.length) {
+    setPosition(windPos + 1, siteSlides, navItems);
+  } else if (direction === 'up' && windPos - 1 >= 0) {
+    setPosition(windPos - 1, siteSlides, navItems);
+  }
+  setTimeout(() => {
+    anim = false;
+  }, delayAnim);
+};
+
+// Основное событие прокрутки
+const mainFunc = (e, siteSlides, navItems) => {
+  delta = e.wheelDeltaY || -e.deltaY;
+  direction = delta > 0 ? 'up' : 'down';
+  handleScroll(siteSlides, navItems);
+};
+
+// -------------------- Инициализация --------------------
+document.addEventListener('DOMContentLoaded', () => {
+  if (!window.matchMedia('(min-width: 1025px)').matches) return;
+  const siteSlider = document.querySelector('.site-slider');
+  const footer = document.querySelector('footer');
+  if (!siteSlider) {
+    console.warn('Site slider not found');
+    return;
+  }
+  const siteSlides = Array.from(siteSlider.querySelectorAll('.site-screen'));
+  const nav = document.querySelector('.header__nav:not(.no-active)');
+  const navItems = nav ? Array.from(nav.querySelectorAll('li:not(.no-clickable)')) : [];
+  if (siteSlides.length > 1) {
+    setBodyScroll(false);
+    initSlides(siteSlides);
+    initNavigationClicks(navItems, siteSlides); // Инициализация кликов по навигации
+
+    const footerObserver = new IntersectionObserver(entries => {
+      footerVisible = entries.some(entry => entry.isIntersecting);
+      if (footerVisible) {
+        isPageScrollEnabled = true;
+        setBodyScroll(true); // Включаем стандартный скролл, если виден футер
+      } else if (windPos < siteSlides.length - 1) {
+        isPageScrollEnabled = false;
+        setBodyScroll(false); // Отключаем стандартный скролл
+      }
+    }, {
+      threshold: 0.1
+    });
+    if (footer) footerObserver.observe(footer);
+    const throttledMainFunc = (0,_functions_throttle_js__WEBPACK_IMPORTED_MODULE_0__.throttle)(e => mainFunc(e, siteSlides, navItems), 300);
+    window.addEventListener('wheel', throttledMainFunc);
+    window.addEventListener('scroll', () => {
+      if (isPageScrollEnabled && window.scrollY === 0 && !footerVisible) {
+        isPageScrollEnabled = false;
+        setBodyScroll(false);
+        pause = false;
+      }
+    });
+  } else {
+    console.log('Insufficient slides detected: enabling standard page scroll.');
+    setBodyScroll(true);
+  }
+});
 
 /***/ }),
 

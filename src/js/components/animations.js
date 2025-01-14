@@ -1,40 +1,34 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger.js';
-import {
-  goToOtherSlide,
-  delayAnim,
-  resetScrollSettings,
-} from './scroll.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const timeline = gsap.timeline({
-  onComplete: () => {
-    const rmAnimating = document.querySelector(
-      '.site-screen-rm',
-    );
-    window.matchMedia('(min-width: 1025px)').matches
-      ? goToOtherSlide(1)
-      : null;
-    if (
-      document.querySelector(
-        '.swiper-slide-active .prod-items__arr',
-      )
-    ) {
-      animateArrow(
-        document.querySelector(
-          '.swiper-slide-active .prod-items__arr',
-        ),
-      );
-    }
-    if (rmAnimating && window.matchMedia('(min-width: 1025px)').matches) {
-
-      setTimeout(() => {
-        rmAnimating.remove();
-        resetScrollSettings();
-      }, delayAnim + 10);
-    }
-  },
+  // onComplete: () => {
+  //   const rmAnimating = document.querySelector(
+  //     '.site-screen-rm',
+  //   );
+  //   window.matchMedia('(min-width: 1025px)').matches
+  //     ? goToOtherSlide(1)
+  //     : null;
+  //   if (
+  //     document.querySelector(
+  //       '.swiper-slide-active .prod-items__arr',
+  //     )
+  //   ) {
+  //     animateArrow(
+  //       document.querySelector(
+  //         '.swiper-slide-active .prod-items__arr',
+  //       ),
+  //     );
+  //   }
+  //   if (rmAnimating && window.matchMedia('(min-width: 1025px)').matches) {
+  //     setTimeout(() => {
+  //       rmAnimating.remove();
+  //       resetScrollSettings();
+  //     }, delayAnim + 10);
+  //   }
+  // },
 });
 
 const animateSpan = document.querySelectorAll(

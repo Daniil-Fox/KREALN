@@ -320,14 +320,14 @@ if (window.matchMedia('(min-width: 1025px)').matches) {
           ) {
             setTimeout(() => {
               pause = false;
-            }, 300);
+            }, 0);
           } else if (
             e.wheelDeltaY > 0 &&
             currentSection.scrollTop == 0
           ) {
             setTimeout(() => {
               pause = false;
-            }, 300);
+            }, 0);
           }
         });
       }
@@ -457,7 +457,7 @@ if (window.matchMedia('(min-width: 1025px)').matches) {
 
         setTimeout(() => {
           pause = false;
-        }, 300);
+        }, 0);
       } else {
       }
     });

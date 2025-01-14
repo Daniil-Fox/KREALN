@@ -1,6 +1,6 @@
 // import './components/gsap.js'
 import './components/sliders.js';
-import './components/scroll.js';
+import './components/scroll-new.js';
 import './components/animations.js';
 import './components/survey.js';
 import './components/contacts-tab.js';
