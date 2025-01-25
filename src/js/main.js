@@ -1,5 +1,5 @@
 import './_components.js';
-
+import Rellax from 'rellax';
 const service = document.querySelectorAll('.service');
 if (service.length > 0) {
   service.forEach((section) => {
@@ -73,3 +73,12 @@ if (attachResume.length > 0) {
     });
   });
 }
+
+var rellax = new Rellax('.rellax', {
+  speed: 2,
+  center: false,
+  wrapper: '.news-section',
+  round: true,
+  vertical: true,
+  horizontal: false,
+});

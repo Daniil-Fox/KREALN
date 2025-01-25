@@ -91,10 +91,24 @@
 }
 
 .news-item {
+  transition: 0.5s linear;
+  // background-color: #fff;
+  box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.1);
+  @include hover {
+    background-color: #dcecff;
+  }
   &__img {
     height: 51.2rem;
-    margin-bottom: 4rem;
-
+    // margin-bottom: 4rem;
+    clip-path: polygon(
+      100% 0,
+      100% 23%,
+      35% 100%,
+      0 66%,
+      0 0
+    );
+    background-color: #fff;
+    transition: 0.3s ease-in-out;
     @include tablet {
       height: 22rem;
       margin-bottom: 1rem;
@@ -106,7 +120,9 @@
       width: 100%;
     }
   }
-
+  &__info {
+    padding: 2rem;
+  }
   &__date {
     display: block;
     margin-bottom: 1rem;
