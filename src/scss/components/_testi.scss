@@ -46,11 +46,13 @@
 
 .testi-cont {
   height: 100%;
-  background: #fff;
+
   overflow-y: auto;
 
-  transition: background .3s ease-in-out .3s;
-
+  transition: background 0.3s ease-in-out 0.3s;
+  &--bg {
+    background: #fff;
+  }
   @include tablet {
     display: none;
   }
@@ -72,29 +74,29 @@
 .testi-cont__title {
   text-align: center;
   margin-bottom: 6rem;
-
-
 }
 
 .testi-cont__right {
+  position: sticky;
+  top: 0;
   padding: 12rem 5rem;
-  height: 100%;
-  position: absolute;
+  height: 100vh;
   z-index: 10;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  top: 0;
-  right: 15rem;
   width: 53rem;
   flex: 1;
-  opacity: 0;
   overflow: hidden;
-  transition: opacity .3s ease-in-out .3s;
+  transition: opacity 0.3s ease-in-out 0.3s;
   // position: relative;
-  @include tablet{ display: none;}
+  @include tablet {
+    display: none;
+  }
 }
-
+.site-screen-grad .testi-cont__right {
+  opacity: 0;
+}
 .testi-cont__tab {
   font-weight: 600;
   font-size: 3.6rem;
@@ -106,7 +108,7 @@
   margin-top: 33rem;
   position: relative;
   z-index: 2;
-  cursor: pointer;
+  // cursor: pointer;
   &::before {
     content: '';
     position: absolute;
@@ -164,7 +166,6 @@
   }
 }
 
-
 .testi-cont__elems {
   max-width: 60rem;
   margin: 0 auto;
@@ -217,7 +218,7 @@
     flex-shrink: 0;
 
     @include tablet {
-      width: .8rem;
+      width: 0.8rem;
       height: 0.8rem;
     }
   }
@@ -238,19 +239,22 @@
   // width: 123.5rem;
 }
 
-
 .testi-mob {
   display: none;
   padding: 3rem 0;
   padding-bottom: 8rem;
-  background: linear-gradient(180deg, #fff 0%, #dcecff 100%);
+  background: linear-gradient(
+    180deg,
+    #fff 0%,
+    #dcecff 100%
+  );
 
   &__title {
     text-align: center;
     margin-bottom: 3rem;
   }
   &__block {
-    &:not(:last-child){
+    &:not(:last-child) {
       margin-bottom: 3rem;
     }
   }

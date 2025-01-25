@@ -1,4 +1,5 @@
 import './_components.js';
+
 const service = document.querySelectorAll('.service');
 if (service.length > 0) {
   service.forEach((section) => {

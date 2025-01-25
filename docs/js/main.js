@@ -9631,31 +9631,11 @@ __webpack_require__.r(__webpack_exports__);
 
 gsap__WEBPACK_IMPORTED_MODULE_0__.gsap.registerPlugin(gsap_ScrollTrigger_js__WEBPACK_IMPORTED_MODULE_1__.ScrollTrigger);
 const timeline = gsap__WEBPACK_IMPORTED_MODULE_0__.gsap.timeline({
-  // onComplete: () => {
-  //   const rmAnimating = document.querySelector(
-  //     '.site-screen-rm',
-  //   );
-  //   window.matchMedia('(min-width: 1025px)').matches
-  //     ? goToOtherSlide(1)
-  //     : null;
-  //   if (
-  //     document.querySelector(
-  //       '.swiper-slide-active .prod-items__arr',
-  //     )
-  //   ) {
-  //     animateArrow(
-  //       document.querySelector(
-  //         '.swiper-slide-active .prod-items__arr',
-  //       ),
-  //     );
-  //   }
-  //   if (rmAnimating && window.matchMedia('(min-width: 1025px)').matches) {
-  //     setTimeout(() => {
-  //       rmAnimating.remove();
-  //       resetScrollSettings();
-  //     }, delayAnim + 10);
-  //   }
-  // },
+  onComplete: () => {
+    if (document.querySelector('.swiper-slide-active .prod-items__arr')) {
+      animateArrow(document.querySelector('.swiper-slide-active .prod-items__arr'));
+    }
+  }
 });
 const animateSpan = document.querySelectorAll('.animate-title span');
 animateSpan.forEach((el, i) => {
@@ -10025,37 +10005,146 @@ if (tabs && tabs.length > 0) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions_throttle_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../functions/throttle.js */ "./src/js/functions/throttle.js");
+/* harmony import */ var lenis__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lenis */ "./node_modules/lenis/dist/lenis.mjs");
 
 
 // -------------------- Глобальные переменные --------------------
 let delta, direction;
-const delayAnim = 1300; // Задержка на переключение слайдов
+const delayAnim = 700; // Задержка на переключение слайдов
 let windPos = 0; // Индекс текущего слайда
 const HOR_SCROLL_STEP = 100; // Шаг прокрутки в hor-scroll
 let anim = false; // Флаг блокировки анимации
 let pause = false; // Пауза прокрутки
 let isPageScrollEnabled = false; // Включение стандартного скролла
 let footerVisible = false; // Флаг видимости футера
-
+const testiTabs = document.querySelectorAll('.testi-cont__tab');
+const testiArray = document.querySelectorAll('.testi-cont__arr');
 let horScrollSec = 0;
 // -------------------- Утилитарные функции --------------------
+// Проверяем, длиннее ли текущий слайд экрана
+function isLongSlide(slide) {
+  return slide.scrollHeight > window.innerHeight;
+}
+function handleLongSlideScroll(slide, delta) {
+  const maxScroll = slide.scrollHeight - slide.clientHeight; // Максимальная прокрутка (нижняя граница)
+  const currentScroll = slide.scrollTop; // Текущая позиция прокрутки внутри слайда
+
+  // Скролл вниз
+  if (delta > 0) {
+    if (currentScroll < maxScroll) {
+      slide.scrollTop = Math.min(currentScroll + delta, maxScroll);
+      return 'inProgress'; // Все еще прокручиваем внутри слайда
+    }
+    // Если доскролили до низа, разрешаем перейти к футеру
+    return 'end';
+  }
+
+  // Скролл вверх
+  if (delta < 0) {
+    if (currentScroll > 0) {
+      slide.scrollTop = Math.max(currentScroll + delta, 0);
+      return 'inProgress'; // Прокрутка внутри слайда
+    }
+    // Если доскролили до верха, разрешаем перейти к предыдущему слайду
+    return 'start';
+  }
+  return 'none'; // Ниже или выше границ
+}
+function changeOpacity(newPos, direction, siteSlides) {
+  // Если листаем вниз
+  if (direction === 'down') {
+    // Скрываем предыдущий слайд
+    if (newPos > 0 && siteSlides[newPos - 1]?.querySelector('.hide-side')) {
+      siteSlides[newPos - 1].querySelector('.hide-side').style.opacity = 0;
+    }
+    // Показываем текущий слайд
+    if (siteSlides[newPos]?.querySelector('.hide-side')) {
+      siteSlides[newPos].querySelector('.hide-side').style.opacity = 1;
+    }
+  }
+
+  // Если листаем вверх
+  if (direction === 'up') {
+    // Скрываем следующий слайд
+    if (newPos < siteSlides.length - 1 && siteSlides[newPos + 1]?.querySelector('.hide-side')) {
+      siteSlides[newPos + 1].querySelector('.hide-side').style.opacity = 0;
+    }
+    // Показываем текущий слайд
+    if (siteSlides[newPos]?.querySelector('.hide-side')) {
+      siteSlides[newPos].querySelector('.hide-side').style.opacity = 1;
+    }
+  }
+}
+
+// Обновление состояния навигации
+function updateNavigation(navItems, newPos) {
+  navItems.forEach((item, index) => {
+    item.classList.toggle('active', index === newPos); // Устанавливаем активный элемент навигации
+  });
+}
+if (window.matchMedia('(max-width: 768px)').matches) {
+  // Initialize Lenis
+  const lenis = new lenis__WEBPACK_IMPORTED_MODULE_1__["default"]();
+
+  // Use requestAnimationFrame to continuously update the scroll
+  function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
+}
 
 // Отключение/включение стандартной прокрутки страницы
 const setBodyScroll = enabled => {
   document.body.style.overflow = enabled ? 'auto' : 'hidden';
 };
-
+// -------------------- Управляем классом body-light --------------------
+function setLightBody(flag) {
+  flag ? document.body.classList.add('body-light') : document.body.classList.remove('body-light');
+}
 // Инициализация слайдов
 const initSlides = siteSlides => {
   siteSlides.forEach((slide, i) => {
     slide.style.zIndex = i;
-    slide.style.transform = i === 0 ? 'translateY(0)' : 'translateY(100%)'; // Первый слайд виден, остальные спрячем
+    if (i !== 0) {
+      slide.style.transform = 'translateY(100%)';
+    }
+
+    // Устанавливаем класс `body-light` для начального слайда (если это первый слайд при загрузке)
+    if (i === 0) {
+      if (slide.classList.contains('site-screen-light')) {
+        setLightBody(1);
+      } else {
+        setLightBody(0);
+      }
+    }
   });
 };
 
 // Смещение к слайду
 const setPosition = (newPos, siteSlides, navItems) => {
   if (newPos < 0 || newPos >= siteSlides.length) return;
+  if (newPos > windPos && isLongSlide(siteSlides[windPos]) && siteSlides[windPos].scrollTop < siteSlides[windPos].scrollHeight - siteSlides[windPos].clientHeight) {
+    return;
+  }
+  if (newPos < windPos && isLongSlide(siteSlides[windPos]) && siteSlides[windPos].scrollTop > 0) {
+    return;
+  }
+  if (testiArray.length > 0) {
+    if (newPos != 1) {
+      testiTabs[0].classList.remove('active');
+      testiTabs[1].classList.add('active');
+      testiArray.forEach(el => {
+        el.style.transform = 'translate(-50%, 40vh)';
+      });
+    } else {
+      testiTabs[1].classList.remove('active');
+      testiTabs[0].classList.add('active');
+      testiArray.forEach(el => {
+        el.style.transform = 'translate(-50%, 0)';
+      });
+    }
+  }
   const dir = newPos > windPos ? 'down' : 'up';
 
   // Переключение слайдов
@@ -10069,7 +10158,12 @@ const setPosition = (newPos, siteSlides, navItems) => {
     }
   }
   windPos = newPos;
-
+  changeOpacity(newPos, dir, siteSlides);
+  if (siteSlides[windPos].classList.contains('site-screen-light')) {
+    setLightBody(1);
+  } else {
+    setLightBody(0);
+  }
   // Обновляем навигацию
   setNavItem(windPos, siteSlides, navItems);
 
@@ -10088,29 +10182,43 @@ const setPosition = (newPos, siteSlides, navItems) => {
 
 // -------------------- Навигация --------------------
 
-// Очистка класса активного элемента навигации
+// Функция очистки активного класса у всех элементов навигации
 const clearNav = navItems => {
   navItems.forEach(el => el.classList.remove('active'));
 };
 
-// Подсветка активного пункта навигации
+// Установка активного пункта навигации
 const setNavItem = (windPos, siteSlides, navItems) => {
   clearNav(navItems);
+
+  // Собираем список видимых слайдов (без nav-disable)
   const visibleSlides = siteSlides.filter(slide => !slide.classList.contains('nav-disable'));
+
+  // Определяем индекс активного слайда среди "видимых" слайдов
   const activeIndex = visibleSlides.indexOf(siteSlides[windPos]);
+
+  // Если индекс существующий, подсвечиваем соответствующий элемент навигации
   if (activeIndex !== -1 && navItems[activeIndex]) {
     navItems[activeIndex].classList.add('active');
   }
 };
 
-// Добавление обработчиков кликов для навигации
+// Инициализация кликов по элементам навигации
 const initNavigationClicks = (navItems, siteSlides) => {
-  navItems.forEach((item, index) => {
+  // Собираем список только видимых слайдов
+  const visibleSlides = siteSlides.filter(slide => !slide.classList.contains('nav-disable'));
+  navItems.forEach((item, visibleIndex) => {
     item.addEventListener('click', e => {
-      e.preventDefault(); // Отключаем стандартное поведение ссылок
-      if (anim) return; // Блокируем, если идёт анимация
-      if (window.scrollY != 0) window.scrollTo(0, 0);
-      setPosition(index, siteSlides, navItems); // Переход к слайду по индексу
+      e.preventDefault();
+
+      // Находим реальный индекс слайда в общем массиве слайдов
+      const targetSlide = visibleSlides[visibleIndex];
+      const realIndex = siteSlides.indexOf(targetSlide);
+
+      // Если реальный индекс найден, переключаемся на слайд
+      if (realIndex !== -1) {
+        setPosition(realIndex, siteSlides, navItems);
+      }
     });
   });
 };
@@ -10199,6 +10307,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const siteSlides = Array.from(siteSlider.querySelectorAll('.site-screen'));
   const nav = document.querySelector('.header__nav:not(.no-active)');
   const navItems = nav ? Array.from(nav.querySelectorAll('li:not(.no-clickable)')) : [];
+  if (document.querySelector('.site-screen-start')) {
+    setTimeout(() => {
+      setPosition(windPos + 1, siteSlides, navItems);
+    }, 1500);
+  }
   if (siteSlides.length > 1) {
     setBodyScroll(false);
     initSlides(siteSlides);
@@ -10264,10 +10377,27 @@ function nextTab(tab) {
   }, '-=0.5');
 }
 swiper__WEBPACK_IMPORTED_MODULE_0__.Swiper.use([swiper_modules__WEBPACK_IMPORTED_MODULE_1__.Navigation, swiper_modules__WEBPACK_IMPORTED_MODULE_1__.Pagination, swiper_modules__WEBPACK_IMPORTED_MODULE_1__.Autoplay, swiper_modules__WEBPACK_IMPORTED_MODULE_1__.FreeMode, swiper_modules__WEBPACK_IMPORTED_MODULE_1__.EffectFade, swiper_modules__WEBPACK_IMPORTED_MODULE_1__.Grid, swiper_modules__WEBPACK_IMPORTED_MODULE_1__.Mousewheel]);
-new swiper__WEBPACK_IMPORTED_MODULE_0__.Swiper('.research__slider', {
+const swiperContainer = document.querySelector('.research__slider .swiper-wrapper');
+let slides = null;
+if (swiperContainer) {
+  slides = Array.from(swiperContainer.children);
+}
+
+// Проверяем, если слайдов меньше 4
+if (slides && slides.length < 4) {
+  // Дублируем слайды
+  const clonesNeeded = 4 - slides.length;
+  for (let i = 0; i < clonesNeeded; i++) {
+    // Получаем копию и добавляем в контейнер
+    const clone = slides[i % slides.length].cloneNode(true);
+    swiperContainer.appendChild(clone);
+  }
+}
+const researchSlider = new swiper__WEBPACK_IMPORTED_MODULE_0__.Swiper('.research__slider', {
   slidesPerView: 'auto',
   centeredSlides: true,
   loop: true,
+  loopFillGroupWithBlank: true,
   spaceBetween: 20,
   speed: 500,
   autoplay: {
@@ -10562,6 +10692,951 @@ const throttle = function (func) {
     }, delay);
   };
 };
+
+/***/ }),
+
+/***/ "./node_modules/lenis/dist/lenis.mjs":
+/*!*******************************************!*\
+  !*** ./node_modules/lenis/dist/lenis.mjs ***!
+  \*******************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Lenis)
+/* harmony export */ });
+// package.json
+var version = "1.1.20";
+
+// packages/core/src/maths.ts
+function clamp(min, input, max) {
+  return Math.max(min, Math.min(input, max));
+}
+function lerp(x, y, t) {
+  return (1 - t) * x + t * y;
+}
+function damp(x, y, lambda, deltaTime) {
+  return lerp(x, y, 1 - Math.exp(-lambda * deltaTime));
+}
+function modulo(n, d) {
+  return (n % d + d) % d;
+}
+
+// packages/core/src/animate.ts
+var Animate = class {
+  isRunning = false;
+  value = 0;
+  from = 0;
+  to = 0;
+  currentTime = 0;
+  // These are instanciated in the fromTo method
+  lerp;
+  duration;
+  easing;
+  onUpdate;
+  /**
+   * Advance the animation by the given delta time
+   *
+   * @param deltaTime - The time in seconds to advance the animation
+   */
+  advance(deltaTime) {
+    if (!this.isRunning) return;
+    let completed = false;
+    if (this.duration && this.easing) {
+      this.currentTime += deltaTime;
+      const linearProgress = clamp(0, this.currentTime / this.duration, 1);
+      completed = linearProgress >= 1;
+      const easedProgress = completed ? 1 : this.easing(linearProgress);
+      this.value = this.from + (this.to - this.from) * easedProgress;
+    } else if (this.lerp) {
+      this.value = damp(this.value, this.to, this.lerp * 60, deltaTime);
+      if (Math.round(this.value) === this.to) {
+        this.value = this.to;
+        completed = true;
+      }
+    } else {
+      this.value = this.to;
+      completed = true;
+    }
+    if (completed) {
+      this.stop();
+    }
+    this.onUpdate?.(this.value, completed);
+  }
+  /** Stop the animation */
+  stop() {
+    this.isRunning = false;
+  }
+  /**
+   * Set up the animation from a starting value to an ending value
+   * with optional parameters for lerping, duration, easing, and onUpdate callback
+   *
+   * @param from - The starting value
+   * @param to - The ending value
+   * @param options - Options for the animation
+   */
+  fromTo(from, to, { lerp: lerp2, duration, easing, onStart, onUpdate }) {
+    this.from = this.value = from;
+    this.to = to;
+    this.lerp = lerp2;
+    this.duration = duration;
+    this.easing = easing;
+    this.currentTime = 0;
+    this.isRunning = true;
+    onStart?.();
+    this.onUpdate = onUpdate;
+  }
+};
+
+// packages/core/src/debounce.ts
+function debounce(callback, delay) {
+  let timer;
+  return function(...args) {
+    let context = this;
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      timer = void 0;
+      callback.apply(context, args);
+    }, delay);
+  };
+}
+
+// packages/core/src/dimensions.ts
+var Dimensions = class {
+  constructor(wrapper, content, { autoResize = true, debounce: debounceValue = 250 } = {}) {
+    this.wrapper = wrapper;
+    this.content = content;
+    if (autoResize) {
+      this.debouncedResize = debounce(this.resize, debounceValue);
+      if (this.wrapper instanceof Window) {
+        window.addEventListener("resize", this.debouncedResize, false);
+      } else {
+        this.wrapperResizeObserver = new ResizeObserver(this.debouncedResize);
+        this.wrapperResizeObserver.observe(this.wrapper);
+      }
+      this.contentResizeObserver = new ResizeObserver(this.debouncedResize);
+      this.contentResizeObserver.observe(this.content);
+    }
+    this.resize();
+  }
+  width = 0;
+  height = 0;
+  scrollHeight = 0;
+  scrollWidth = 0;
+  // These are instanciated in the constructor as they need information from the options
+  debouncedResize;
+  wrapperResizeObserver;
+  contentResizeObserver;
+  destroy() {
+    this.wrapperResizeObserver?.disconnect();
+    this.contentResizeObserver?.disconnect();
+    if (this.wrapper === window && this.debouncedResize) {
+      window.removeEventListener("resize", this.debouncedResize, false);
+    }
+  }
+  resize = () => {
+    this.onWrapperResize();
+    this.onContentResize();
+  };
+  onWrapperResize = () => {
+    if (this.wrapper instanceof Window) {
+      this.width = window.innerWidth;
+      this.height = window.innerHeight;
+    } else {
+      this.width = this.wrapper.clientWidth;
+      this.height = this.wrapper.clientHeight;
+    }
+  };
+  onContentResize = () => {
+    if (this.wrapper instanceof Window) {
+      this.scrollHeight = this.content.scrollHeight;
+      this.scrollWidth = this.content.scrollWidth;
+    } else {
+      this.scrollHeight = this.wrapper.scrollHeight;
+      this.scrollWidth = this.wrapper.scrollWidth;
+    }
+  };
+  get limit() {
+    return {
+      x: this.scrollWidth - this.width,
+      y: this.scrollHeight - this.height
+    };
+  }
+};
+
+// packages/core/src/emitter.ts
+var Emitter = class {
+  events = {};
+  /**
+   * Emit an event with the given data
+   * @param event Event name
+   * @param args Data to pass to the event handlers
+   */
+  emit(event, ...args) {
+    let callbacks = this.events[event] || [];
+    for (let i = 0, length = callbacks.length; i < length; i++) {
+      callbacks[i]?.(...args);
+    }
+  }
+  /**
+   * Add a callback to the event
+   * @param event Event name
+   * @param cb Callback function
+   * @returns Unsubscribe function
+   */
+  on(event, cb) {
+    this.events[event]?.push(cb) || (this.events[event] = [cb]);
+    return () => {
+      this.events[event] = this.events[event]?.filter((i) => cb !== i);
+    };
+  }
+  /**
+   * Remove a callback from the event
+   * @param event Event name
+   * @param callback Callback function
+   */
+  off(event, callback) {
+    this.events[event] = this.events[event]?.filter((i) => callback !== i);
+  }
+  /**
+   * Remove all event listeners and clean up
+   */
+  destroy() {
+    this.events = {};
+  }
+};
+
+// packages/core/src/virtual-scroll.ts
+var LINE_HEIGHT = 100 / 6;
+var listenerOptions = { passive: false };
+var VirtualScroll = class {
+  constructor(element, options = { wheelMultiplier: 1, touchMultiplier: 1 }) {
+    this.element = element;
+    this.options = options;
+    window.addEventListener("resize", this.onWindowResize, false);
+    this.onWindowResize();
+    this.element.addEventListener("wheel", this.onWheel, listenerOptions);
+    this.element.addEventListener(
+      "touchstart",
+      this.onTouchStart,
+      listenerOptions
+    );
+    this.element.addEventListener(
+      "touchmove",
+      this.onTouchMove,
+      listenerOptions
+    );
+    this.element.addEventListener("touchend", this.onTouchEnd, listenerOptions);
+  }
+  touchStart = {
+    x: 0,
+    y: 0
+  };
+  lastDelta = {
+    x: 0,
+    y: 0
+  };
+  window = {
+    width: 0,
+    height: 0
+  };
+  emitter = new Emitter();
+  /**
+   * Add an event listener for the given event and callback
+   *
+   * @param event Event name
+   * @param callback Callback function
+   */
+  on(event, callback) {
+    return this.emitter.on(event, callback);
+  }
+  /** Remove all event listeners and clean up */
+  destroy() {
+    this.emitter.destroy();
+    window.removeEventListener("resize", this.onWindowResize, false);
+    this.element.removeEventListener("wheel", this.onWheel, listenerOptions);
+    this.element.removeEventListener(
+      "touchstart",
+      this.onTouchStart,
+      listenerOptions
+    );
+    this.element.removeEventListener(
+      "touchmove",
+      this.onTouchMove,
+      listenerOptions
+    );
+    this.element.removeEventListener(
+      "touchend",
+      this.onTouchEnd,
+      listenerOptions
+    );
+  }
+  /**
+   * Event handler for 'touchstart' event
+   *
+   * @param event Touch event
+   */
+  onTouchStart = (event) => {
+    const { clientX, clientY } = event.targetTouches ? event.targetTouches[0] : event;
+    this.touchStart.x = clientX;
+    this.touchStart.y = clientY;
+    this.lastDelta = {
+      x: 0,
+      y: 0
+    };
+    this.emitter.emit("scroll", {
+      deltaX: 0,
+      deltaY: 0,
+      event
+    });
+  };
+  /** Event handler for 'touchmove' event */
+  onTouchMove = (event) => {
+    const { clientX, clientY } = event.targetTouches ? event.targetTouches[0] : event;
+    const deltaX = -(clientX - this.touchStart.x) * this.options.touchMultiplier;
+    const deltaY = -(clientY - this.touchStart.y) * this.options.touchMultiplier;
+    this.touchStart.x = clientX;
+    this.touchStart.y = clientY;
+    this.lastDelta = {
+      x: deltaX,
+      y: deltaY
+    };
+    this.emitter.emit("scroll", {
+      deltaX,
+      deltaY,
+      event
+    });
+  };
+  onTouchEnd = (event) => {
+    this.emitter.emit("scroll", {
+      deltaX: this.lastDelta.x,
+      deltaY: this.lastDelta.y,
+      event
+    });
+  };
+  /** Event handler for 'wheel' event */
+  onWheel = (event) => {
+    let { deltaX, deltaY, deltaMode } = event;
+    const multiplierX = deltaMode === 1 ? LINE_HEIGHT : deltaMode === 2 ? this.window.width : 1;
+    const multiplierY = deltaMode === 1 ? LINE_HEIGHT : deltaMode === 2 ? this.window.height : 1;
+    deltaX *= multiplierX;
+    deltaY *= multiplierY;
+    deltaX *= this.options.wheelMultiplier;
+    deltaY *= this.options.wheelMultiplier;
+    this.emitter.emit("scroll", { deltaX, deltaY, event });
+  };
+  onWindowResize = () => {
+    this.window = {
+      width: window.innerWidth,
+      height: window.innerHeight
+    };
+  };
+};
+
+// packages/core/src/lenis.ts
+var Lenis = class {
+  _isScrolling = false;
+  // true when scroll is animating
+  _isStopped = false;
+  // true if user should not be able to scroll - enable/disable programmatically
+  _isLocked = false;
+  // same as isStopped but enabled/disabled when scroll reaches target
+  _preventNextNativeScrollEvent = false;
+  _resetVelocityTimeout = null;
+  __rafID = null;
+  /**
+   * Whether or not the user is touching the screen
+   */
+  isTouching;
+  /**
+   * The time in ms since the lenis instance was created
+   */
+  time = 0;
+  /**
+   * User data that will be forwarded through the scroll event
+   *
+   * @example
+   * lenis.scrollTo(100, {
+   *   userData: {
+   *     foo: 'bar'
+   *   }
+   * })
+   */
+  userData = {};
+  /**
+   * The last velocity of the scroll
+   */
+  lastVelocity = 0;
+  /**
+   * The current velocity of the scroll
+   */
+  velocity = 0;
+  /**
+   * The direction of the scroll
+   */
+  direction = 0;
+  /**
+   * The options passed to the lenis instance
+   */
+  options;
+  /**
+   * The target scroll value
+   */
+  targetScroll;
+  /**
+   * The animated scroll value
+   */
+  animatedScroll;
+  // These are instanciated here as they don't need information from the options
+  animate = new Animate();
+  emitter = new Emitter();
+  // These are instanciated in the constructor as they need information from the options
+  dimensions;
+  // This is not private because it's used in the Snap class
+  virtualScroll;
+  constructor({
+    wrapper = window,
+    content = document.documentElement,
+    eventsTarget = wrapper,
+    smoothWheel = true,
+    syncTouch = false,
+    syncTouchLerp = 0.075,
+    touchInertiaMultiplier = 35,
+    duration,
+    // in seconds
+    easing = (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    lerp: lerp2 = 0.1,
+    infinite = false,
+    orientation = "vertical",
+    // vertical, horizontal
+    gestureOrientation = "vertical",
+    // vertical, horizontal, both
+    touchMultiplier = 1,
+    wheelMultiplier = 1,
+    autoResize = true,
+    prevent,
+    virtualScroll,
+    overscroll = true,
+    autoRaf = false,
+    anchors = false,
+    __experimental__naiveDimensions = false
+  } = {}) {
+    window.lenisVersion = version;
+    if (!wrapper || wrapper === document.documentElement) {
+      wrapper = window;
+    }
+    this.options = {
+      wrapper,
+      content,
+      eventsTarget,
+      smoothWheel,
+      syncTouch,
+      syncTouchLerp,
+      touchInertiaMultiplier,
+      duration,
+      easing,
+      lerp: lerp2,
+      infinite,
+      gestureOrientation,
+      orientation,
+      touchMultiplier,
+      wheelMultiplier,
+      autoResize,
+      prevent,
+      virtualScroll,
+      overscroll,
+      autoRaf,
+      anchors,
+      __experimental__naiveDimensions
+    };
+    this.dimensions = new Dimensions(wrapper, content, { autoResize });
+    this.updateClassName();
+    this.targetScroll = this.animatedScroll = this.actualScroll;
+    this.options.wrapper.addEventListener("scroll", this.onNativeScroll, false);
+    this.options.wrapper.addEventListener("scrollend", this.onScrollEnd, {
+      capture: true
+    });
+    if (this.options.anchors && this.options.wrapper === window) {
+      this.options.wrapper.addEventListener(
+        "click",
+        this.onClick,
+        false
+      );
+    }
+    this.options.wrapper.addEventListener(
+      "pointerdown",
+      this.onPointerDown,
+      false
+    );
+    this.virtualScroll = new VirtualScroll(eventsTarget, {
+      touchMultiplier,
+      wheelMultiplier
+    });
+    this.virtualScroll.on("scroll", this.onVirtualScroll);
+    if (this.options.autoRaf) {
+      this.__rafID = requestAnimationFrame(this.raf);
+    }
+  }
+  /**
+   * Destroy the lenis instance, remove all event listeners and clean up the class name
+   */
+  destroy() {
+    this.emitter.destroy();
+    this.options.wrapper.removeEventListener(
+      "scroll",
+      this.onNativeScroll,
+      false
+    );
+    this.options.wrapper.removeEventListener("scrollend", this.onScrollEnd, {
+      capture: true
+    });
+    this.options.wrapper.removeEventListener(
+      "pointerdown",
+      this.onPointerDown,
+      false
+    );
+    if (this.options.anchors && this.options.wrapper === window) {
+      this.options.wrapper.removeEventListener(
+        "click",
+        this.onClick,
+        false
+      );
+    }
+    this.virtualScroll.destroy();
+    this.dimensions.destroy();
+    this.cleanUpClassName();
+    if (this.__rafID) {
+      cancelAnimationFrame(this.__rafID);
+    }
+  }
+  on(event, callback) {
+    return this.emitter.on(event, callback);
+  }
+  off(event, callback) {
+    return this.emitter.off(event, callback);
+  }
+  onScrollEnd = (e) => {
+    if (!(e instanceof CustomEvent)) {
+      if (this.isScrolling === "smooth" || this.isScrolling === false) {
+        e.stopPropagation();
+      }
+    }
+  };
+  dispatchScrollendEvent = () => {
+    this.options.wrapper.dispatchEvent(
+      new CustomEvent("scrollend", {
+        bubbles: this.options.wrapper === window,
+        // cancelable: false,
+        detail: {
+          lenisScrollEnd: true
+        }
+      })
+    );
+  };
+  setScroll(scroll) {
+    if (this.isHorizontal) {
+      this.options.wrapper.scrollTo({ left: scroll, behavior: "instant" });
+    } else {
+      this.options.wrapper.scrollTo({ top: scroll, behavior: "instant" });
+    }
+  }
+  onClick = (event) => {
+    const path = event.composedPath();
+    const anchor = path.find(
+      (node) => node instanceof HTMLAnchorElement && node.getAttribute("href")?.startsWith("#")
+    );
+    if (anchor) {
+      const id = anchor.getAttribute("href");
+      if (id) {
+        const options = typeof this.options.anchors === "object" && this.options.anchors ? this.options.anchors : void 0;
+        this.scrollTo(id, options);
+      }
+    }
+  };
+  onPointerDown = (event) => {
+    if (event.button === 1) {
+      this.reset();
+    }
+  };
+  onVirtualScroll = (data) => {
+    if (typeof this.options.virtualScroll === "function" && this.options.virtualScroll(data) === false)
+      return;
+    const { deltaX, deltaY, event } = data;
+    this.emitter.emit("virtual-scroll", { deltaX, deltaY, event });
+    if (event.ctrlKey) return;
+    if (event.lenisStopPropagation) return;
+    const isTouch = event.type.includes("touch");
+    const isWheel = event.type.includes("wheel");
+    this.isTouching = event.type === "touchstart" || event.type === "touchmove";
+    const isClickOrTap = deltaX === 0 && deltaY === 0;
+    const isTapToStop = this.options.syncTouch && isTouch && event.type === "touchstart" && isClickOrTap && !this.isStopped && !this.isLocked;
+    if (isTapToStop) {
+      this.reset();
+      return;
+    }
+    const isUnknownGesture = this.options.gestureOrientation === "vertical" && deltaY === 0 || this.options.gestureOrientation === "horizontal" && deltaX === 0;
+    if (isClickOrTap || isUnknownGesture) {
+      return;
+    }
+    let composedPath = event.composedPath();
+    composedPath = composedPath.slice(0, composedPath.indexOf(this.rootElement));
+    const prevent = this.options.prevent;
+    if (!!composedPath.find(
+      (node) => node instanceof HTMLElement && (typeof prevent === "function" && prevent?.(node) || node.hasAttribute?.("data-lenis-prevent") || isTouch && node.hasAttribute?.("data-lenis-prevent-touch") || isWheel && node.hasAttribute?.("data-lenis-prevent-wheel"))
+    ))
+      return;
+    if (this.isStopped || this.isLocked) {
+      event.preventDefault();
+      return;
+    }
+    const isSmooth = this.options.syncTouch && isTouch || this.options.smoothWheel && isWheel;
+    if (!isSmooth) {
+      this.isScrolling = "native";
+      this.animate.stop();
+      event.lenisStopPropagation = true;
+      return;
+    }
+    let delta = deltaY;
+    if (this.options.gestureOrientation === "both") {
+      delta = Math.abs(deltaY) > Math.abs(deltaX) ? deltaY : deltaX;
+    } else if (this.options.gestureOrientation === "horizontal") {
+      delta = deltaX;
+    }
+    if (!this.options.overscroll || this.options.infinite || this.options.wrapper !== window && (this.animatedScroll > 0 && this.animatedScroll < this.limit || this.animatedScroll === 0 && deltaY > 0 || this.animatedScroll === this.limit && deltaY < 0)) {
+      event.lenisStopPropagation = true;
+    }
+    event.preventDefault();
+    const isSyncTouch = isTouch && this.options.syncTouch;
+    const isTouchEnd = isTouch && event.type === "touchend";
+    const hasTouchInertia = isTouchEnd && Math.abs(delta) > 5;
+    if (hasTouchInertia) {
+      delta = this.velocity * this.options.touchInertiaMultiplier;
+    }
+    this.scrollTo(this.targetScroll + delta, {
+      programmatic: false,
+      ...isSyncTouch ? {
+        lerp: hasTouchInertia ? this.options.syncTouchLerp : 1
+        // immediate: !hasTouchInertia,
+      } : {
+        lerp: this.options.lerp,
+        duration: this.options.duration,
+        easing: this.options.easing
+      }
+    });
+  };
+  /**
+   * Force lenis to recalculate the dimensions
+   */
+  resize() {
+    this.dimensions.resize();
+    this.animatedScroll = this.targetScroll = this.actualScroll;
+    this.emit();
+  }
+  emit() {
+    this.emitter.emit("scroll", this);
+  }
+  onNativeScroll = () => {
+    if (this._resetVelocityTimeout !== null) {
+      clearTimeout(this._resetVelocityTimeout);
+      this._resetVelocityTimeout = null;
+    }
+    if (this._preventNextNativeScrollEvent) {
+      this._preventNextNativeScrollEvent = false;
+      return;
+    }
+    if (this.isScrolling === false || this.isScrolling === "native") {
+      const lastScroll = this.animatedScroll;
+      this.animatedScroll = this.targetScroll = this.actualScroll;
+      this.lastVelocity = this.velocity;
+      this.velocity = this.animatedScroll - lastScroll;
+      this.direction = Math.sign(
+        this.animatedScroll - lastScroll
+      );
+      if (!this.isStopped) {
+        this.isScrolling = "native";
+      }
+      this.emit();
+      if (this.velocity !== 0) {
+        this._resetVelocityTimeout = setTimeout(() => {
+          this.lastVelocity = this.velocity;
+          this.velocity = 0;
+          this.isScrolling = false;
+          this.emit();
+        }, 400);
+      }
+    }
+  };
+  reset() {
+    this.isLocked = false;
+    this.isScrolling = false;
+    this.animatedScroll = this.targetScroll = this.actualScroll;
+    this.lastVelocity = this.velocity = 0;
+    this.animate.stop();
+  }
+  /**
+   * Start lenis scroll after it has been stopped
+   */
+  start() {
+    if (!this.isStopped) return;
+    this.reset();
+    this.isStopped = false;
+  }
+  /**
+   * Stop lenis scroll
+   */
+  stop() {
+    if (this.isStopped) return;
+    this.reset();
+    this.isStopped = true;
+  }
+  /**
+   * RequestAnimationFrame for lenis
+   *
+   * @param time The time in ms from an external clock like `requestAnimationFrame` or Tempus
+   */
+  raf = (time) => {
+    const deltaTime = time - (this.time || time);
+    this.time = time;
+    this.animate.advance(deltaTime * 1e-3);
+    if (this.options.autoRaf) {
+      this.__rafID = requestAnimationFrame(this.raf);
+    }
+  };
+  /**
+   * Scroll to a target value
+   *
+   * @param target The target value to scroll to
+   * @param options The options for the scroll
+   *
+   * @example
+   * lenis.scrollTo(100, {
+   *   offset: 100,
+   *   duration: 1,
+   *   easing: (t) => 1 - Math.cos((t * Math.PI) / 2),
+   *   lerp: 0.1,
+   *   onStart: () => {
+   *     console.log('onStart')
+   *   },
+   *   onComplete: () => {
+   *     console.log('onComplete')
+   *   },
+   * })
+   */
+  scrollTo(target, {
+    offset = 0,
+    immediate = false,
+    lock = false,
+    duration = this.options.duration,
+    easing = this.options.easing,
+    lerp: lerp2 = this.options.lerp,
+    onStart,
+    onComplete,
+    force = false,
+    // scroll even if stopped
+    programmatic = true,
+    // called from outside of the class
+    userData
+  } = {}) {
+    if ((this.isStopped || this.isLocked) && !force) return;
+    if (typeof target === "string" && ["top", "left", "start"].includes(target)) {
+      target = 0;
+    } else if (typeof target === "string" && ["bottom", "right", "end"].includes(target)) {
+      target = this.limit;
+    } else {
+      let node;
+      if (typeof target === "string") {
+        node = document.querySelector(target);
+      } else if (target instanceof HTMLElement && target?.nodeType) {
+        node = target;
+      }
+      if (node) {
+        if (this.options.wrapper !== window) {
+          const wrapperRect = this.rootElement.getBoundingClientRect();
+          offset -= this.isHorizontal ? wrapperRect.left : wrapperRect.top;
+        }
+        const rect = node.getBoundingClientRect();
+        target = (this.isHorizontal ? rect.left : rect.top) + this.animatedScroll;
+      }
+    }
+    if (typeof target !== "number") return;
+    target += offset;
+    target = Math.round(target);
+    if (this.options.infinite) {
+      if (programmatic) {
+        this.targetScroll = this.animatedScroll = this.scroll;
+      }
+    } else {
+      target = clamp(0, target, this.limit);
+    }
+    if (target === this.targetScroll) {
+      onStart?.(this);
+      onComplete?.(this);
+      return;
+    }
+    this.userData = userData ?? {};
+    if (immediate) {
+      this.animatedScroll = this.targetScroll = target;
+      this.setScroll(this.scroll);
+      this.reset();
+      this.preventNextNativeScrollEvent();
+      this.emit();
+      onComplete?.(this);
+      this.userData = {};
+      requestAnimationFrame(() => {
+        this.dispatchScrollendEvent();
+      });
+      return;
+    }
+    if (!programmatic) {
+      this.targetScroll = target;
+    }
+    this.animate.fromTo(this.animatedScroll, target, {
+      duration,
+      easing,
+      lerp: lerp2,
+      onStart: () => {
+        if (lock) this.isLocked = true;
+        this.isScrolling = "smooth";
+        onStart?.(this);
+      },
+      onUpdate: (value, completed) => {
+        this.isScrolling = "smooth";
+        this.lastVelocity = this.velocity;
+        this.velocity = value - this.animatedScroll;
+        this.direction = Math.sign(this.velocity);
+        this.animatedScroll = value;
+        this.setScroll(this.scroll);
+        if (programmatic) {
+          this.targetScroll = value;
+        }
+        if (!completed) this.emit();
+        if (completed) {
+          this.reset();
+          this.emit();
+          onComplete?.(this);
+          this.userData = {};
+          requestAnimationFrame(() => {
+            this.dispatchScrollendEvent();
+          });
+          this.preventNextNativeScrollEvent();
+        }
+      }
+    });
+  }
+  preventNextNativeScrollEvent() {
+    this._preventNextNativeScrollEvent = true;
+    requestAnimationFrame(() => {
+      this._preventNextNativeScrollEvent = false;
+    });
+  }
+  /**
+   * The root element on which lenis is instanced
+   */
+  get rootElement() {
+    return this.options.wrapper === window ? document.documentElement : this.options.wrapper;
+  }
+  /**
+   * The limit which is the maximum scroll value
+   */
+  get limit() {
+    if (this.options.__experimental__naiveDimensions) {
+      if (this.isHorizontal) {
+        return this.rootElement.scrollWidth - this.rootElement.clientWidth;
+      } else {
+        return this.rootElement.scrollHeight - this.rootElement.clientHeight;
+      }
+    } else {
+      return this.dimensions.limit[this.isHorizontal ? "x" : "y"];
+    }
+  }
+  /**
+   * Whether or not the scroll is horizontal
+   */
+  get isHorizontal() {
+    return this.options.orientation === "horizontal";
+  }
+  /**
+   * The actual scroll value
+   */
+  get actualScroll() {
+    const wrapper = this.options.wrapper;
+    return this.isHorizontal ? wrapper.scrollX ?? wrapper.scrollLeft : wrapper.scrollY ?? wrapper.scrollTop;
+  }
+  /**
+   * The current scroll value
+   */
+  get scroll() {
+    return this.options.infinite ? modulo(this.animatedScroll, this.limit) : this.animatedScroll;
+  }
+  /**
+   * The progress of the scroll relative to the limit
+   */
+  get progress() {
+    return this.limit === 0 ? 1 : this.scroll / this.limit;
+  }
+  /**
+   * Current scroll state
+   */
+  get isScrolling() {
+    return this._isScrolling;
+  }
+  set isScrolling(value) {
+    if (this._isScrolling !== value) {
+      this._isScrolling = value;
+      this.updateClassName();
+    }
+  }
+  /**
+   * Check if lenis is stopped
+   */
+  get isStopped() {
+    return this._isStopped;
+  }
+  set isStopped(value) {
+    if (this._isStopped !== value) {
+      this._isStopped = value;
+      this.updateClassName();
+    }
+  }
+  /**
+   * Check if lenis is locked
+   */
+  get isLocked() {
+    return this._isLocked;
+  }
+  set isLocked(value) {
+    if (this._isLocked !== value) {
+      this._isLocked = value;
+      this.updateClassName();
+    }
+  }
+  /**
+   * Check if lenis is smooth scrolling
+   */
+  get isSmooth() {
+    return this.isScrolling === "smooth";
+  }
+  /**
+   * The class name applied to the wrapper element
+   */
+  get className() {
+    let className = "lenis";
+    if (this.isStopped) className += " lenis-stopped";
+    if (this.isLocked) className += " lenis-locked";
+    if (this.isScrolling) className += " lenis-scrolling";
+    if (this.isScrolling === "smooth") className += " lenis-smooth";
+    return className;
+  }
+  updateClassName() {
+    this.cleanUpClassName();
+    this.rootElement.className = `${this.rootElement.className} ${this.className}`.trim();
+  }
+  cleanUpClassName() {
+    this.rootElement.className = this.rootElement.className.replace(/lenis(-\w+)?/g, "").trim();
+  }
+};
+
+//# sourceMappingURL=lenis.mjs.map
 
 /***/ }),
 

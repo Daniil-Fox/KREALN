@@ -40,10 +40,30 @@ Swiper.use([
   Mousewheel,
 ]);
 
-new Swiper('.research__slider', {
+const swiperContainer = document.querySelector(
+  '.research__slider .swiper-wrapper',
+);
+let slides = null;
+if (swiperContainer) {
+  slides = Array.from(swiperContainer.children);
+}
+
+// Проверяем, если слайдов меньше 4
+if (slides && slides.length < 4) {
+  // Дублируем слайды
+  const clonesNeeded = 4 - slides.length;
+  for (let i = 0; i < clonesNeeded; i++) {
+    // Получаем копию и добавляем в контейнер
+    const clone = slides[i % slides.length].cloneNode(true);
+    swiperContainer.appendChild(clone);
+  }
+}
+
+const researchSlider = new Swiper('.research__slider', {
   slidesPerView: 'auto',
   centeredSlides: true,
   loop: true,
+  loopFillGroupWithBlank: true,
   spaceBetween: 20,
   speed: 500,
   autoplay: {

@@ -440,10 +440,10 @@ section::-webkit-scrollbar {
   top: 0;
   width: 100%;
   height: 100%;
-  -webkit-transition: -webkit-transform 0.7s ease-in-out;
-  transition: -webkit-transform 0.7s ease-in-out;
-  transition: transform 0.7s ease-in-out;
-  transition: transform 0.7s ease-in-out, -webkit-transform 0.7s ease-in-out;
+  -webkit-transition: -webkit-transform 0.7s cubic-bezier(0.69, 0.1, 0.21, 0.95);
+  transition: -webkit-transform 0.7s cubic-bezier(0.69, 0.1, 0.21, 0.95);
+  transition: transform 0.7s cubic-bezier(0.69, 0.1, 0.21, 0.95);
+  transition: transform 0.7s cubic-bezier(0.69, 0.1, 0.21, 0.95), -webkit-transform 0.7s cubic-bezier(0.69, 0.1, 0.21, 0.95);
 }
 @media (max-width: 1024px) {
   .site-screen {
@@ -9390,10 +9390,12 @@ ul li::marker {
 
 .testi-cont {
   height: 100%;
-  background: #fff;
   overflow-y: auto;
   -webkit-transition: background 0.3s ease-in-out 0.3s;
   transition: background 0.3s ease-in-out 0.3s;
+}
+.testi-cont--bg {
+  background: #fff;
 }
 @media (max-width: 1024px) {
   .testi-cont {
@@ -9424,9 +9426,10 @@ ul li::marker {
 }
 
 .testi-cont__right {
+  position: sticky;
+  top: 0;
   padding: 12rem 5rem;
-  height: 100%;
-  position: absolute;
+  height: 100vh;
   z-index: 10;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -9438,13 +9441,10 @@ ul li::marker {
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  top: 0;
-  right: 15rem;
   width: 53rem;
   -webkit-box-flex: 1;
   -ms-flex: 1;
   flex: 1;
-  opacity: 0;
   overflow: hidden;
   -webkit-transition: opacity 0.3s ease-in-out 0.3s;
   transition: opacity 0.3s ease-in-out 0.3s;
@@ -9453,6 +9453,10 @@ ul li::marker {
   .testi-cont__right {
     display: none;
   }
+}
+
+.site-screen-grad .testi-cont__right {
+  opacity: 0;
 }
 
 .testi-cont__tab {
@@ -9467,7 +9471,6 @@ ul li::marker {
   margin-top: 33rem;
   position: relative;
   z-index: 2;
-  cursor: pointer;
 }
 .testi-cont__tab::before {
   content: "";

@@ -65,6 +65,7 @@
     "inputmask": "^5.0.8",
     "jquery": "^3.7.1",
     "just-validate": "^4.3.0",
+    "lenis": "^1.1.20",
     "owl.carousel": "^2.3.4",
     "rellax": "^1.12.1",
     "simplebar": "^6.2.5",

@@ -2,13 +2,15 @@ import { throttle } from './../functions/throttle.js';
 
 // -------------------- Глобальные переменные --------------------
 let delta, direction;
-const delayAnim = 1300; // Время задержки анимации (осталось только для блокировки скролла)
+const delayAnim = 700; // Задержка на переключение слайдов
 let windPos = 0; // Индекс текущего слайда
-let anim = false; // Флаг блокировки анимации (скролл и навигация "забанены")
-let pause = false; // Флаг паузы скролла
-let isPageScrollEnabled = false; // Флаг разрешения стандартного скролла
+const HOR_SCROLL_STEP = 100; // Шаг прокрутки в hor-scroll
+let anim = false; // Флаг блокировки анимации
+let pause = false; // Пауза прокрутки
+let isPageScrollEnabled = false; // Включение стандартного скролла
 let footerVisible = false; // Флаг видимости футера
 
+let horScrollSec = 0;
 // -------------------- Утилитарные функции --------------------
 
 // Отключение/включение стандартной прокрутки страницы
@@ -17,155 +19,212 @@ const setBodyScroll = (enabled) => {
     ? 'auto'
     : 'hidden';
 };
-
+// -------------------- Управляем классом body-light --------------------
+function setLightBody(flag) {
+  flag
+    ? document.body.classList.add('body-light')
+    : document.body.classList.remove('body-light');
+}
 // Инициализация слайдов
 const initSlides = (siteSlides) => {
   siteSlides.forEach((slide, i) => {
     slide.style.zIndex = i;
-    slide.style.transform =
-      i === 0 ? 'translateY(0)' : 'translateY(100%)'; // Первый слайд виден, остальные спрячем
+    if (i !== 0) {
+      slide.style.transform = 'translateY(100%)';
+    }
+
+    // Устанавливаем класс `body-light` для начального слайда (если это первый слайд при загрузке)
+    if (i === 0) {
+      if (slide.classList.contains('site-screen-light')) {
+        setLightBody(1);
+      } else {
+        setLightBody(0);
+      }
+    }
   });
 };
-
-// -------------------- Горизонтальная прокрутка --------------------
-
-// Проверка: является ли слайд горизонтально прокручиваемым
-const isHorizontalScrollSlide = (slide) =>
-  slide.classList.contains('hor-scroll');
-
-// Горизонтальная прокрутка в секции (логика left <-> right)
-const horizontalScroll = (slide, delta) => {
-  const scrollAmount = 100; // Количество пикселей для прокрутки за один "шаг"
-  const maxScrollLeft =
-    slide.scrollWidth - slide.clientWidth; // Правая граница
-
-  slide.scrollBy({
-    left: delta < 0 ? scrollAmount : -scrollAmount, // Прокрутка зависит от направления
-    behavior: 'smooth',
-  });
-
-  // Проверяем достижение правого края
-  if (slide.scrollLeft >= maxScrollLeft && delta < 0) {
-    return 'endRight'; // Достигнут правый край
-  }
-
-  // Проверяем достижение левого края
-  if (slide.scrollLeft <= 0 && delta > 0) {
-    return 'endLeft'; // Достигнут левый край
-  }
-
-  return null;
-};
-
-// -------------------- Вертикальная прокрутка --------------------
 
 // Смещение к слайду
 const setPosition = (newPos, siteSlides, navItems) => {
-  // Проверка на валидность индекса слайда
   if (newPos < 0 || newPos >= siteSlides.length) return;
 
   const dir = newPos > windPos ? 'down' : 'up';
 
   // Переключение слайдов
   if (dir === 'down') {
-    // Движение вниз
     for (let i = windPos; i <= newPos; i++) {
-      siteSlides[i].style.transform = 'translateY(0)'; // Показываем слайды внизу
+      siteSlides[i].style.transform = 'translateY(0)';
     }
   } else if (dir === 'up') {
-    // Движение вверх
     for (let i = newPos; i < windPos; i++) {
       siteSlides[i + 1].style.transform =
-        'translateY(100%)'; // Прячем предыдущие слайды
+        'translateY(100%)';
     }
   }
 
-  windPos = newPos; // Обновление индекса текущего слайда
+  windPos = newPos;
+  if (
+    siteSlides[windPos].classList.contains(
+      'site-screen-light',
+    )
+  ) {
+    setLightBody(1);
+  } else {
+    setLightBody(0);
+  }
 
-  // Обновляем навигацию сразу после смены слайда
+  // Обновляем навигацию
   setNavItem(windPos, siteSlides, navItems);
 
-  // Если достигнут последний слайд — включаем стандартный скролл
+  // Отдельно обрабатываем случай последнего слайда
+  // Разрешаем стандартный скролл ТОЛЬКО после завершения анимации
   if (windPos === siteSlides.length - 1) {
-    isPageScrollEnabled = true;
-    setBodyScroll(true);
+    setTimeout(() => {
+      isPageScrollEnabled = true;
+      setBodyScroll(true);
+    }, delayAnim); // Включаем стандартный скролл после завершения анимации
   } else {
-    // На других слайдах блокируем стандартный скролл
     isPageScrollEnabled = false;
-    setBodyScroll(false);
+    setBodyScroll(false); // Отключаем стандартный скролл для всех других слайдов
   }
 };
 
-// -------------------------------------------------------------------------
+// -------------------- Навигация --------------------
 
-// Очистка класса активного элемента навигации
+// Функция очистки активного класса у всех элементов навигации
 const clearNav = (navItems) => {
   navItems.forEach((el) => el.classList.remove('active'));
 };
 
-// Подсветка активного пункта навигации
+// Установка активного пункта навигации
 const setNavItem = (windPos, siteSlides, navItems) => {
   clearNav(navItems);
 
+  // Собираем список видимых слайдов (без nav-disable)
   const visibleSlides = siteSlides.filter(
     (slide) => !slide.classList.contains('nav-disable'),
   );
 
+  // Определяем индекс активного слайда среди "видимых" слайдов
   const activeIndex = visibleSlides.indexOf(
     siteSlides[windPos],
   );
+
+  // Если индекс существующий, подсвечиваем соответствующий элемент навигации
   if (activeIndex !== -1 && navItems[activeIndex]) {
     navItems[activeIndex].classList.add('active');
   }
 };
 
-// Обработка скролла
+// Инициализация кликов по элементам навигации
+const initNavigationClicks = (navItems, siteSlides) => {
+  // Собираем список только видимых слайдов
+  const visibleSlides = siteSlides.filter(
+    (slide) => !slide.classList.contains('nav-disable'),
+  );
+
+  navItems.forEach((item, visibleIndex) => {
+    item.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      // Находим реальный индекс слайда в общем массиве слайдов
+      const targetSlide = visibleSlides[visibleIndex];
+      const realIndex = siteSlides.indexOf(targetSlide);
+
+      // Если реальный индекс найден, переключаемся на слайд
+      if (realIndex !== -1) {
+        setPosition(realIndex, siteSlides, navItems);
+      }
+    });
+  });
+};
+
+// -------------------- Горизонтальная прокрутка (.hor-scroll) --------------------
+
+// Карта для хранения состояния translateX каждого элемента .hor-scroll
+const horizontalState = new WeakMap();
+
+const initHorizontalState = (element) => {
+  if (!horizontalState.has(element)) {
+    horizontalState.set(element, { currentTranslateX: 0 });
+  }
+};
+
+const handleHorizontalScroll = (horScroll, delta) => {
+  const state = horizontalState.get(horScroll);
+  const horContainerWidth =
+    horScroll.parentElement.clientWidth;
+  const maxTranslateX =
+    horScroll.scrollWidth - horContainerWidth; // Крайняя точка вправо
+
+  let newTranslateX = state.currentTranslateX;
+  // Прокрутка вниз (вправо)
+  if (delta < 0) {
+    horScrollSec += HOR_SCROLL_STEP;
+
+    horScrollSec = Math.min(maxTranslateX, horScrollSec);
+  }
+  // Прокрутка вверх (влево)
+  else if (delta > 0) {
+    horScrollSec -= HOR_SCROLL_STEP;
+    horScrollSec = Math.max(0, horScrollSec);
+  }
+
+  horScroll.style.transform = `translateX(-${horScrollSec}px)`;
+  state.currentTranslateX = newTranslateX;
+
+  // Возвращаем статус прокрутки
+  if (horScrollSec === maxTranslateX) return 'endRight';
+  if (horScrollSec === 0) return 'endLeft';
+  return 'inProgress';
+};
+
+// -------------------- Обработка прокрутки --------------------
+
 const handleScroll = (siteSlides, navItems) => {
   if (anim || pause || isPageScrollEnabled) return;
 
   const currentSlide = siteSlides[windPos];
+  const horScroll =
+    currentSlide.querySelector('.hor-scroll');
 
-  // Если слайд является горизонтальным
-  if (isHorizontalScrollSlide(currentSlide)) {
-    const horizontalResult = horizontalScroll(
-      currentSlide,
+  if (horScroll) {
+    initHorizontalState(horScroll);
+    const scrollStatus = handleHorizontalScroll(
+      horScroll,
       delta,
     );
 
-    // Переход на следующий слайд, если достигнут правый край
-    if (horizontalResult === 'endRight') {
+    if (scrollStatus === 'endRight' && delta < 0) {
       setPosition(windPos + 1, siteSlides, navItems);
-    }
-
-    // Переход на предыдущий слайд, если достигнут левый край
-    if (horizontalResult === 'endLeft') {
+    } else if (scrollStatus === 'endLeft' && delta > 0) {
       setPosition(windPos - 1, siteSlides, navItems);
     }
 
-    return; // Останавливаем выполнение, т.к. обрабатываем горизонтальную прокрутку
+    return; // Прекращаем выполнение, так как был обработан hor-scroll
   }
 
-  anim = true; // Блокируем события (и скролл)
+  // Если нет hor-scroll, продолжаем работу эталонного кода
+  anim = true;
 
-  // Вертикальная прокрутка
   if (
     direction === 'down' &&
     windPos + 1 < siteSlides.length
   ) {
-    setPosition(windPos + 1, siteSlides, navItems); // Переключаем слайд вперёд
+    setPosition(windPos + 1, siteSlides, navItems);
   } else if (direction === 'up' && windPos - 1 >= 0) {
-    setPosition(windPos - 1, siteSlides, navItems); // Переключаем слайд назад
+    setPosition(windPos - 1, siteSlides, navItems);
   }
 
   setTimeout(() => {
-    anim = false; // Разблокируем
+    anim = false;
   }, delayAnim);
 };
 
 // Основное событие прокрутки
 const mainFunc = (e, siteSlides, navItems) => {
-  delta = e.wheelDeltaY || -e.deltaY; // Определяем направление прокрутки
-  direction = delta > 0 ? 'up' : 'down'; // Направление прокрутки
+  delta = e.wheelDeltaY || -e.deltaY;
+  direction = delta > 0 ? 'up' : 'down';
   handleScroll(siteSlides, navItems);
 };
 
@@ -194,14 +253,16 @@ document.addEventListener('DOMContentLoaded', () => {
       )
     : [];
 
-  // Проверяем количество слайдов
+  if (document.querySelector('.site-screen-start')) {
+    setTimeout(() => {
+      setPosition(windPos + 1, siteSlides, navItems);
+    }, 1500);
+  }
+
   if (siteSlides.length > 1) {
-    console.log(
-      'Multiple slides detected: disabling standard page scroll.',
-    );
     setBodyScroll(false);
     initSlides(siteSlides);
-    initNavigation(siteSlides, navItems);
+    initNavigationClicks(navItems, siteSlides); // Инициализация кликов по навигации
 
     const footerObserver = new IntersectionObserver(
       (entries) => {
@@ -211,10 +272,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (footerVisible) {
           isPageScrollEnabled = true;
-          setBodyScroll(true); // Включаем стандартный скролл, когда футер виден
+          setBodyScroll(true); // Включаем стандартный скролл, если виден футер
         } else if (windPos < siteSlides.length - 1) {
           isPageScrollEnabled = false;
-          setBodyScroll(false); // Отключаем стандартный скролл, если не на последнем слайде
+          setBodyScroll(false); // Отключаем стандартный скролл
         }
       },
       { threshold: 0.1 },
@@ -246,31 +307,3 @@ document.addEventListener('DOMContentLoaded', () => {
     setBodyScroll(true);
   }
 });
-
-// -------------------- Инициализация навигации --------------------
-const initNavigation = (siteSlides, navItems) => {
-  if (!navItems || !siteSlides) return;
-
-  const visibleSlides = siteSlides.filter(
-    (slide) => !slide.classList.contains('nav-disable'),
-  );
-
-  navItems.forEach((item, index) => {
-    item.addEventListener('click', (e) => {
-      e.preventDefault();
-
-      if (anim) return; // Если идёт анимация, блокируем клики
-
-      anim = true; // Блокируем действия
-
-      const targetSlide = visibleSlides[index];
-      const targetSlideIndex =
-        siteSlides.indexOf(targetSlide);
-
-      setPosition(targetSlideIndex, siteSlides, navItems);
-      anim = false; // Разблокируем сразу после смены пункта
-    });
-  });
-
-  setNavItem(0, siteSlides, navItems);
-};

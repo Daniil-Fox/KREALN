@@ -11,7 +11,9 @@
             <div class="header__container">
               <a href="./" class="header__logo">
                 <svg class="">
-                  <use xlink:href="img/sprite.svg#logo"></use>
+                  <use
+                    xlink:href="img/sprite.svg#logo"
+                  ></use>
                 </svg>
               </a>
 
@@ -19,7 +21,9 @@
                 <ul>
                   <li>Люди</li>
                   <li>Карьера</li>
-                  <li>Патенты, сертификаты и свидетельства</li>
+                  <li>
+                    Патенты, сертификаты и свидетельства
+                  </li>
                 </ul>
               </nav>
             </div>
@@ -30,9 +34,15 @@
             >
               @include('partials/team-main.html')
             </div>
-            <div class="site-screen">@include('partials/team-people.html')</div>
-            <div class="site-screen">@include('partials/team-car.html')</div>
-            <div class="site-screen">@include('partials/team-lic.html')</div>
+            <div class="site-screen">
+              @include('partials/team-people.html')
+            </div>
+            <div class="site-screen">
+              @include('partials/team-car.html')
+            </div>
+            <div class="site-screen">
+              @include('partials/team-lic.html')
+            </div>
           </div>
           @include('partials/aside.html')
         </div>

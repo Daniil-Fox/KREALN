@@ -198,7 +198,7 @@ if (window.matchMedia('(min-width: 1025px)').matches) {
     function setNavItem(pos) {
       clearNav();
       navPos = pos;
-      navItems[navPos].classList.add('active');
+      navItems[navPos]?.classList.add('active');
     }
 
     function checkNavDisabled() {
