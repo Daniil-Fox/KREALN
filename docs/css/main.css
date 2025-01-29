@@ -4655,7 +4655,7 @@ ul li::marker {
 }
 .news-item__img {
   height: 51.2rem;
-  clip-path: polygon(100% 0, 100% 23%, 35% 100%, 0 66%, 0 0);
+  clip-path: polygon(100% 0, 100% 23%, 35% 100%, 0 60%, 0 0);
   background-color: #fff;
   -webkit-transition: 0.3s ease-in-out;
   transition: 0.3s ease-in-out;
