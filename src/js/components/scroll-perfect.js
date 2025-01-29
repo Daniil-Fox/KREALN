@@ -43,7 +43,45 @@ const initSlides = (siteSlides) => {
     }
   });
 };
+// -------------------- Управление процессом скролла длинных секций --------------------
 
+// Проверяем, длиннее ли секция высоты экрана
+const isLongSection = (slide) => {
+  slide.scrollHeight > window.innerHeight;
+  console.log(slide.scrollHeight > window.innerHeight);
+};
+
+// Управляем скроллом внутри длинных секций
+const processLongSectionScroll = (slide, delta) => {
+  const currentScroll = slide.scrollTop; // Текущая позиция прокрутки
+  const maxScroll = slide.scrollHeight - slide.clientHeight; // Максимальное значение скролла
+
+  // Скролл вниз
+  if (delta < 0) {
+    if (currentScroll < maxScroll) {
+      slide.scrollTop = Math.min(
+        currentScroll + Math.abs(delta),
+        maxScroll,
+      );
+      return 'inProgress'; // Продолжаем скролл внутри секции
+    }
+    return 'endBottom'; // Достигли конца секции
+  }
+
+  // Скролл вверх
+  if (delta > 0) {
+    if (currentScroll > 0) {
+      slide.scrollTop = Math.max(
+        currentScroll - Math.abs(delta),
+        0,
+      );
+      return 'inProgress'; // Продолжаем скролл внутри секции
+    }
+    return 'endTop'; // Достигли начала секции
+  }
+
+  return 'none'; // Скролл не изменился
+};
 // Смещение к слайду
 const setPosition = (newPos, siteSlides, navItems) => {
   if (newPos < 0 || newPos >= siteSlides.length) return;
@@ -183,7 +221,7 @@ const handleHorizontalScroll = (horScroll, delta) => {
 
 const handleScroll = (siteSlides, navItems) => {
   if (anim || pause || isPageScrollEnabled) return;
-
+  console.log('handle');
   const currentSlide = siteSlides[windPos];
   const horScroll =
     currentSlide.querySelector('.hor-scroll');
@@ -202,6 +240,23 @@ const handleScroll = (siteSlides, navItems) => {
     }
 
     return; // Прекращаем выполнение, так как был обработан hor-scroll
+  }
+  if (isLongSection(currentSlide)) {
+    const sectionStatus = processLongSectionScroll(
+      currentSlide,
+      delta,
+    );
+
+    // Если дошли до самого низа длинной секции
+    if (sectionStatus === 'endBottom' && delta < 0) {
+      setPosition(windPos + 1, siteSlides, navItems);
+    }
+
+    // Если поднялись до самого верха длинной секции
+    if (sectionStatus === 'endTop' && delta > 0) {
+      setPosition(windPos - 1, siteSlides, navItems);
+    }
+    return; // Скролл длинной секции обработан
   }
 
   // Если нет hor-scroll, продолжаем работу эталонного кода

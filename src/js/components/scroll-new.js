@@ -20,37 +20,45 @@ let horScrollSec = 0;
 // -------------------- Утилитарные функции --------------------
 // Проверяем, длиннее ли текущий слайд экрана
 function isLongSlide(slide) {
-  return slide.scrollHeight > window.innerHeight;
-}
-function handleLongSlideScroll(slide, delta) {
-  const maxScroll = slide.scrollHeight - slide.clientHeight; // Максимальная прокрутка (нижняя граница)
-  const currentScroll = slide.scrollTop; // Текущая позиция прокрутки внутри слайда
+  const sec = slide.querySelector('section');
+  // Проверяем высоту самой секции
+  const isSlideLong = sec.scrollHeight > window.innerHeight;
 
+  // Секция считается длинной, если либо она сама длинная, либо у нее есть длинный дочерний элемент
+  return isSlideLong;
+}
+const processLongSectionScroll = (slide, delta) => {
+  const sec = slide.querySelector('section');
+  const currentScroll = sec.scrollTop; // Текущая позиция прокрутки
+  const maxScroll = sec.scrollHeight - sec.clientHeight; // Максимальное значение скролла
   // Скролл вниз
-  if (delta > 0) {
+  if (delta < 0) {
     if (currentScroll < maxScroll) {
       slide.scrollTop = Math.min(
-        currentScroll + delta,
+        currentScroll + Math.abs(delta),
         maxScroll,
       );
-      return 'inProgress'; // Все еще прокручиваем внутри слайда
+      return 'inProgress'; // Продолжаем скролл внутри секции
+    } else {
+      return 'endBottom'; // Достигли конца секции
     }
-    // Если доскролили до низа, разрешаем перейти к футеру
-    return 'end';
   }
 
   // Скролл вверх
-  if (delta < 0) {
+  if (delta > 0) {
     if (currentScroll > 0) {
-      slide.scrollTop = Math.max(currentScroll + delta, 0);
-      return 'inProgress'; // Прокрутка внутри слайда
+      slide.scrollTop = Math.max(
+        currentScroll - Math.abs(delta),
+        0,
+      );
+      return 'inProgress'; // Продолжаем скролл внутри секции
     }
-    // Если доскролили до верха, разрешаем перейти к предыдущему слайду
-    return 'start';
+    return 'endTop'; // Достигли начала секции
   }
 
-  return 'none'; // Ниже или выше границ
-}
+  return 'none'; // Скролл не изменился
+};
+
 function changeOpacity(newPos, direction, siteSlides) {
   // Если листаем вниз
   if (direction === 'down') {
@@ -330,6 +338,24 @@ const handleScroll = (siteSlides, navItems) => {
     }
 
     return; // Прекращаем выполнение, так как был обработан hor-scroll
+  }
+  if (isLongSlide(currentSlide)) {
+    const sectionStatus = processLongSectionScroll(
+      currentSlide,
+      delta,
+    );
+
+    // Если дошли до самого низа длинной секции
+    if (sectionStatus === 'endBottom' && delta < 0) {
+      setPosition(windPos + 1, siteSlides, navItems);
+    }
+
+    // Если поднялись до самого верха длинной секции
+    if (sectionStatus === 'endTop' && delta > 0) {
+      setPosition(windPos - 1, siteSlides, navItems);
+    }
+    console.log(sectionStatus);
+    return; // Скролл длинной секции обработан
   }
 
   // Если нет hor-scroll, продолжаем работу эталонного кода

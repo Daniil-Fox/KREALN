@@ -30,6 +30,7 @@
   }
   &__btn {
     padding: 1.8rem 3rem;
+    margin: 0 auto;
   }
   &__arr {
     position: fixed;
@@ -78,6 +79,7 @@
     padding-top: 19.3rem;
     padding-bottom: 19.3rem;
     padding-left: 9.5rem;
+    padding-right: 9.5rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

@@ -690,7 +690,7 @@ ul li::marker {
 }
 @media (max-width: 1024px) {
   .link {
-    font-size: 0.6rem;
+    font-size: 0.7rem;
     gap: 0.6rem;
   }
 }
@@ -816,7 +816,7 @@ ul li::marker {
 
 .header__nav--small ul ul li {
   opacity: 1;
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
 .sidebar {
@@ -5965,6 +5965,7 @@ ul li::marker {
 }
 .sp-block-kind__btn {
   padding: 1.8rem 3rem;
+  margin: 0 auto;
 }
 .sp-block-kind__arr {
   position: fixed;
@@ -6024,6 +6025,7 @@ ul li::marker {
   padding-top: 19.3rem;
   padding-bottom: 19.3rem;
   padding-left: 9.5rem;
+  padding-right: 9.5rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
