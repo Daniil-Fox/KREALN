@@ -221,7 +221,7 @@ const handleHorizontalScroll = (horScroll, delta) => {
 
 const handleScroll = (siteSlides, navItems) => {
   if (anim || pause || isPageScrollEnabled) return;
-  console.log('handle');
+
   const currentSlide = siteSlides[windPos];
   const horScroll =
     currentSlide.querySelector('.hor-scroll');

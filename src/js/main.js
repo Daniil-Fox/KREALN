@@ -82,3 +82,46 @@ var rellax = new Rellax('.rellax', {
   vertical: true,
   horizontal: false,
 });
+var body = document.body,
+  html = document.documentElement;
+
+var pageHeight = Math.max(
+  body.scrollHeight,
+  body.offsetHeight,
+  html.clientHeight,
+  html.scrollHeight,
+  html.offsetHeight,
+);
+document.addEventListener('DOMContentLoaded', function () {
+  const header = document.querySelector(
+    '.header:not(.h-nav--nolist)',
+  );
+  const footer = document.querySelector('.footer');
+  const sidebar = document.querySelector('.sidebar');
+
+  window.addEventListener('scroll', function () {
+    const footerRect = footer.getBoundingClientRect();
+    const headerHeight =
+      header?.offsetHeight || sidebar.offsetHeight;
+    if (footerRect.top < headerHeight) {
+      console.log('less');
+      if (header) {
+        header.style.position = 'absolute';
+        header.style.top = `${window.innerHeight}px`;
+      }
+      if (sidebar) {
+        sidebar.style.position = 'absolute';
+        sidebar.style.top = `${window.innerHeight}px`;
+      }
+    } else {
+      if (header) {
+        header.style.position = 'fixed';
+        header.style.top = '0';
+      }
+      if (sidebar) {
+        sidebar.style.position = 'fixed';
+        sidebar.style.top = '0';
+      }
+    }
+  });
+});

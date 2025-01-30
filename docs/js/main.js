@@ -10111,14 +10111,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_survey_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/survey.js */ "./src/js/components/survey.js");
 /* harmony import */ var _components_contacts_tab_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/contacts-tab.js */ "./src/js/components/contacts-tab.js");
 /* harmony import */ var _components_blog_mob_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/blog-mob.js */ "./src/js/components/blog-mob.js");
-// import './components/gsap.js'
+/* harmony import */ var _components_scale_down_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/scale-down.js */ "./src/js/components/scale-down.js");
 
 
 
 
 
 
-// import './components/owl.js'
+
 
 /***/ }),
 
@@ -10507,6 +10507,29 @@ if (tabs && tabs.length > 0) {
 
 /***/ }),
 
+/***/ "./src/js/components/scale-down.js":
+/*!*****************************************!*\
+  !*** ./src/js/components/scale-down.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+const slideStart = document.querySelector('.site-screen-start');
+if (slideStart) {
+  const section = slideStart.querySelector('section');
+  const intersectionObserver = new IntersectionObserver((entries, observer) => {
+    if (entries[0].isIntersecting) {
+      entries[0].target.classList.add('scale-down');
+    }
+  }, {
+    threshold: 0.8
+  });
+  intersectionObserver.observe(section);
+}
+
+/***/ }),
+
 /***/ "./src/js/components/scroll-new.js":
 /*!*****************************************!*\
   !*** ./src/js/components/scroll-new.js ***!
@@ -10802,11 +10825,9 @@ const handleScroll = (siteSlides, navItems) => {
     if (sectionStatus === 'endTop' && delta > 0) {
       setPosition(windPos - 1, siteSlides, navItems);
     }
-    console.log(sectionStatus);
     return; // Скролл длинной секции обработан
   }
-
-  // Если нет hor-scroll, продолжаем работу эталонного кода
+  // Если нет hor-scroll, продолжаем работу
   anim = true;
   if (direction === 'down' && windPos + 1 < siteSlides.length) {
     setPosition(windPos + 1, siteSlides, navItems);
@@ -10840,7 +10861,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (document.querySelector('.site-screen-start')) {
     setTimeout(() => {
       setPosition(windPos + 1, siteSlides, navItems);
-    }, 1500);
+    }, 2200);
   }
   if (siteSlides.length > 1) {
     setBodyScroll(false);
@@ -22773,6 +22794,38 @@ var rellax = new rellax__WEBPACK_IMPORTED_MODULE_1__('.rellax', {
   round: true,
   vertical: true,
   horizontal: false
+});
+var body = document.body,
+  html = document.documentElement;
+var pageHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+document.addEventListener('DOMContentLoaded', function () {
+  const header = document.querySelector('.header:not(.h-nav--nolist)');
+  const footer = document.querySelector('.footer');
+  const sidebar = document.querySelector('.sidebar');
+  window.addEventListener('scroll', function () {
+    const footerRect = footer.getBoundingClientRect();
+    const headerHeight = header?.offsetHeight || sidebar.offsetHeight;
+    if (footerRect.top < headerHeight) {
+      console.log('less');
+      if (header) {
+        header.style.position = 'absolute';
+        header.style.top = `${window.innerHeight}px`;
+      }
+      if (sidebar) {
+        sidebar.style.position = 'absolute';
+        sidebar.style.top = `${window.innerHeight}px`;
+      }
+    } else {
+      if (header) {
+        header.style.position = 'fixed';
+        header.style.top = '0';
+      }
+      if (sidebar) {
+        sidebar.style.position = 'fixed';
+        sidebar.style.top = '0';
+      }
+    }
+  });
 });
 })();
 

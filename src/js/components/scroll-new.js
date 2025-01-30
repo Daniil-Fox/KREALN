@@ -152,6 +152,7 @@ const initSlides = (siteSlides) => {
 // Смещение к слайду
 const setPosition = (newPos, siteSlides, navItems) => {
   if (newPos < 0 || newPos >= siteSlides.length) return;
+
   if (
     newPos > windPos &&
     isLongSlide(siteSlides[windPos]) &&
@@ -354,11 +355,9 @@ const handleScroll = (siteSlides, navItems) => {
     if (sectionStatus === 'endTop' && delta > 0) {
       setPosition(windPos - 1, siteSlides, navItems);
     }
-    console.log(sectionStatus);
     return; // Скролл длинной секции обработан
   }
-
-  // Если нет hor-scroll, продолжаем работу эталонного кода
+  // Если нет hor-scroll, продолжаем работу
   anim = true;
 
   if (
@@ -411,7 +410,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (document.querySelector('.site-screen-start')) {
     setTimeout(() => {
       setPosition(windPos + 1, siteSlides, navItems);
-    }, 1500);
+    }, 2200);
   }
 
   if (siteSlides.length > 1) {

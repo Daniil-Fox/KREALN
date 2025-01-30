@@ -5,22 +5,340 @@
   background-repeat: no-repeat;
   background-position: center;
   position: relative;
+}
 
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-color: rgba(#000, 0.35);
+.eco::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.35);
+}
+.eco .container,
+.eco__container {
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+.eco__container {
+  position: relative;
+  z-index: 3;
+}
+
+.eco-items {
+  padding: 12rem 10rem;
+}
+
+.eco-items__title {
+  margin-bottom: 6rem;
+}
+.eco-items__items {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr) [2];
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5.2rem 6rem;
+}
+
+.eco-item {
+  display: block;
+}
+.eco-item__title {
+  margin: 0;
+  margin-bottom: 3.4rem;
+  font-weight: 600;
+  font-size: 3.2rem;
+  color: #307fe2;
+}
+.eco-item__img {
+  height: 40.8rem;
+  margin-bottom: 5rem;
+}
+
+.eco-item__img img {
+  height: 100%;
+  width: 100%;
+}
+.eco-item__desc {
+  text-align: left;
+  color: rgba(20, 20, 20, 0.7);
+}
+
+.eco-block {
+  padding: 12rem 10rem;
+  padding-bottom: 6rem;
+  height: 100%;
+}
+@media (max-width: 1024px) {
+  .eco {
+    padding: 30rem 0 25rem;
+    background-image: url('./../img/eco/02.webp');
   }
-  .container,
-  &__container {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .eco-items {
+    padding: 3rem 0;
   }
-  &__container {
-    position: relative;
-    z-index: 3;
+  .eco-items__title {
+    margin: 0 auto;
+    max-width: 27rem;
+    margin-bottom: 3rem;
+    text-align: center;
   }
+  .eco-items__items {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  .eco-item__img {
+    height: 22rem;
+    margin-bottom: 1rem;
+  }
+  .eco-item__title {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+}
+@media (max-width: 1024px) {
+  .eco-block {
+    padding: 1rem 0;
+  }
+}
+.eco-block .container,
+.eco-block__container {
+  height: 100%;
+}
+.eco-block__container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+.eco-block__mob {
+  display: none;
+}
+@media (max-width: 1024px) {
+  .eco-block__mob {
+    display: block;
+  }
+}
+.eco-block__link {
+  font-size: 1rem;
+}
+.eco-block__link svg {
+  height: 0.6rem;
+  width: 0.4rem;
+}
+.eco-block__mob h2 {
+  margin: 0;
+  margin-bottom: 3rem;
+  font-weight: 600;
+  font-size: 1.6rem;
+  text-align: center;
+  color: #141414;
+}
+.eco-block__banner {
+  height: 48rem;
+}
+@media (max-width: 1024px) {
+  .eco-block__banner {
+    height: 22rem;
+  }
+}
+.eco-block__banner:not(:last-child) {
+  margin-bottom: 4rem;
+}
+@media (max-width: 1024px) {
+  .eco-block__banner:not(:last-child) {
+    margin-bottom: 3rem;
+  }
+}
+.eco-block__banner img {
+  width: 100%;
+  height: 100%;
+}
+.eco-block__btn {
+  padding: 1.8rem 2.8rem;
+  font-size: 2.4rem;
+}
+@media (max-width: 1024px) {
+  .eco-block__btn {
+    margin: 0 auto;
+    margin-top: 3rem;
+    font-size: 1.2rem;
+    padding: 1rem 2.6rem;
+  }
+}
+.eco-block__slider {
+  margin: 0 -10rem;
+  padding: 0 10rem;
+}
+@media (max-width: 1024px) {
+  .eco-block__slider {
+    margin: 0 -2.4rem;
+    padding: 0 2.4rem;
+  }
+}
+.eco-block__slider .swiper-slide {
+  height: 62rem;
+  width: auto;
+}
+@media (max-width: 1024px) {
+  .eco-block__slider .swiper-slide {
+    height: 22rem;
+    width: 100%;
+  }
+}
+.eco-block__slider .swiper-slide img {
+  display: block;
+  width: auto;
+  height: 100%;
+}
+@media (max-width: 1024px) {
+  .eco-block__slider .swiper-slide img {
+    width: 100%;
+  }
+}
+.eco-block__bottom {
+  text-align: center;
+  display: none;
+}
+@media (max-width: 1024px) {
+  .eco-block__bottom {
+    display: block;
+  }
+}
+.eco-block h1 {
+  margin: 0;
+  margin-bottom: 6rem;
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 3.2rem;
+  color: #141414;
+}
+@media (max-width: 1024px) {
+  .eco-block h1 {
+    display: none;
+  }
+}
+.eco-block p {
+  margin: 0;
+  line-height: 130%;
+  font-weight: 300;
+  font-size: 2rem;
+  color: rgba(20, 20, 20, 0.7);
+}
+@media (max-width: 1024px) {
+  .eco-block p {
+    text-align: center;
+    font-size: 1.2rem;
+  }
+}
+.eco-block p b {
+  font-weight: 600;
+  color: #141414;
+}
+.eco-block .row {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 7rem;
+  position: relative;
+}
+@media (max-width: 1024px) {
+  .eco-block .row {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+.eco-block .row div {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  position: relative;
+}
+.eco-block .row div img {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+@media (max-width: 1024px) {
+  .eco-block .row div img {
+    display: none;
+  }
+}
+.eco-block .row:not(:last-child) {
+  margin-bottom: 3rem;
+}
+.eco-block .col {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: 4rem;
+}
+.eco-block .jcsb {
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+.eco-block .algs {
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+}
+.eco-block p a {
+  color: inherit;
+  text-decoration: underline;
+}
+.eco-block table {
+  max-width: 97rem;
+  border: 0.05rem solid #000;
+  border-collapse: collapse;
+}
+@media (max-width: 1024px) {
+  .eco-block table {
+    border: 0.01rem solid #000;
+    background: #fff;
+  }
+}
+.eco-block table td {
+  border: 0.05rem solid #000;
+  padding: 0.7rem;
+  padding-bottom: 1.2rem;
+  font-weight: 300;
+  font-size: 2rem;
+  color: #141414;
+  width: 8%;
+  vertical-align: top;
+}
+@media (max-width: 1024px) {
+  .eco-block table td {
+    font-size: 0.6rem;
+    padding: 0.3rem;
+    border: 0.01rem solid #000;
+  }
+}
+.eco-block table td:nth-child(1) {
+  width: 16%;
+}
+.eco-block table td:last-child {
+  width: 11.7%;
 }

@@ -115,7 +115,41 @@
 </header>
 
       <main class="main"></main>
-      <footer class="footer">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<section class="geography_filter">
+  <div class="container">
+    <div class="title_listener">
+      <h2>География <span>объектов</span></h2>
+    </div>
+    <div class="extra_map">
+      <video
+        id="map_video"
+        muted
+        class="grn-standart"
+        src="./KrealMap.mp4"
+      ></video>
+      <div class="background"></div>
+      <div class="pkuis"></div>
+    </div>
+  </div>
+</section>
+<script>
+  var a = false;
+  $('.geography_filter').on('mouseover', () => {
+    if (!a) {
+      $('#map_video')[0].play();
+      a = !a;
+    }
+  });
+  $('#map_video').on('ended', () => {
+    $('#map_video').addClass('ended_video');
+    setTimeout(() => {
+      $('#map_video').hide();
+    }, 400);
+  });
+</script>
+
+<footer class="footer">
   <div class="footer__top">
     <div class="footer__container">
       <div class="footer__left">
@@ -127,12 +161,17 @@
           </a>
 
           <nav class="footer-nav">
-            <a href="#" class="footer-nav__link footer-nav__link--bold">
+            <a
+              href="#"
+              class="footer-nav__link footer-nav__link--bold"
+            >
               Опросные листы
             </a>
             <ul class="list-reset footer-nav__list">
               <li class="footer-nav__item">
-                <a href="#" class="footer-nav__link">Карта сайта</a>
+                <a href="#" class="footer-nav__link"
+                  >Карта сайта</a
+                >
               </li>
               <li class="footer-nav__item">
                 <a href="#" class="footer-nav__link"
@@ -152,123 +191,192 @@
         <nav class="fn footer-nav">
           <div class="fn__top">
             <div class="fn__col">
-              <a href="#" class="fn__link fn__link--capture">Компания</a>
+              <a href="#" class="fn__link fn__link--capture"
+                >Компания</a
+              >
               <ul class="list-reset fn__list">
                 <li class="fn__item footer-nav__item">
-                  <a href="#" class="fn__link footer-nav__link"
+                  <a
+                    href="#"
+                    class="fn__link footer-nav__link"
                     >О нашей команде</a
                   >
                 </li>
                 <li class="fn__item footer-nav__item">
-                  <a href="#" class="fn__link footer-nav__link"
+                  <a
+                    href="#"
+                    class="fn__link footer-nav__link"
                     >История развития</a
                   >
                 </li>
                 <li class="fn__item footer-nav__item">
-                  <a href="#" class="fn__link footer-nav__link"
-                    >Рекомендательные письма<br />и отзывы</a
+                  <a
+                    href="#"
+                    class="fn__link footer-nav__link"
+                    >Рекомендательные письма<br />и
+                    отзывы</a
                   >
                 </li>
                 <li class="fn__item footer-nav__item">
-                  <a href="#" class="fn__link footer-nav__link">Сертификаты</a>
+                  <a
+                    href="#"
+                    class="fn__link footer-nav__link"
+                    >Сертификаты</a
+                  >
                 </li>
                 <li class="fn__item footer-nav__item">
-                  <a href="#" class="fn__link footer-nav__link">Контакты</a>
+                  <a
+                    href="#"
+                    class="fn__link footer-nav__link"
+                    >Контакты</a
+                  >
                 </li>
               </ul>
             </div>
             <div class="fn__col">
-              <a href="#" class="fn__link fn__link--capture">Решения</a>
+              <a href="#" class="fn__link fn__link--capture"
+                >Решения</a
+              >
               <ul class="list-reset fn__list">
                 <li class="fn__item footer-nav__item">
-                  <a href="#" class="fn__link footer-nav__link">Отраслевые</a>
+                  <a
+                    href="#"
+                    class="fn__link footer-nav__link"
+                    >Отраслевые</a
+                  >
                 </li>
                 <li class="fn__item footer-nav__item">
-                  <a href="#" class="fn__link footer-nav__link"
+                  <a
+                    href="#"
+                    class="fn__link footer-nav__link"
                     >По типу стоков</a
                   >
                 </li>
                 <li class="fn__item footer-nav__item">
-                  <a href="#" class="fn__link footer-nav__link"
+                  <a
+                    href="#"
+                    class="fn__link footer-nav__link"
                     >По типам очистки</a
                   >
                 </li>
               </ul>
             </div>
             <div class="fn__col">
-              <a href="#" class="fn__link fn__link--capture">Услуги</a>
+              <a href="#" class="fn__link fn__link--capture"
+                >Услуги</a
+              >
               <ul class="list-reset fn__list">
                 <li class="fn__item footer-nav__item">
-                  <a href="#" class="fn__link footer-nav__link">Производство</a>
+                  <a
+                    href="#"
+                    class="fn__link footer-nav__link"
+                    >Производство</a
+                  >
                 </li>
                 <li class="fn__item footer-nav__item">
-                  <a href="#" class="fn__link footer-nav__link"
+                  <a
+                    href="#"
+                    class="fn__link footer-nav__link"
                     >Монтаж и пусконаладка</a
                   >
                 </li>
                 <li class="fn__item footer-nav__item">
-                  <a href="#" class="fn__link footer-nav__link"
+                  <a
+                    href="#"
+                    class="fn__link footer-nav__link"
                     >Сервисное обслуживание</a
                   >
                 </li>
                 <li class="fn__item footer-nav__item">
-                  <a href="#" class="fn__link footer-nav__link">Модернизация</a>
+                  <a
+                    href="#"
+                    class="fn__link footer-nav__link"
+                    >Модернизация</a
+                  >
                 </li>
                 <li class="fn__item footer-nav__item">
-                  <a href="#" class="fn__link footer-nav__link">Обследование</a>
+                  <a
+                    href="#"
+                    class="fn__link footer-nav__link"
+                    >Обследование</a
+                  >
                 </li>
                 <li class="fn__item footer-nav__item">
-                  <a href="#" class="fn__link footer-nav__link"
+                  <a
+                    href="#"
+                    class="fn__link footer-nav__link"
                     >Проектирование</a
                   >
                 </li>
               </ul>
             </div>
             <div class="fn__col">
-              <a href="#" class="fn__link fn__link--capture">Продукция</a>
+              <a href="#" class="fn__link fn__link--capture"
+                >Продукция</a
+              >
               <ul class="list-reset fn__list">
                 <li class="fn__item footer-nav__item">
-                  <a href="#" class="fn__link footer-nav__link"
+                  <a
+                    href="#"
+                    class="fn__link footer-nav__link"
                     >Блочно-модульные</a
                   >
                 </li>
                 <li class="fn__item footer-nav__item">
-                  <a href="#" class="fn__link footer-nav__link"
+                  <a
+                    href="#"
+                    class="fn__link footer-nav__link"
                     >Фильтры с плавающей загрузкой</a
                   >
                 </li>
                 <li class="fn__item footer-nav__item">
-                  <a href="#" class="fn__link footer-nav__link"
+                  <a
+                    href="#"
+                    class="fn__link footer-nav__link"
                     >Станция приема сточных вод</a
                   >
                 </li>
                 <li class="fn__item footer-nav__item">
-                  <a href="#" class="fn__link footer-nav__link"
+                  <a
+                    href="#"
+                    class="fn__link footer-nav__link"
                     >Канализационная насосная станция</a
                   >
                 </li>
                 <li class="fn__item footer-nav__item">
-                  <a href="#" class="fn__link footer-nav__link"
+                  <a
+                    href="#"
+                    class="fn__link footer-nav__link"
                     >Трубчатые аэраторы</a
                   >
                 </li>
                 <li class="fn__item footer-nav__item">
-                  <a href="#" class="fn__link footer-nav__link"
+                  <a
+                    href="#"
+                    class="fn__link footer-nav__link"
                     >Плоскостная загрузка</a
                   >
                 </li>
                 <li class="fn__item footer-nav__item">
-                  <a href="#" class="fn__link footer-nav__link"
+                  <a
+                    href="#"
+                    class="fn__link footer-nav__link"
                     >Мешковая сушилка</a
                   >
                 </li>
                 <li class="fn__item footer-nav__item">
-                  <a href="#" class="fn__link footer-nav__link"
+                  <a
+                    href="#"
+                    class="fn__link footer-nav__link"
                     >Водоподготовка</a
                   >
                 </li>
                 <li class="fn__item footer-nav__item">
-                  <a href="#" class="fn__link footer-nav__link">Блок - бокс</a>
+                  <a
+                    href="#"
+                    class="fn__link footer-nav__link"
+                    >Блок - бокс</a
+                  >
                 </li>
               </ul>
             </div>
@@ -300,7 +408,9 @@
             </ul>
             <ul class="fn__b fn-b list-reset">
               <li class="fn-b__item">
-                <a href="#" class="fn-b__link">Для технических специалистов</a>
+                <a href="#" class="fn-b__link"
+                  >Для технических специалистов</a
+                >
               </li>
               <li class="fn-b__item">
                 <a href="#" class="fn-b__link">Вакансии</a>
@@ -325,13 +435,16 @@
               >
             </div>
             <div class="footer__add">
-              <span class="footer-nav__link footer-nav__link--bold"
+              <span
+                class="footer-nav__link footer-nav__link--bold"
                 >Санкт-Петербург, пер. Антоненко, 10</span
               >
             </div>
           </address>
 
-          <a href="#" class="footer__btn btn-reset btn btn--stroke btn--blue"
+          <a
+            href="#"
+            class="footer__btn btn-reset btn btn--stroke btn--blue"
             >Заказать звонок</a
           >
         </div>

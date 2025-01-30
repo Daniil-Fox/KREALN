@@ -11,16 +11,22 @@
             <div class="header__container">
               <a href="./" class="header__logo">
                 <svg class="">
-                  <use xlink:href="img/sprite.svg#logo"></use>
+                  <use
+                    xlink:href="img/sprite.svg#logo"
+                  ></use>
                 </svg>
               </a>
             </div>
           </div>
           <div class="site-wrapper">
-            <div class="site-screen site-screen-light">
+            <div
+              class="site-screen site-screen-light site-screen-start"
+            >
               @include('partials/blog-hero.html')
             </div>
-            <div class="site-screen">@include('partials/blog-slider.html')</div>
+            <div class="site-screen">
+              @include('partials/blog-slider.html')
+            </div>
           </div>
           @include('partials/aside.html')
         </div>

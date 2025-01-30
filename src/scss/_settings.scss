@@ -261,7 +261,7 @@ section {
     height: 100%;
     border-right: 1px solid rgba(#141414, 0.25);
 
-    transition: 1s ease-out;
+    transition: transform 1s ease-out;
 
     span {
       height: 100%;
@@ -310,7 +310,7 @@ section {
     height: 100%;
     border-left: 1px solid rgba(#141414, 0.25);
 
-    transition: 1s ease-out;
+    transition: transform 1s ease-out;
   }
 
   &.hide-control {
@@ -448,6 +448,13 @@ section {
 
   span {
     color: #307fe2;
+  }
+  &--mob {
+    display: none;
+    @include tablet {
+      display: block;
+      margin-bottom: 2rem;
+    }
   }
 }
 
@@ -670,5 +677,44 @@ ul {
   top: 0.4rem;
 }
 .hide-side {
-  transition: 0.3s ease-out;
+  transition: transform 0.3s ease-out;
+}
+
+.site-screen-start > section {
+  &.scale-down {
+    animation: scale-down 20s linear 1;
+
+    @include tablet {
+      animation: scale-down-mobile 20s linear 1;
+    }
+  }
+}
+.site-screen-start {
+  @include tablet {
+    display: none;
+  }
+}
+
+@keyframes scale-down {
+  0% {
+    background-size: 150vw 150vh;
+  }
+  99% {
+    background-size: 110vw 110vh;
+  }
+  100% {
+    background-size: cover;
+  }
+}
+
+@keyframes scale-down-mobile {
+  0% {
+    background-size: 150vw 120vh;
+  }
+  99% {
+    background-size: 100vw 100vh;
+  }
+  100% {
+    background-size: cover;
+  }
 }

@@ -1,10 +1,14 @@
 .survey-list {
   height: 100%;
-  background: linear-gradient(180deg, #fff 0%, #dcecff 100%);
+  background: linear-gradient(
+    180deg,
+    #fff 0%,
+    #dcecff 100%
+  );
   overflow-y: auto;
 
   @include tablet {
-    padding-top: 3rem;
+    padding-top: 0;
     padding-bottom: 8.5rem;
   }
 
@@ -130,10 +134,8 @@
   }
 }
 
-
 .sl-list {
   display: flex;
-
 
   &__items {
     background-color: #fff;
@@ -156,7 +158,7 @@
 
     background-color: #dcecff;
 
-    transition: background-color .3s ease-out;
+    transition: background-color 0.3s ease-out;
 
     @include tablet {
       width: 1.4rem;
@@ -179,7 +181,7 @@
 
     @include tablet {
       font-size: 2.5rem;
-      padding: 5.6rem .2rem;
+      padding: 5.6rem 0.2rem;
     }
   }
 
@@ -196,7 +198,7 @@
     padding-left: 4.3rem;
     padding-right: 8.8rem;
     padding-bottom: 10rem;
-    transition: transform .4s ease-out;
+    transition: transform 0.4s ease-out;
 
     @include tablet {
       align-items: center;
@@ -222,15 +224,13 @@
       }
 
       .sl-list__check {
-        background-color: #307FE2;
+        background-color: #307fe2;
       }
 
       .sl-list__name {
         color: #141414;
       }
     }
-
-
   }
 
   &__name {
@@ -238,7 +238,7 @@
     font-weight: 300;
     color: rgba(20, 20, 20, 0.5);
 
-    transition: color .3s ease-out;
+    transition: color 0.3s ease-out;
 
     @include tablet {
       font-size: 1rem;

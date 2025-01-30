@@ -1,6 +1,6 @@
 .mob-header {
   display: none;
-  position: absolute;
+  position: relative;
   z-index: 20;
   left: 0;
   top: 0;
@@ -30,7 +30,7 @@
     svg {
       width: 100%;
       height: 100%;
-      fill: #fff;
+      fill: #307fe2 !important;
     }
   }
 
@@ -39,17 +39,18 @@
     top: 50%;
     right: 0;
     transform: translateY(-50%);
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 2.8rem;
     height: 2.8rem;
     border-radius: 100%;
-    border: .05rem solid rgba(255, 255, 255, 0.6);
+    border: 0.05rem solid #d9d9d9;
     background-image: url('./../img/download-wh.webp');
     background-size: 1rem;
     background-repeat: no-repeat;
     background-position: center;
     margin-left: auto;
-
 
     &--spec {
       background-image: url('./../img/spec-icon.webp');
