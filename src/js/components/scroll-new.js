@@ -345,7 +345,6 @@ const handleScroll = (siteSlides, navItems) => {
       currentSlide,
       delta,
     );
-
     // Если дошли до самого низа длинной секции
     if (sectionStatus === 'endBottom' && delta < 0) {
       setPosition(windPos + 1, siteSlides, navItems);
@@ -359,7 +358,6 @@ const handleScroll = (siteSlides, navItems) => {
   }
   // Если нет hor-scroll, продолжаем работу
   anim = true;
-
   if (
     direction === 'down' &&
     windPos + 1 < siteSlides.length
@@ -378,7 +376,6 @@ const handleScroll = (siteSlides, navItems) => {
 const mainFunc = (e, siteSlides, navItems) => {
   delta = e.wheelDeltaY || -e.deltaY;
   direction = delta > 0 ? 'up' : 'down';
-
   handleScroll(siteSlides, navItems);
 };
 
@@ -411,6 +408,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       setPosition(windPos + 1, siteSlides, navItems);
     }, 2200);
+  } else {
+    navItems[0].classList.add('active');
   }
 
   if (siteSlides.length > 1) {

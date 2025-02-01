@@ -10815,7 +10815,6 @@ const handleScroll = (siteSlides, navItems) => {
   }
   if (isLongSlide(currentSlide)) {
     const sectionStatus = processLongSectionScroll(currentSlide, delta);
-
     // Если дошли до самого низа длинной секции
     if (sectionStatus === 'endBottom' && delta < 0) {
       setPosition(windPos + 1, siteSlides, navItems);
@@ -10862,6 +10861,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       setPosition(windPos + 1, siteSlides, navItems);
     }, 2200);
+  } else {
+    navItems[0].classList.add('active');
   }
   if (siteSlides.length > 1) {
     setBodyScroll(false);
@@ -22797,35 +22798,35 @@ var rellax = new rellax__WEBPACK_IMPORTED_MODULE_1__('.rellax', {
 });
 var body = document.body,
   html = document.documentElement;
-var pageHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
 document.addEventListener('DOMContentLoaded', function () {
   const header = document.querySelector('.header:not(.h-nav--nolist)');
   const footer = document.querySelector('.footer');
   const sidebar = document.querySelector('.sidebar');
-  window.addEventListener('scroll', function () {
-    const footerRect = footer.getBoundingClientRect();
-    const headerHeight = header?.offsetHeight || sidebar.offsetHeight;
-    if (footerRect.top < headerHeight) {
-      console.log('less');
-      if (header) {
-        header.style.position = 'absolute';
-        header.style.top = `${window.innerHeight}px`;
+  if (!document.querySelector('.geography_filter')?.closest('.site-screen')) {
+    window.addEventListener('scroll', function () {
+      const footerRect = footer.getBoundingClientRect();
+      const headerHeight = header?.offsetHeight || sidebar.offsetHeight;
+      if (footerRect.top < headerHeight) {
+        if (header) {
+          header.style.position = 'absolute';
+          header.style.top = `${window.innerHeight}px`;
+        }
+        if (sidebar) {
+          sidebar.style.position = 'absolute';
+          sidebar.style.top = `${window.innerHeight}px`;
+        }
+      } else {
+        if (header) {
+          header.style.position = 'fixed';
+          header.style.top = '0';
+        }
+        if (sidebar) {
+          sidebar.style.position = 'fixed';
+          sidebar.style.top = '0';
+        }
       }
-      if (sidebar) {
-        sidebar.style.position = 'absolute';
-        sidebar.style.top = `${window.innerHeight}px`;
-      }
-    } else {
-      if (header) {
-        header.style.position = 'fixed';
-        header.style.top = '0';
-      }
-      if (sidebar) {
-        sidebar.style.position = 'fixed';
-        sidebar.style.top = '0';
-      }
-    }
-  });
+    });
+  }
 });
 })();
 

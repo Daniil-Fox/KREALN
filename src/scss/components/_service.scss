@@ -1,11 +1,12 @@
 .service {
-  --offset-top: 8vh;
-  height: 100%;
+  --offset-top: 12rem;
+  height: 100vh;
   padding-top: var(--offset-top);
   background-color: #f4f4f4;
   overflow: hidden;
   position: relative;
-
+  display: flex;
+  flex-direction: column;
   @include tablet {
     background-color: #fff;
     --offset-top: 3rem;
@@ -16,14 +17,17 @@
   }
 
   .container {
-    position: relative;
-    z-index: 200;
-    height: 100%;
+    z-index: 100;
+    width: 100%;
+    flex-grow: 1;
+
+    display: flex;
+    flex-direction: column;
   }
 
   &__container {
     width: 100%;
-    height: 100%;
+    flex-grow: 1;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     position: relative;
@@ -32,17 +36,16 @@
       grid-template-columns: repeat(2, 1fr);
       gap: 1rem;
     }
-
   }
 
   &__wrapper {
     --pos: 100%;
     position: absolute;
     left: 0;
-    top: calc(-1 * var(--offset-top));
+    top: 0;
     z-index: 10;
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     mask-image: url(./../img/arr.webp);
     mask-size: 90rem 100%;
     mask-position: var(--pos) 100%;
@@ -63,7 +66,7 @@
       left: 0;
       top: 0;
       width: 100%;
-      height: 100vh;
+      height: 100%;
 
       @include tablet {
         height: auto;
@@ -92,16 +95,23 @@
     z-index: -1;
     left: 20%;
     top: 0;
-    height: 100vh;
+    height: 100%;
     width: 90rem;
     // width: 115rem;
     // mask-image: url('./../img/arr.svg');
     // mask-size: 100% 100%;
     // mask-repeat: no-repeat;
     // mask-position: right;
-    transition: linear .1s;
+    transition: linear 0.1s;
     mix-blend-mode: difference;
-    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 100%, 50% 50%, 0% 0%);
+    clip-path: polygon(
+      50% 0%,
+      100% 50%,
+      50% 100%,
+      0% 100%,
+      50% 50%,
+      0% 0%
+    );
     background-color: #141414;
 
     img {
@@ -111,7 +121,6 @@
     }
   }
 }
-
 
 .service-item {
   display: flex;
@@ -150,12 +159,11 @@
     &:nth-child(3n + 3) {
       background: #dbe1e9;
     }
-
   }
 
   &:last-child {
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       left: 0;
       bottom: 0;
@@ -170,7 +178,7 @@
 
   &:nth-last-child(2) {
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       left: 0;
       bottom: 0;
