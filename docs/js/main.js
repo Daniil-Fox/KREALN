@@ -10862,7 +10862,7 @@ document.addEventListener('DOMContentLoaded', () => {
       setPosition(windPos + 1, siteSlides, navItems);
     }, 2200);
   } else {
-    navItems[0].classList.add('active');
+    navItems[0]?.classList.add('active');
   }
   if (siteSlides.length > 1) {
     setBodyScroll(false);
