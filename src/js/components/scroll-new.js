@@ -15,7 +15,9 @@ const testiTabs = document.querySelectorAll(
 const testiArray = document.querySelectorAll(
   '.testi-cont__arr',
 );
-
+const siteSlider = document.querySelector(
+  '.site-slider:not(.no-standart)',
+);
 let horScrollSec = 0;
 // -------------------- Утилитарные функции --------------------
 // Проверяем, длиннее ли текущий слайд экрана
@@ -27,10 +29,12 @@ function isLongSlide(slide) {
   // Секция считается длинной, если либо она сама длинная, либо у нее есть длинный дочерний элемент
   return isSlideLong;
 }
+
 const processLongSectionScroll = (slide, delta) => {
   const sec = slide.querySelector('section');
   const currentScroll = sec.scrollTop; // Текущая позиция прокрутки
   const maxScroll = sec.scrollHeight - sec.clientHeight; // Максимальное значение скролла
+
   // Скролл вниз
   if (delta < 0) {
     if (currentScroll < maxScroll) {
@@ -81,7 +85,7 @@ function changeOpacity(newPos, direction, siteSlides) {
 
   // Если листаем вверх
   if (direction === 'up') {
-    // Скрываем следующий слайд
+    document.documentElement.scrollTop != 0 ?? 0;
     if (
       newPos < siteSlides.length - 1 &&
       siteSlides[newPos + 1]?.querySelector('.hide-side')
@@ -215,12 +219,25 @@ const setPosition = (newPos, siteSlides, navItems) => {
 
   // Отдельно обрабатываем случай последнего слайда
   // Разрешаем стандартный скролл ТОЛЬКО после завершения анимации
+  // Последний длинный слайд
   if (windPos === siteSlides.length - 1) {
+    if (isLongSlide(siteSlides[windPos])) {
+      siteSlides[windPos].style.position = 'relative';
+      siteSlides[windPos].style.height = 'auto';
+
+      setTimeout(() => {
+        siteSlider.style.height = 'auto';
+      }, 700);
+    }
+
     setTimeout(() => {
       isPageScrollEnabled = true;
       setBodyScroll(true);
     }, delayAnim); // Включаем стандартный скролл после завершения анимации
   } else {
+    siteSlides[windPos].style.position = 'absolute';
+    siteSlides[windPos].style.height = '100%';
+    siteSlider.style.height = '100vh';
     isPageScrollEnabled = false;
     setBodyScroll(false); // Отключаем стандартный скролл для всех других слайдов
   }
@@ -318,9 +335,8 @@ const handleHorizontalScroll = (horScroll, delta) => {
 
 // -------------------- Обработка прокрутки --------------------
 
-const handleScroll = (siteSlides, navItems) => {
+const handleScroll = (e, siteSlides, navItems) => {
   if (anim || pause || isPageScrollEnabled) return;
-
   const currentSlide = siteSlides[windPos];
   const horScroll =
     currentSlide.querySelector('.hor-scroll');
@@ -345,19 +361,27 @@ const handleScroll = (siteSlides, navItems) => {
       currentSlide,
       delta,
     );
+
     // Если дошли до самого низа длинной секции
     if (sectionStatus === 'endBottom' && delta < 0) {
       setPosition(windPos + 1, siteSlides, navItems);
+
+      if (windPos === siteSlides.length - 1) {
+        isPageScrollEnabled = true;
+        setBodyScroll(true);
+      }
     }
 
     // Если поднялись до самого верха длинной секции
     if (sectionStatus === 'endTop' && delta > 0) {
       setPosition(windPos - 1, siteSlides, navItems);
     }
+
     return; // Скролл длинной секции обработан
   }
   // Если нет hor-scroll, продолжаем работу
   anim = true;
+
   if (
     direction === 'down' &&
     windPos + 1 < siteSlides.length
@@ -376,7 +400,17 @@ const handleScroll = (siteSlides, navItems) => {
 const mainFunc = (e, siteSlides, navItems) => {
   delta = e.wheelDeltaY || -e.deltaY;
   direction = delta > 0 ? 'up' : 'down';
-  handleScroll(siteSlides, navItems);
+  handleScroll(e, siteSlides, navItems);
+
+  if (
+    windPos == siteSlides.length - 1 &&
+    window.scrollY == 0 &&
+    direction == 'up'
+  ) {
+    isPageScrollEnabled = false;
+    setBodyScroll(false);
+    pause = false;
+  }
 };
 
 // -------------------- Инициализация --------------------
@@ -384,7 +418,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!window.matchMedia('(min-width: 1025px)').matches)
     return;
 
-  const siteSlider = document.querySelector('.site-slider');
   const footer = document.querySelector('footer');
 
   if (!siteSlider) {
@@ -404,11 +437,7 @@ document.addEventListener('DOMContentLoaded', () => {
       )
     : [];
 
-  if (document.querySelector('.site-screen-start')) {
-    setTimeout(() => {
-      setPosition(windPos + 1, siteSlides, navItems);
-    }, 2200);
-  } else {
+  if (!document.querySelector('.site-screen-start')) {
     navItems[0]?.classList.add('active');
   }
 
@@ -434,7 +463,11 @@ document.addEventListener('DOMContentLoaded', () => {
       { threshold: 0.1 },
     );
 
-    if (footer) footerObserver.observe(footer);
+    // if (footer) footerObserver.observe(footer);
+    if (footer.querySelector('.geography_filter'))
+      footerObserver.observe(
+        footer.querySelector('.geography_filter'),
+      );
 
     const throttledMainFunc = throttle(
       (e) => mainFunc(e, siteSlides, navItems),
@@ -454,9 +487,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   } else {
-    console.log(
-      'Insufficient slides detected: enabling standard page scroll.',
-    );
+    siteSlider.style.height = 'auto';
+    siteSlides[windPos].style.height = 'auto';
+    siteSlides[windPos].style.position = 'relative';
     setBodyScroll(true);
   }
 });

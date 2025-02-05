@@ -51,6 +51,7 @@ if (swiperContainer) {
 // Проверяем, если слайдов меньше 4
 if (slides && slides.length < 4) {
   // Дублируем слайды
+  console.log('clone');
   const clonesNeeded = 4 - slides.length;
   for (let i = 0; i < clonesNeeded; i++) {
     // Получаем копию и добавляем в контейнер

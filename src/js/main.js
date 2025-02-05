@@ -91,24 +91,27 @@ document.addEventListener('DOMContentLoaded', function () {
   );
   const footer = document.querySelector('.footer');
   const sidebar = document.querySelector('.sidebar');
-
+  const footerRect = footer.getBoundingClientRect();
+  const dif =
+    document.documentElement.scrollHeight -
+    footerRect.height;
   if (
     !document
       .querySelector('.geography_filter')
       ?.closest('.site-screen')
   ) {
     window.addEventListener('scroll', function () {
-      const footerRect = footer.getBoundingClientRect();
       const headerHeight =
-        header?.offsetHeight || sidebar.offsetHeight;
+        header?.scrollHeight || sidebar.scrollHeight;
+      const footerRect = footer.getBoundingClientRect();
       if (footerRect.top < headerHeight) {
         if (header) {
           header.style.position = 'absolute';
-          header.style.top = `${window.innerHeight}px`;
+          header.style.top = `${100}%`;
         }
         if (sidebar) {
           sidebar.style.position = 'absolute';
-          sidebar.style.top = `${window.innerHeight}px`;
+          sidebar.style.top = `${100}%`;
         }
       } else {
         if (header) {

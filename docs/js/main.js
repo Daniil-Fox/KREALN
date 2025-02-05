@@ -10553,6 +10553,7 @@ let isPageScrollEnabled = false; // Включение стандартного 
 let footerVisible = false; // Флаг видимости футера
 const testiTabs = document.querySelectorAll('.testi-cont__tab');
 const testiArray = document.querySelectorAll('.testi-cont__arr');
+const siteSlider = document.querySelector('.site-slider:not(.no-standart)');
 let horScrollSec = 0;
 // -------------------- Утилитарные функции --------------------
 // Проверяем, длиннее ли текущий слайд экрана
@@ -10568,6 +10569,7 @@ const processLongSectionScroll = (slide, delta) => {
   const sec = slide.querySelector('section');
   const currentScroll = sec.scrollTop; // Текущая позиция прокрутки
   const maxScroll = sec.scrollHeight - sec.clientHeight; // Максимальное значение скролла
+
   // Скролл вниз
   if (delta < 0) {
     if (currentScroll < maxScroll) {
@@ -10603,7 +10605,7 @@ function changeOpacity(newPos, direction, siteSlides) {
 
   // Если листаем вверх
   if (direction === 'up') {
-    // Скрываем следующий слайд
+    document.documentElement.scrollTop != 0 ?? 0;
     if (newPos < siteSlides.length - 1 && siteSlides[newPos + 1]?.querySelector('.hide-side')) {
       siteSlides[newPos + 1].querySelector('.hide-side').style.opacity = 0;
     }
@@ -10707,12 +10709,23 @@ const setPosition = (newPos, siteSlides, navItems) => {
 
   // Отдельно обрабатываем случай последнего слайда
   // Разрешаем стандартный скролл ТОЛЬКО после завершения анимации
+  // Последний длинный слайд
   if (windPos === siteSlides.length - 1) {
+    if (isLongSlide(siteSlides[windPos])) {
+      siteSlides[windPos].style.position = 'relative';
+      siteSlides[windPos].style.height = 'auto';
+      setTimeout(() => {
+        siteSlider.style.height = 'auto';
+      }, 700);
+    }
     setTimeout(() => {
       isPageScrollEnabled = true;
       setBodyScroll(true);
     }, delayAnim); // Включаем стандартный скролл после завершения анимации
   } else {
+    siteSlides[windPos].style.position = 'absolute';
+    siteSlides[windPos].style.height = '100%';
+    siteSlider.style.height = '100vh';
     isPageScrollEnabled = false;
     setBodyScroll(false); // Отключаем стандартный скролл для всех других слайдов
   }
@@ -10799,7 +10812,7 @@ const handleHorizontalScroll = (horScroll, delta) => {
 
 // -------------------- Обработка прокрутки --------------------
 
-const handleScroll = (siteSlides, navItems) => {
+const handleScroll = (e, siteSlides, navItems) => {
   if (anim || pause || isPageScrollEnabled) return;
   const currentSlide = siteSlides[windPos];
   const horScroll = currentSlide.querySelector('.hor-scroll');
@@ -10815,9 +10828,14 @@ const handleScroll = (siteSlides, navItems) => {
   }
   if (isLongSlide(currentSlide)) {
     const sectionStatus = processLongSectionScroll(currentSlide, delta);
+
     // Если дошли до самого низа длинной секции
     if (sectionStatus === 'endBottom' && delta < 0) {
       setPosition(windPos + 1, siteSlides, navItems);
+      if (windPos === siteSlides.length - 1) {
+        isPageScrollEnabled = true;
+        setBodyScroll(true);
+      }
     }
 
     // Если поднялись до самого верха длинной секции
@@ -10842,13 +10860,17 @@ const handleScroll = (siteSlides, navItems) => {
 const mainFunc = (e, siteSlides, navItems) => {
   delta = e.wheelDeltaY || -e.deltaY;
   direction = delta > 0 ? 'up' : 'down';
-  handleScroll(siteSlides, navItems);
+  handleScroll(e, siteSlides, navItems);
+  if (windPos == siteSlides.length - 1 && window.scrollY == 0 && direction == 'up') {
+    isPageScrollEnabled = false;
+    setBodyScroll(false);
+    pause = false;
+  }
 };
 
 // -------------------- Инициализация --------------------
 document.addEventListener('DOMContentLoaded', () => {
   if (!window.matchMedia('(min-width: 1025px)').matches) return;
-  const siteSlider = document.querySelector('.site-slider');
   const footer = document.querySelector('footer');
   if (!siteSlider) {
     console.warn('Site slider not found');
@@ -10857,11 +10879,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const siteSlides = Array.from(siteSlider.querySelectorAll('.site-screen'));
   const nav = document.querySelector('.header__nav:not(.no-active)');
   const navItems = nav ? Array.from(nav.querySelectorAll('li:not(.no-clickable)')) : [];
-  if (document.querySelector('.site-screen-start')) {
-    setTimeout(() => {
-      setPosition(windPos + 1, siteSlides, navItems);
-    }, 2200);
-  } else {
+  if (!document.querySelector('.site-screen-start')) {
     navItems[0]?.classList.add('active');
   }
   if (siteSlides.length > 1) {
@@ -10881,7 +10899,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }, {
       threshold: 0.1
     });
-    if (footer) footerObserver.observe(footer);
+
+    // if (footer) footerObserver.observe(footer);
+    if (footer.querySelector('.geography_filter')) footerObserver.observe(footer.querySelector('.geography_filter'));
     const throttledMainFunc = (0,_functions_throttle_js__WEBPACK_IMPORTED_MODULE_0__.throttle)(e => mainFunc(e, siteSlides, navItems), 300);
     window.addEventListener('wheel', throttledMainFunc);
     window.addEventListener('scroll', () => {
@@ -10892,7 +10912,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   } else {
-    console.log('Insufficient slides detected: enabling standard page scroll.');
+    siteSlider.style.height = 'auto';
+    siteSlides[windPos].style.height = 'auto';
+    siteSlides[windPos].style.position = 'relative';
     setBodyScroll(true);
   }
 });
@@ -10939,6 +10961,7 @@ if (swiperContainer) {
 // Проверяем, если слайдов меньше 4
 if (slides && slides.length < 4) {
   // Дублируем слайды
+  console.log('clone');
   const clonesNeeded = 4 - slides.length;
   for (let i = 0; i < clonesNeeded; i++) {
     // Получаем копию и добавляем в контейнер
@@ -22802,18 +22825,20 @@ document.addEventListener('DOMContentLoaded', function () {
   const header = document.querySelector('.header:not(.h-nav--nolist)');
   const footer = document.querySelector('.footer');
   const sidebar = document.querySelector('.sidebar');
+  const footerRect = footer.getBoundingClientRect();
+  const dif = document.documentElement.scrollHeight - footerRect.height;
   if (!document.querySelector('.geography_filter')?.closest('.site-screen')) {
     window.addEventListener('scroll', function () {
+      const headerHeight = header?.scrollHeight || sidebar.scrollHeight;
       const footerRect = footer.getBoundingClientRect();
-      const headerHeight = header?.offsetHeight || sidebar.offsetHeight;
       if (footerRect.top < headerHeight) {
         if (header) {
           header.style.position = 'absolute';
-          header.style.top = `${window.innerHeight}px`;
+          header.style.top = `${100}%`;
         }
         if (sidebar) {
           sidebar.style.position = 'absolute';
-          sidebar.style.top = `${window.innerHeight}px`;
+          sidebar.style.top = `${100}%`;
         }
       } else {
         if (header) {
