@@ -10553,7 +10553,7 @@ let isPageScrollEnabled = false; // Включение стандартного 
 let footerVisible = false; // Флаг видимости футера
 const testiTabs = document.querySelectorAll('.testi-cont__tab');
 const testiArray = document.querySelectorAll('.testi-cont__arr');
-const siteSlider = document.querySelector('.site-slider:not(.no-standart)');
+const siteSlider = document.querySelector('.site-slider');
 let horScrollSec = 0;
 // -------------------- Утилитарные функции --------------------
 // Проверяем, длиннее ли текущий слайд экрана

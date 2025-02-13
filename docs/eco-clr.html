@@ -100,9 +100,7 @@
   <body class="page__body">
     <div class="site-container">
       <main class="main">
-        <div
-          class="site-slider site-slider--eco no-standart"
-        >
+        <div class="site-slider site-slider--eco">
           <div class="h-nav header">
             <span></span>
             <div class="header__container">
@@ -197,11 +195,10 @@
             других промышленных городов, требуются так
             называемые " защитные механизмы" для очистки
             сточных вод. Компания "Креал", занимающаяся
-            производством оборудования очистки воды <a
-              href="#"
-              >http://www.kreal.spb.ru</a
-            >, поможет предприятиям и жителям мегаполисов
-            решить широкий спектр экологических проблем. 
+            производством оборудования очистки воды 
+            <a href="#">http://www.kreal.spb.ru</a>, поможет
+            предприятиям и жителям мегаполисов решить
+            широкий спектр экологических проблем. 
           </p>
         </div>
         <div>
@@ -289,33 +286,36 @@
 
         </div>
       </main>
-      <link rel="stylesheet" href="map.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<div class="geography_filter">
+      <section class="geography_filter">
   <div class="container">
     <div class="title_listener">
       <h2>География <span>объектов</span></h2>
     </div>
     <div class="extra_map">
-      <video id="map_video" muted class="grn-standart" src="media/video/KrealMap.mp4"></video>
+      <video
+        id="map_video"
+        muted
+        class="grn-standart"
+        src="media/video/KrealMap.mp4"
+      ></video>
       <div class="background"></div>
-      <div class="pkuis">
-        </div>
-      </div>
+      <div class="pkuis"></div>
     </div>
   </div>
-</div>
+</section>
 <script>
-   var a = false;
-  $(".geography_filter").on("mouseover",()=>{
-    if(!a){
+  var a = false;
+  $('.geography_filter').on('mouseover', () => {
+    if (!a) {
       $('#map_video')[0].play();
-      a=!a;
+      a = !a;
     }
   });
-  $("#map_video").on("ended", ()=>{
-    $("#map_video").addClass("ended_video");
-    setTimeout(()=>{$("#map_video").hide();},400);
+  $('#map_video').on('ended', () => {
+    $('#map_video').addClass('ended_video');
+    setTimeout(() => {
+      $('#map_video').hide();
+    }, 400);
   });
 </script>
 

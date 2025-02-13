@@ -55,12 +55,25 @@
     @include tablet {
       background: linear-gradient(
         180deg,
+        #ddecff 0%,
+        #f4f4f4 100%
+      );
+    }
+  }
+  &--kan {
+    background: linear-gradient(
+      180deg,
+      #dcecff 0%,
+      #fefeff 100%
+    );
+    @include tablet {
+      background: linear-gradient(
+        180deg,
         #fff 0%,
         #dcecff 100%
       );
     }
   }
-
   &--mesk {
     background: linear-gradient(180deg, #fff 0%, #fff 100%);
     @include tablet {
@@ -87,15 +100,6 @@
           #e9f3ff 100%
         );
       }
-    }
-  }
-  &--stat {
-    @include tablet {
-      background: linear-gradient(
-        180deg,
-        #ddecff 0%,
-        #f4f4f4 100%
-      );
     }
   }
   .container {

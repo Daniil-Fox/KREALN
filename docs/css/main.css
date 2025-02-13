@@ -5600,6 +5600,16 @@ ul li::marker {
 }
 @media (max-width: 1024px) {
   .sp-block-chars--stat {
+    background: -webkit-gradient(linear, left top, left bottom, from(#ddecff), to(#f4f4f4));
+    background: linear-gradient(180deg, #ddecff 0%, #f4f4f4 100%);
+  }
+}
+.sp-block-chars--kan {
+  background: -webkit-gradient(linear, left top, left bottom, from(#dcecff), to(#fefeff));
+  background: linear-gradient(180deg, #dcecff 0%, #fefeff 100%);
+}
+@media (max-width: 1024px) {
+  .sp-block-chars--kan {
     background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#dcecff));
     background: linear-gradient(180deg, #fff 0%, #dcecff 100%);
   }
@@ -5622,12 +5632,6 @@ ul li::marker {
   .sp-block-chars--box {
     background: -webkit-gradient(linear, left top, left bottom, from(#ddecff), to(#e9f3ff));
     background: linear-gradient(180deg, #ddecff 0%, #e9f3ff 100%);
-  }
-}
-@media (max-width: 1024px) {
-  .sp-block-chars--stat {
-    background: -webkit-gradient(linear, left top, left bottom, from(#ddecff), to(#f4f4f4));
-    background: linear-gradient(180deg, #ddecff 0%, #f4f4f4 100%);
   }
 }
 .sp-block-chars .container {
