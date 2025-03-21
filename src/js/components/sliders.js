@@ -99,6 +99,10 @@ new Swiper('.team-people__slider', {
   freeMode: true,
   speed: 500,
   loop: true,
+  navigation: {
+    prevEl: '.tp-prev',
+    nextEl: '.tp-next',
+  },
 });
 
 const licTabs = document.querySelectorAll('.animate-g');

@@ -31,7 +31,54 @@
       margin-bottom: 1rem;
     }
   }
+  &__control {
+    position: absolute;
+    z-index: 5;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 3rem;
+    opacity: 0;
+    transition: opacity 0.2s ease-in;
 
+    @include tablet {
+      opacity: 1;
+      position: static;
+      margin-top: 2rem;
+      padding: 0;
+      justify-content: center;
+      gap: 2rem;
+    }
+  }
+  &__arr {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    @include tablet {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+    &--prev {
+      transform: rotateZ(-90deg);
+    }
+    &--next {
+      transform: rotateZ(90deg);
+    }
+    svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      fill: #307fe2;
+    }
+  }
   &__header {
     max-width: 53rem;
     margin: 0 auto;
@@ -42,8 +89,20 @@
   }
 
   &__slider {
+    position: relative;
     max-width: 100%;
     min-width: 0;
+    cursor: grab;
+
+    &:active {
+      cursor: grabbing;
+    }
+
+    @include hover {
+      .team-people__control {
+        opacity: 1;
+      }
+    }
   }
 
   &__text {
@@ -78,7 +137,7 @@
     border-radius: 100%;
     background-color: #d9d9d9;
     overflow: hidden;
-
+    flex-shrink: 0;
     @include tablet {
       width: 10rem;
       height: 10rem;
@@ -88,6 +147,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: 0 10%;
     }
   }
   &__name,

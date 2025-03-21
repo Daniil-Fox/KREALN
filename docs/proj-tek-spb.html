@@ -477,39 +477,7 @@
 
         </div>
       </main>
-      <section class="geography_filter">
-  <div class="container">
-    <div class="title_listener">
-      <h2>География <span>объектов</span></h2>
-    </div>
-    <div class="extra_map">
-      <video
-        id="map_video"
-        muted
-        class="grn-standart"
-        src="media/video/KrealMap.mp4"
-      ></video>
-      <div class="background"></div>
-      <div class="pkuis"></div>
-    </div>
-  </div>
-</section>
-<script>
-  var a = false;
-  $('.geography_filter').on('mouseover', () => {
-    if (!a) {
-      $('#map_video')[0].play();
-      a = !a;
-    }
-  });
-  $('#map_video').on('ended', () => {
-    $('#map_video').addClass('ended_video');
-    setTimeout(() => {
-      $('#map_video').hide();
-    }, 400);
-  });
-</script>
-
+      
 <footer class="footer footer--white">
   <div class="footer__top">
     <div class="footer__container">

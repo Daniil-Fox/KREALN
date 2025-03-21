@@ -5,7 +5,12 @@
   @include tablet {
     display: none;
     padding: 3rem 0;
-    background: linear-gradient(180deg, #fff 0%, #dcecff 49%, #fff 100%);
+    background: linear-gradient(
+      180deg,
+      #fff 0%,
+      #dcecff 49%,
+      #fff 100%
+    );
   }
 
   &--mob {
@@ -17,7 +22,7 @@
   }
 
   &__title {
-    margin-bottom: 18rem;
+    margin-bottom: 15vh;
 
     @include tablet {
       margin-bottom: 3rem;
@@ -28,7 +33,7 @@
   &__tabs {
     margin-bottom: 3rem;
     display: flex;
-    border: 0.50px solid rgba(0, 0, 0, 0.3);
+    border: 0.5px solid rgba(0, 0, 0, 0.3);
     border-left: none;
     border-right: none;
   }
@@ -47,7 +52,7 @@
     padding: 0.4rem 2rem;
 
     &:not(:last-child) {
-      border-right: 0.50px solid rgba(0, 0, 0, 0.3);
+      border-right: 0.5px solid rgba(0, 0, 0, 0.3);
     }
 
     &.active {
@@ -70,10 +75,8 @@
     display: flex;
 
     background-color: #fff;
-    transition: .2s ease-out;
+    transition: 0.2s ease-out;
     overflow: hidden;
-
-
 
     &:not(:first-child) {
       z-index: -1;
@@ -87,7 +90,7 @@
   }
 
   &__left {
-    padding: 12rem 8rem;
+    padding: 12vh 8rem;
     padding-bottom: 9.4rem;
     flex-shrink: 0;
     flex-basis: 93rem;
@@ -108,7 +111,7 @@
   &__right {
     flex-grow: 1;
 
-    padding: 12rem 4.5rem;
+    padding: 12vh 4.5rem;
   }
 
   &__wrapper {
@@ -139,13 +142,13 @@
       cursor: pointer;
 
       &::before {
-        content: "";
+        content: '';
         display: block;
         flex-shrink: 0;
         width: 0;
         height: 0.2rem;
         background-color: #307fe2;
-        transition: width .3s ease-out;
+        transition: width 0.3s ease-out;
         will-change: width;
       }
 

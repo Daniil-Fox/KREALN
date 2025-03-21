@@ -1,14 +1,38 @@
 import { throttle } from './../functions/throttle.js';
 import Lenis from 'lenis';
-// -------------------- Глобальные переменные --------------------
+
+// Global variables
 let delta, direction;
-const delayAnim = 700; // Задержка на переключение слайдов
-let windPos = 0; // Индекс текущего слайда
-const HOR_SCROLL_STEP = 100; // Шаг прокрутки в hor-scroll
-let anim = false; // Флаг блокировки анимации
-let pause = false; // Пауза прокрутки
-let isPageScrollEnabled = false; // Включение стандартного скролла
-let footerVisible = false; // Флаг видимости футера
+const delayAnim = 700;
+let windPos = 0;
+const HOR_SCROLL_STEP = 100;
+let anim = false;
+let pause = false;
+let isPageScrollEnabled = false;
+let footerVisible = false;
+let myLenis;
+let lastScrollTime = 0;
+
+myLenis = new Lenis({
+  duration: 0.5,
+  lerp: 0.1,
+  easing: (t) =>
+    t < 0.5 ? 2 * t * t : -1 + 4 * t - 2 * t * t,
+  smooth: true,
+});
+document
+  .querySelector('.btn_showmore_news')
+  ?.addEventListener('click', (e) => {
+    setTimeout(() => {
+      myLenis.resize();
+    }, 50);
+  });
+
+function raf(time) {
+  myLenis.raf(time);
+  requestAnimationFrame(raf);
+}
+
 const testiTabs = document.querySelectorAll(
   '.testi-cont__tab',
 );
@@ -17,54 +41,47 @@ const testiArray = document.querySelectorAll(
 );
 const siteSlider = document.querySelector('.site-slider');
 let horScrollSec = 0;
-// -------------------- Утилитарные функции --------------------
-// Проверяем, длиннее ли текущий слайд экрана
+
+// Utility functions
 function isLongSlide(slide) {
   const sec = slide.querySelector('section');
-  // Проверяем высоту самой секции
   const isSlideLong = sec.scrollHeight > window.innerHeight;
-
-  // Секция считается длинной, если либо она сама длинная, либо у нее есть длинный дочерний элемент
   return isSlideLong;
 }
 
 const processLongSectionScroll = (slide, delta) => {
   const sec = slide.querySelector('section');
-  const currentScroll = sec.scrollTop; // Текущая позиция прокрутки
-  const maxScroll = sec.scrollHeight - sec.clientHeight; // Максимальное значение скролла
+  const currentScroll = sec.scrollTop;
+  const maxScroll = sec.scrollHeight - sec.clientHeight;
 
-  // Скролл вниз
   if (delta < 0) {
     if (currentScroll < maxScroll) {
       slide.scrollTop = Math.min(
         currentScroll + Math.abs(delta),
         maxScroll,
       );
-      return 'inProgress'; // Продолжаем скролл внутри секции
+      return 'inProgress';
     } else {
-      return 'endBottom'; // Достигли конца секции
+      return 'endBottom';
     }
   }
 
-  // Скролл вверх
   if (delta > 0) {
     if (currentScroll > 0) {
       slide.scrollTop = Math.max(
         currentScroll - Math.abs(delta),
         0,
       );
-      return 'inProgress'; // Продолжаем скролл внутри секции
+      return 'inProgress';
     }
-    return 'endTop'; // Достигли начала секции
+    return 'endTop';
   }
 
-  return 'none'; // Скролл не изменился
+  return 'none';
 };
 
 function changeOpacity(newPos, direction, siteSlides) {
-  // Если листаем вниз
   if (direction === 'down') {
-    // Скрываем предыдущий слайд
     if (
       newPos > 0 &&
       siteSlides[newPos - 1]?.querySelector('.hide-side')
@@ -73,7 +90,6 @@ function changeOpacity(newPos, direction, siteSlides) {
         '.hide-side',
       ).style.opacity = 0;
     }
-    // Показываем текущий слайд
     if (siteSlides[newPos]?.querySelector('.hide-side')) {
       siteSlides[newPos].querySelector(
         '.hide-side',
@@ -81,7 +97,6 @@ function changeOpacity(newPos, direction, siteSlides) {
     }
   }
 
-  // Если листаем вверх
   if (direction === 'up') {
     document.documentElement.scrollTop != 0 ?? 0;
     if (
@@ -92,7 +107,6 @@ function changeOpacity(newPos, direction, siteSlides) {
         '.hide-side',
       ).style.opacity = 0;
     }
-    // Показываем текущий слайд
     if (siteSlides[newPos]?.querySelector('.hide-side')) {
       siteSlides[newPos].querySelector(
         '.hide-side',
@@ -101,38 +115,24 @@ function changeOpacity(newPos, direction, siteSlides) {
   }
 }
 
-// Обновление состояния навигации
 function updateNavigation(navItems, newPos) {
   navItems.forEach((item, index) => {
-    item.classList.toggle('active', index === newPos); // Устанавливаем активный элемент навигации
+    item.classList.toggle('active', index === newPos);
   });
 }
-if (window.matchMedia('(max-width: 768px)').matches) {
-  // Initialize Lenis
-  const lenis = new Lenis();
 
-  // Use requestAnimationFrame to continuously update the scroll
-  function raf(time) {
-    lenis.raf(time);
-    requestAnimationFrame(raf);
-  }
-
-  requestAnimationFrame(raf);
-}
-
-// Отключение/включение стандартной прокрутки страницы
 const setBodyScroll = (enabled) => {
   document.body.style.overflow = enabled
     ? 'auto'
     : 'hidden';
 };
-// -------------------- Управляем классом body-light --------------------
+
 function setLightBody(flag) {
   flag
     ? document.body.classList.add('body-light')
     : document.body.classList.remove('body-light');
 }
-// Инициализация слайдов
+
 const initSlides = (siteSlides) => {
   siteSlides.forEach((slide, i) => {
     slide.style.zIndex = i;
@@ -140,7 +140,6 @@ const initSlides = (siteSlides) => {
       slide.style.transform = 'translateY(100%)';
     }
 
-    // Устанавливаем класс `body-light` для начального слайда (если это первый слайд при загрузке)
     if (i === 0) {
       if (slide.classList.contains('site-screen-light')) {
         setLightBody(1);
@@ -151,9 +150,19 @@ const initSlides = (siteSlides) => {
   });
 };
 
-// Смещение к слайду
 const setPosition = (newPos, siteSlides, navItems) => {
   if (newPos < 0 || newPos >= siteSlides.length) return;
+
+  anim = true;
+
+  if (
+    isPageScrollEnabled &&
+    windPos === siteSlides.length - 1
+  ) {
+    window.scrollTo(0, 0);
+    isPageScrollEnabled = false;
+    setBodyScroll(false);
+  }
 
   if (
     newPos > windPos &&
@@ -162,6 +171,7 @@ const setPosition = (newPos, siteSlides, navItems) => {
       siteSlides[windPos].scrollHeight -
         siteSlides[windPos].clientHeight
   ) {
+    anim = false;
     return;
   }
 
@@ -170,8 +180,10 @@ const setPosition = (newPos, siteSlides, navItems) => {
     isLongSlide(siteSlides[windPos]) &&
     siteSlides[windPos].scrollTop > 0
   ) {
+    anim = false;
     return;
   }
+
   if (testiArray.length > 0) {
     if (newPos != 1) {
       testiTabs[0].classList.remove('active');
@@ -187,22 +199,27 @@ const setPosition = (newPos, siteSlides, navItems) => {
       });
     }
   }
+
   const dir = newPos > windPos ? 'down' : 'up';
 
-  // Переключение слайдов
   if (dir === 'down') {
     for (let i = windPos; i <= newPos; i++) {
       siteSlides[i].style.transform = 'translateY(0)';
     }
   } else if (dir === 'up') {
-    for (let i = newPos; i < windPos; i++) {
-      siteSlides[i + 1].style.transform =
-        'translateY(100%)';
+    siteSlides.forEach((slide, index) => {
+      if (index > newPos) {
+        slide.style.transform = 'translateY(100%)';
+      }
+    });
+    for (let i = 0; i <= newPos; i++) {
+      siteSlides[i].style.transform = 'translateY(0)';
     }
   }
 
   windPos = newPos;
   changeOpacity(newPos, dir, siteSlides);
+
   if (
     siteSlides[windPos].classList.contains(
       'site-screen-light',
@@ -212,65 +229,61 @@ const setPosition = (newPos, siteSlides, navItems) => {
   } else {
     setLightBody(0);
   }
-  // Обновляем навигацию
+
   setNavItem(windPos, siteSlides, navItems);
 
-  // Отдельно обрабатываем случай последнего слайда
-  // Разрешаем стандартный скролл ТОЛЬКО после завершения анимации
-  // Последний длинный слайд
   if (windPos === siteSlides.length - 1) {
+    myLenis.start();
+
+    requestAnimationFrame(raf);
+
     if (isLongSlide(siteSlides[windPos])) {
       siteSlides[windPos].style.position = 'relative';
       siteSlides[windPos].style.height = 'auto';
-
+      setBodyScroll(true);
       setTimeout(() => {
         siteSlider.style.height = 'auto';
-      }, 700);
+        myLenis.resize();
+      }, delayAnim);
     }
 
     setTimeout(() => {
       isPageScrollEnabled = true;
       setBodyScroll(true);
-    }, delayAnim); // Включаем стандартный скролл после завершения анимации
+      anim = false;
+    }, delayAnim);
   } else {
+    myLenis?.stop();
     siteSlides[windPos].style.position = 'absolute';
     siteSlides[windPos].style.height = '100%';
     siteSlider.style.height = '100vh';
     isPageScrollEnabled = false;
-    setBodyScroll(false); // Отключаем стандартный скролл для всех других слайдов
+    setBodyScroll(false);
+
+    setTimeout(() => {
+      anim = false;
+    }, delayAnim);
   }
 };
 
-// -------------------- Навигация --------------------
-
-// Функция очистки активного класса у всех элементов навигации
 const clearNav = (navItems) => {
   navItems.forEach((el) => el.classList.remove('active'));
 };
 
-// Установка активного пункта навигации
 const setNavItem = (windPos, siteSlides, navItems) => {
   clearNav(navItems);
-
-  // Собираем список видимых слайдов (без nav-disable)
   const visibleSlides = siteSlides.filter(
     (slide) => !slide.classList.contains('nav-disable'),
   );
-
-  // Определяем индекс активного слайда среди "видимых" слайдов
   const activeIndex = visibleSlides.indexOf(
     siteSlides[windPos],
   );
-
-  // Если индекс существующий, подсвечиваем соответствующий элемент навигации
   if (activeIndex !== -1 && navItems[activeIndex]) {
     navItems[activeIndex].classList.add('active');
   }
 };
 
-// Инициализация кликов по элементам навигации
 const initNavigationClicks = (navItems, siteSlides) => {
-  // Собираем список только видимых слайдов
   const visibleSlides = siteSlides.filter(
     (slide) => !slide.classList.contains('nav-disable'),
   );
@@ -278,12 +291,9 @@ const initNavigationClicks = (navItems, siteSlides) => {
   navItems.forEach((item, visibleIndex) => {
     item.addEventListener('click', (e) => {
       e.preventDefault();
-
-      // Находим реальный индекс слайда в общем массиве слайдов
+      if (anim) return;
       const targetSlide = visibleSlides[visibleIndex];
       const realIndex = siteSlides.indexOf(targetSlide);
-
-      // Если реальный индекс найден, переключаемся на слайд
       if (realIndex !== -1) {
         setPosition(realIndex, siteSlides, navItems);
       }
@@ -291,9 +301,6 @@ const initNavigationClicks = (navItems, siteSlides) => {
   });
 };
 
-// -------------------- Горизонтальная прокрутка (.hor-scroll) --------------------
-
-// Карта для хранения состояния translateX каждого элемента .hor-scroll
 const horizontalState = new WeakMap();
 
 const initHorizontalState = (element) => {
@@ -303,21 +310,20 @@ const initHorizontalState = (element) => {
 };
 
 const handleHorizontalScroll = (horScroll, delta) => {
+  if (anim) return 'blocked';
+
   const state = horizontalState.get(horScroll);
   const horContainerWidth =
     horScroll.parentElement.clientWidth;
   const maxTranslateX =
-    horScroll.scrollWidth - horContainerWidth; // Крайняя точка вправо
+    horScroll.scrollWidth - horContainerWidth;
 
   let newTranslateX = state.currentTranslateX;
-  // Прокрутка вниз (вправо)
+
   if (delta < 0) {
     horScrollSec += HOR_SCROLL_STEP;
-
     horScrollSec = Math.min(maxTranslateX, horScrollSec);
-  }
-  // Прокрутка вверх (влево)
-  else if (delta > 0) {
+  } else if (delta > 0) {
     horScrollSec -= HOR_SCROLL_STEP;
     horScrollSec = Math.max(0, horScrollSec);
   }
@@ -325,17 +331,41 @@ const handleHorizontalScroll = (horScroll, delta) => {
   horScroll.style.transform = `translateX(-${horScrollSec}px)`;
   state.currentTranslateX = newTranslateX;
 
-  // Возвращаем статус прокрутки
   if (horScrollSec === maxTranslateX) return 'endRight';
   if (horScrollSec === 0) return 'endLeft';
   return 'inProgress';
 };
 
-// -------------------- Обработка прокрутки --------------------
-
 const handleScroll = (e, siteSlides, navItems) => {
-  if (anim || pause || isPageScrollEnabled) return;
+  if (anim || pause) return;
+
+  if (
+    windPos === siteSlides.length - 1 &&
+    delta > 0 &&
+    window.scrollY === 0
+  ) {
+    isPageScrollEnabled = false;
+    setBodyScroll(false);
+    setPosition(windPos - 1, siteSlides, navItems);
+    return;
+  }
+
   const currentSlide = siteSlides[windPos];
+  const lenis = new Lenis({
+    duration: 0.5,
+    lerp: 0.1,
+    easing: (t) =>
+      t < 0.5 ? 2 * t * t : -1 + 4 * t - 2 * t * t,
+    smooth: true,
+    wrapper: currentSlide.querySelector('section'),
+  });
+
+  function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+
+  requestAnimationFrame(raf);
   const horScroll =
     currentSlide.querySelector('.hor-scroll');
 
@@ -352,33 +382,31 @@ const handleScroll = (e, siteSlides, navItems) => {
       setPosition(windPos - 1, siteSlides, navItems);
     }
 
-    return; // Прекращаем выполнение, так как был обработан hor-scroll
+    return;
   }
+
   if (isLongSlide(currentSlide)) {
     const sectionStatus = processLongSectionScroll(
       currentSlide,
       delta,
     );
 
-    // Если дошли до самого низа длинной секции
     if (sectionStatus === 'endBottom' && delta < 0) {
       setPosition(windPos + 1, siteSlides, navItems);
-
+      lenis.destroy();
       if (windPos === siteSlides.length - 1) {
         isPageScrollEnabled = true;
         setBodyScroll(true);
       }
     }
 
-    // Если поднялись до самого верха длинной секции
     if (sectionStatus === 'endTop' && delta > 0) {
       setPosition(windPos - 1, siteSlides, navItems);
+      lenis.destroy();
     }
 
-    return; // Скролл длинной секции обработан
+    return;
   }
-  // Если нет hor-scroll, продолжаем работу
-  anim = true;
 
   if (
     direction === 'down' &&
@@ -388,14 +416,11 @@ const handleScroll = (e, siteSlides, navItems) => {
   } else if (direction === 'up' && windPos - 1 >= 0) {
     setPosition(windPos - 1, siteSlides, navItems);
   }
-
-  setTimeout(() => {
-    anim = false;
-  }, delayAnim);
 };
 
-// Основное событие прокрутки
 const mainFunc = (e, siteSlides, navItems) => {
+  if (anim || pause || isPageScrollEnabled) return;
+
   delta = e.wheelDeltaY || -e.deltaY;
   direction = delta > 0 ? 'up' : 'down';
   handleScroll(e, siteSlides, navItems);
@@ -411,11 +436,10 @@ const mainFunc = (e, siteSlides, navItems) => {
   }
 };
 
-// -------------------- Инициализация --------------------
 document.addEventListener('DOMContentLoaded', () => {
   if (!window.matchMedia('(min-width: 1025px)').matches)
     return;
-
+  myLenis.stop();
   const footer = document.querySelector('footer');
 
   if (!siteSlider) {
@@ -442,7 +466,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (siteSlides.length > 1) {
     setBodyScroll(false);
     initSlides(siteSlides);
-    initNavigationClicks(navItems, siteSlides); // Инициализация кликов по навигации
+    initNavigationClicks(navItems, siteSlides);
 
     const footerObserver = new IntersectionObserver(
       (entries) => {
@@ -452,26 +476,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (footerVisible) {
           isPageScrollEnabled = true;
-          setBodyScroll(true); // Включаем стандартный скролл, если виден футер
+          setBodyScroll(true);
         } else if (windPos < siteSlides.length - 1) {
           isPageScrollEnabled = false;
-          setBodyScroll(false); // Отключаем стандартный скролл
+          setBodyScroll(false);
         }
       },
       { threshold: 0.1 },
     );
 
-    // if (footer) footerObserver.observe(footer);
-    if (footer.querySelector('.geography_filter'))
+    if (footer && footer.querySelector('.geography_filter'))
       footerObserver.observe(
         footer.querySelector('.geography_filter'),
       );
 
-    const throttledMainFunc = throttle(
-      (e) => mainFunc(e, siteSlides, navItems),
-      300,
-    );
-    window.addEventListener('wheel', throttledMainFunc);
+    const handleWheel = (e) => {
+      if (anim || pause) {
+        e.preventDefault();
+        return;
+      }
+
+      if (
+        windPos === siteSlides.length - 1 &&
+        window.scrollY === 0
+      ) {
+        delta = e.wheelDeltaY || -e.deltaY;
+        if (delta > 0) {
+          isPageScrollEnabled = false;
+          setBodyScroll(false);
+          pause = false;
+        }
+      }
+
+      mainFunc(e, siteSlides, navItems);
+    };
+
+    window.addEventListener('wheel', handleWheel, {
+      passive: false,
+    });
 
     window.addEventListener('scroll', () => {
       if (
@@ -484,10 +526,108 @@ document.addEventListener('DOMContentLoaded', () => {
         pause = false;
       }
     });
+
+    window.addEventListener('keydown', (e) => {
+      if (anim || pause || isPageScrollEnabled) {
+        e.preventDefault();
+        return;
+      }
+
+      if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+        e.preventDefault();
+        if (windPos + 1 < siteSlides.length) {
+          setPosition(windPos + 1, siteSlides, navItems);
+        }
+      }
+
+      if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+        e.preventDefault();
+        if (windPos - 1 >= 0) {
+          setPosition(windPos - 1, siteSlides, navItems);
+        }
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if (
+        !window.matchMedia('(min-width: 1025px)').matches
+      ) {
+        setBodyScroll(true);
+        siteSlides.forEach((slide) => {
+          slide.style.transform = 'translateY(0)';
+          slide.style.position = 'relative';
+          slide.style.height = 'auto';
+        });
+        siteSlider.style.height = 'auto';
+
+        window.removeEventListener('wheel', handleWheel);
+      } else {
+        if (siteSlides.length > 1) {
+          initSlides(siteSlides);
+          setPosition(windPos, siteSlides, navItems);
+        }
+      }
+    });
   } else {
     siteSlider.style.height = 'auto';
     siteSlides[windPos].style.height = 'auto';
     siteSlides[windPos].style.position = 'relative';
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) =>
+        t < 0.5 ? 2 * t * t : -1 + 4 * t - 2 * t * t,
+      smooth: true,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
     setBodyScroll(true);
   }
+
+  const initInteractiveElements = () => {
+    const scrollDownBtn = document.querySelector(
+      '.scroll-down-btn',
+    );
+    if (scrollDownBtn) {
+      scrollDownBtn.addEventListener('click', () => {
+        if (anim) return;
+
+        if (windPos < siteSlides.length - 1) {
+          setPosition(windPos + 1, siteSlides, navItems);
+        }
+      });
+    }
+
+    const scrollToTopBtn = document.querySelector(
+      '.scroll-to-top',
+    );
+    if (scrollToTopBtn) {
+      scrollToTopBtn.addEventListener('click', () => {
+        if (anim) return;
+
+        if (isPageScrollEnabled) {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          setPosition(0, siteSlides, navItems);
+        }
+      });
+
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > window.innerHeight) {
+          scrollToTopBtn.classList.add('visible');
+        } else {
+          scrollToTopBtn.classList.remove('visible');
+        }
+      });
+    }
+  };
+
+  initInteractiveElements();
 });
+
+export { setPosition, setBodyScroll };

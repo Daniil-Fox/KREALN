@@ -33,52 +33,201 @@
         <div
           class="team-arrow__items team-arrow__items--mob"
         >
-          <div class="team-arrow__item">Менеджер</div>
-          <div class="team-arrow__item">Ассистент</div>
-          <div class="team-arrow__item">Бухгалтер</div>
-          <div class="team-arrow__item">Директор</div>
-          <div class="team-arrow__item">Инженер</div>
-          <div class="team-arrow__item">Инженер</div>
+          <a
+            href="#"
+            target="_blank"
+            class="team-arrow__item"
+            >Менеджер</a
+          >
+          <a
+            href="#"
+            target="_blank"
+            class="team-arrow__item"
+            >Ассистент</a
+          >
+          <a
+            href="#"
+            target="_blank"
+            class="team-arrow__item"
+            >Бухгалтер</a
+          >
+          <a
+            href="#"
+            target="_blank"
+            class="team-arrow__item"
+            >Директор</a
+          >
+          <a
+            href="#"
+            target="_blank"
+            class="team-arrow__item"
+            >Инженер</a
+          >
+          <a
+            href="#"
+            target="_blank"
+            class="team-arrow__item"
+            >Инженер</a
+          >
         </div>
         <div class="team-car__arrow team-arrow">
           <div class="team-arrow__arrow">
             <img src="./img/wave.webp" alt="" />
           </div>
           <div class="team-arrow__items">
-            <div class="team-arrow__item">Менеджер</div>
-            <div class="team-arrow__item">Инженер</div>
-            <div class="team-arrow__item">Бухгалтер</div>
-            <div class="team-arrow__item">Ассистент</div>
-            <div class="team-arrow__item">Директор</div>
+            <a
+              href="#"
+              target="_blank"
+              class="team-arrow__item"
+            >
+              <span class="team-arrow__line"></span>
+              <span>Менеджер</span>
+            </a>
+            <a
+              href="#"
+              target="_blank"
+              class="team-arrow__item"
+            >
+              <span class="team-arrow__line"></span>
+              <span>Инженер</span>
+            </a>
+            <a
+              href="#"
+              target="_blank"
+              class="team-arrow__item"
+            >
+              <span class="team-arrow__line"></span>
+              <span>Бухгалтер</span>
+            </a>
+            <a
+              href="#"
+              target="_blank"
+              class="team-arrow__item"
+            >
+              <span class="team-arrow__line"></span>
+              <span>Ассистент</span>
+            </a>
+            <a
+              href="#"
+              target="_blank"
+              class="team-arrow__item"
+            >
+              <span class="team-arrow__line"></span>
+              <span>Директор</span>
+            </a>
           </div>
         </div>
       </div>
       <div class="team-car__right">
-        <div class="team-car__item">
+        <a href="#" target="_blank" class="team-car__item">
           <div class="team-car__img">
             <img src="./img/team/01.webp" alt="" />
           </div>
           <div class="team-car__name desc desc--bold">
             Ассистент Директора по развитию
           </div>
-        </div>
-        <div class="team-car__item">
+        </a>
+        <a href="#" target="_blank" class="team-car__item">
           <div class="team-car__img">
             <img src="./img/team/02.webp" alt="" />
           </div>
           <div class="team-car__name desc desc--bold">
             Инженер-конструктор
           </div>
-        </div>
-        <div class="team-car__item">
+        </a>
+        <a href="#" target="_blank" class="team-car__item">
           <div class="team-car__img">
             <img src="./img/team/03.webp" alt="" />
           </div>
           <div class="team-car__name desc desc--bold">
             Менеджер проекта
           </div>
-        </div>
+        </a>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    let flag = true;
+    let startTime = 0;
+    let elapsed = 0;
+
+    function tick(item, centerItem = false) {
+      const newTime = Date.now();
+      elapsed += (newTime - startTime) * 0.002;
+      startTime = newTime;
+
+      if (!centerItem) {
+        item.style.transform = `rotateZ(${
+          Math.sin(elapsed) * 6
+        }deg)`;
+      } else {
+        item.style.transform = `translateX(-50%) rotateZ(${
+          Math.sin(elapsed) * 6
+        }deg)`;
+      }
+
+      if (flag) {
+        requestAnimationFrame(() => {
+          tick(item, centerItem);
+        });
+      } else {
+        item.style.transition = '.8s';
+        if (!centerItem) {
+          item.style.transform = 'rotateZ(0deg)';
+        } else {
+          item.style.transform =
+            'translateX(-50%) rotateZ(0deg)';
+        }
+        startTime = 0;
+        elapsed = 0;
+      }
+    }
+
+    const arrowContainer = document.querySelector(
+      '.team-arrow__items:not(.team-arrow__items--mob)',
+    );
+
+    if (arrowContainer) {
+      const allItems = arrowContainer.querySelectorAll(
+        '.team-arrow__item',
+      );
+
+      const centeredItem = allItems[2];
+
+      const regularItems = Array.from(allItems).filter(
+        (item, index) => index !== 2,
+      );
+
+      if (centeredItem) {
+        centeredItem.addEventListener('mouseenter', () => {
+          flag = true;
+          startTime = Date.now();
+          elapsed = 0;
+          tick(centeredItem, true);
+        });
+
+        centeredItem.addEventListener('mouseleave', () => {
+          flag = false;
+        });
+      }
+
+      regularItems.forEach((el) => {
+        el.addEventListener('mouseenter', () => {
+          startTime = Date.now();
+          elapsed = 0;
+          flag = true;
+          tick(el);
+        });
+
+        el.addEventListener('mouseleave', () => {
+          flag = false;
+        });
+      });
+    } else {
+      console.log('Контейнер с элементами не найден');
+    }
+  });
+</script>

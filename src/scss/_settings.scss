@@ -541,24 +541,11 @@ ul {
   position: relative;
   z-index: 2;
   overflow: hidden;
-  transition: color 0.3s ease-out;
-  &::before {
-    content: '';
-    position: absolute;
-    z-index: -1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #307fe2;
-    transition: 0.3s ease-out;
-    transform: translateY(110%);
-  }
+  transition: color 0.3s ease-out,
+    background-color 0.3s ease-out;
   @include hover {
     color: #fff;
-    &::before {
-      transform: translateY(0);
-    }
+    background-color: #307fe2;
   }
   @include tablet {
     padding: 1rem 1.4rem;
@@ -668,7 +655,7 @@ ul {
   }
 }
 .header__nav--testi ul ul li {
-  font-size: 1rem;
+  font-size: 1.1rem;
 
   &.active::before {
     width: 2.5rem;
@@ -718,4 +705,13 @@ ul {
   100% {
     background-size: cover;
   }
+}
+.fixed {
+  position: fixed !important;
+  top: 0 !important;
+}
+
+.stopped {
+  position: absolute !important;
+  top: unset;
 }

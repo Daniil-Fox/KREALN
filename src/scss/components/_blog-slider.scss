@@ -96,8 +96,7 @@
     position: relative;
     z-index: 6;
     color: #fff;
-    border-color: #fff;
-
+    border: 0.05rem solid #fff;
     padding: 1.4rem 4rem;
 
     @include tablet {

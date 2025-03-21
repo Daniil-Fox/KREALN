@@ -1,5 +1,6 @@
 .block {
   padding-top: 12rem;
+  padding-bottom: 4rem;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -65,11 +66,16 @@
 
       @include tablet {
         height: 32rem;
+        width: 100%;
       }
 
       img {
         width: 100%;
         max-height: 100%;
+
+        @include tablet {
+          height: 100%;
+        }
       }
     }
   }

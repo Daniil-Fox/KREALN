@@ -1,5 +1,6 @@
 import './_components.js';
 import Rellax from 'rellax';
+
 const service = document.querySelectorAll('.service');
 if (service.length > 0) {
   service.forEach((section) => {
@@ -100,29 +101,48 @@ document.addEventListener('DOMContentLoaded', function () {
       .querySelector('.geography_filter')
       ?.closest('.site-screen')
   ) {
-    window.addEventListener('scroll', function () {
-      const headerHeight =
-        header?.scrollHeight || sidebar.scrollHeight;
-      const footerRect = footer.getBoundingClientRect();
-      if (footerRect.top < headerHeight) {
+    function handleScroll() {
+      const headerHeight = header?.offsetHeight; // Высота сайдбара
+      const footerRect = footer.getBoundingClientRect(); // Положение футера
+      const sidebarRect = sidebar.getBoundingClientRect(); // Положение сайдбара
+      const sidebarHeight = sidebar?.offsetHeight; // Положение сайдбара
+
+      // Если нижняя часть сайдбара касается верха футера
+      if (footerRect.top <= sidebarHeight) {
+        sidebar.classList.remove('fixed');
+        sidebar.classList.add('stopped');
+
         if (header) {
-          header.style.position = 'absolute';
-          header.style.top = `${100}%`;
+          header.classList.add('stopped');
+          header.classList.remove('fixed');
+          header.style.top = `${
+            window.scrollY +
+            footerRect.top -
+            header.clientHeight
+          }px`;
         }
-        if (sidebar) {
-          sidebar.style.position = 'absolute';
-          sidebar.style.top = `${100}%`;
-        }
-      } else {
+
+        sidebar.style.top = `${
+          window.scrollY +
+          footerRect.top -
+          sidebar.clientHeight
+        }px`;
+      }
+      // Если пользователь скроллит вверх и сайдбар не касается футера
+      else if (window.scrollY > 0) {
+        sidebar.classList.remove('stopped');
+        sidebar.classList.add('fixed');
+        sidebar.style.top = '0'; // Возвращаем сайдбар к фиксированной позиции
+
         if (header) {
-          header.style.position = 'fixed';
-          header.style.top = '0';
-        }
-        if (sidebar) {
-          sidebar.style.position = 'fixed';
-          sidebar.style.top = '0';
+          header.classList.remove('stopped');
+          header.classList.add('fixed');
+          header.style.top = '0'; // Возвращаем сайдбар к фиксированной позиции
         }
       }
-    });
+    }
+
+    document.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleScroll);
   }
 });
