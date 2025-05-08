@@ -75,74 +75,61 @@ if (attachResume.length > 0) {
   });
 }
 
-var rellax = new Rellax('.rellax', {
-  speed: 2,
-  center: false,
-  wrapper: '.news-section',
-  round: true,
-  vertical: true,
-  horizontal: false,
-});
-var body = document.body,
-  html = document.documentElement;
-
 document.addEventListener('DOMContentLoaded', function () {
   const header = document.querySelector(
     '.header:not(.h-nav--nolist)',
   );
   const footer = document.querySelector('.footer');
   const sidebar = document.querySelector('.sidebar');
-  const footerRect = footer.getBoundingClientRect();
-  const dif =
-    document.documentElement.scrollHeight -
-    footerRect.height;
-  if (
-    !document
-      .querySelector('.geography_filter')
-      ?.closest('.site-screen')
-  ) {
-    function handleScroll() {
-      const headerHeight = header?.offsetHeight; // Высота сайдбара
-      const footerRect = footer.getBoundingClientRect(); // Положение футера
-      const sidebarRect = sidebar.getBoundingClientRect(); // Положение сайдбара
-      const sidebarHeight = sidebar?.offsetHeight; // Положение сайдбара
+  if (footer) {
+    if (
+      !document
+        .querySelector('.geography_filter')
+        ?.closest('.site-screen')
+    ) {
+      function handleScroll() {
+        const headerHeight = header?.offsetHeight; // Высота сайдбара
+        const footerRect = footer.getBoundingClientRect(); // Положение футера
+        const sidebarRect = sidebar.getBoundingClientRect(); // Положение сайдбара
+        const sidebarHeight = sidebar?.offsetHeight; // Положение сайдбара
 
-      // Если нижняя часть сайдбара касается верха футера
-      if (footerRect.top <= sidebarHeight) {
-        sidebar.classList.remove('fixed');
-        sidebar.classList.add('stopped');
+        // Если нижняя часть сайдбара касается верха футера
+        if (footerRect.top <= sidebarHeight) {
+          sidebar.classList.remove('fixed');
+          sidebar.classList.add('stopped');
 
-        if (header) {
-          header.classList.add('stopped');
-          header.classList.remove('fixed');
-          header.style.top = `${
+          if (header) {
+            header.classList.add('stopped');
+            header.classList.remove('fixed');
+            header.style.top = `${
+              window.scrollY +
+              footerRect.top -
+              header.clientHeight
+            }px`;
+          }
+
+          sidebar.style.top = `${
             window.scrollY +
             footerRect.top -
-            header.clientHeight
+            sidebar.clientHeight
           }px`;
         }
+        // Если пользователь скроллит вверх и сайдбар не касается футера
+        else if (window.scrollY > 0) {
+          sidebar.classList.remove('stopped');
+          sidebar.classList.add('fixed');
+          sidebar.style.top = '0'; // Возвращаем сайдбар к фиксированной позиции
 
-        sidebar.style.top = `${
-          window.scrollY +
-          footerRect.top -
-          sidebar.clientHeight
-        }px`;
-      }
-      // Если пользователь скроллит вверх и сайдбар не касается футера
-      else if (window.scrollY > 0) {
-        sidebar.classList.remove('stopped');
-        sidebar.classList.add('fixed');
-        sidebar.style.top = '0'; // Возвращаем сайдбар к фиксированной позиции
-
-        if (header) {
-          header.classList.remove('stopped');
-          header.classList.add('fixed');
-          header.style.top = '0'; // Возвращаем сайдбар к фиксированной позиции
+          if (header) {
+            header.classList.remove('stopped');
+            header.classList.add('fixed');
+            header.style.top = '0'; // Возвращаем сайдбар к фиксированной позиции
+          }
         }
       }
-    }
 
-    document.addEventListener('scroll', handleScroll);
-    window.addEventListener('resize', handleScroll);
+      document.addEventListener('scroll', handleScroll);
+      window.addEventListener('resize', handleScroll);
+    }
   }
 });

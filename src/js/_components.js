@@ -5,3 +5,4 @@ import './components/survey.js';
 import './components/contacts-tab.js';
 import './components/blog-mob.js';
 import './components/scale-down.js';
+import './components/project-gallery.js';

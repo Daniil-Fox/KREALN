@@ -3212,12 +3212,13 @@ ul li::marker {
 }
 
 .team-lic {
-  height: 100%;
   background-color: #f4f4f4;
   overflow: hidden;
+  height: 100vh;
 }
 @media (max-width: 1024px) {
   .team-lic {
+    height: auto;
     padding-bottom: 8.5rem;
   }
 }
@@ -3450,6 +3451,11 @@ ul li::marker {
   max-width: 100%;
   min-width: 0;
 }
+@media (max-width: 1024px) {
+  .team-lic__slider {
+    padding-bottom: 0;
+  }
+}
 .team-lic__slider .swiper-wrapper {
   cursor: -webkit-grab;
   cursor: grab;
@@ -3501,12 +3507,6 @@ ul li::marker {
   .animate-g:hover text {
     opacity: 1;
   }
-}
-.animate-g.active path {
-  fill: rgba(219, 225, 233, 0.8);
-}
-.animate-g.active text {
-  opacity: 1;
 }
 
 .spec-hero {

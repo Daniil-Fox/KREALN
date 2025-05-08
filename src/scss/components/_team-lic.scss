@@ -1,8 +1,9 @@
 .team-lic {
-  height: 100%;
   background-color: #f4f4f4;
   overflow: hidden;
+  height: 100vh;
   @include tablet {
+    height: auto;
     padding-bottom: 8.5rem;
   }
   .container {
@@ -220,7 +221,9 @@
     padding-bottom: 4rem;
     max-width: 100%;
     min-width: 0;
-
+    @include tablet {
+      padding-bottom: 0;
+    }
     .swiper-wrapper {
       cursor: grab;
 
@@ -276,13 +279,13 @@
     }
   }
 
-  &.active {
-    path {
-      fill: rgba(#dbe1e9, 0.8);
-    }
+  // &.active {
+  //   path {
+  //     fill: rgba(#dbe1e9, 0.8);
+  //   }
 
-    text {
-      opacity: 1;
-    }
-  }
+  //   text {
+  //     opacity: 1;
+  //   }
+  // }
 }
