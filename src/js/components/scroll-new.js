@@ -13,6 +13,7 @@ let footerVisible = false;
 let myLenis;
 let lastScrollTime = 0;
 let scrollLock = false;
+let lastScrollY = 0;
 myLenis = new Lenis({
   duration: 0.5,
   lerp: 0.1,
@@ -420,6 +421,11 @@ const handleScroll = (e, siteSlides, navItems) => {
   }
 };
 const mainFunc = (e, siteSlides, navItems) => {
+  // Если мы не в верхней точке страницы, не активируем слайдер
+  if (window.scrollY > 0) {
+    return;
+  }
+
   if (anim || pause || isPageScrollEnabled) return;
   delta = e.wheelDeltaY || -e.deltaY;
   direction = delta > 0 ? 'up' : 'down';
@@ -580,13 +586,47 @@ document.addEventListener('DOMContentLoaded', () => {
     initNavigationClicks(navItems, siteSlides);
     const footerObserver = new IntersectionObserver(
       (entries) => {
+        const wasFooterVisible = footerVisible;
         footerVisible = entries.some(
           (entry) => entry.isIntersecting,
         );
-        if (footerVisible) {
+
+        // Если футер стал видимым
+        if (footerVisible && !wasFooterVisible) {
           isPageScrollEnabled = true;
           setBodyScroll(true);
-        } else if (windPos < siteSlides.length - 1) {
+
+          // Устанавливаем правильные стили для последнего слайда
+          if (windPos === siteSlides.length - 1) {
+            siteSlides[windPos].style.position = 'relative';
+            siteSlides[windPos].style.height = 'auto';
+            siteSlider.style.height = 'auto';
+          }
+        }
+        // Если футер перестал быть видимым и мы на последнем слайде
+        else if (
+          !footerVisible &&
+          wasFooterVisible &&
+          windPos === siteSlides.length - 1
+        ) {
+          // Плавно переходим к последнему слайду
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+          });
+
+          setTimeout(() => {
+            isPageScrollEnabled = false;
+            setBodyScroll(false);
+            pause = false;
+          }, 300);
+        }
+        // Если футер перестал быть видимым и мы не на последнем слайде
+        else if (
+          !footerVisible &&
+          wasFooterVisible &&
+          windPos < siteSlides.length - 1
+        ) {
           isPageScrollEnabled = false;
           setBodyScroll(false);
         }
@@ -600,22 +640,60 @@ document.addEventListener('DOMContentLoaded', () => {
         footer.querySelector('.geography_filter'),
       );
     const handleWheel = (e) => {
+      // Блокируем работу слайдера, если мы не в верхней точке страницы
+      if (window.scrollY > 0) {
+        // Разрешаем стандартный скролл страницы
+        isPageScrollEnabled = true;
+        setBodyScroll(true);
+        return;
+      }
+
       if (anim || pause) {
         e.preventDefault();
         return;
       }
+
+      // Получаем направление скролла
+      const delta = e.wheelDeltaY || -e.deltaY;
+      const isScrollingDown = delta < 0;
+      const isScrollingUp = delta > 0;
+
+      // Случай 1: Мы на последнем слайде и скроллим вниз - разрешаем скролл к футеру
       if (
         windPos === siteSlides.length - 1 &&
-        window.scrollY === 0
+        isScrollingDown
       ) {
-        delta = e.wheelDeltaY || -e.deltaY;
-        if (delta > 0) {
-          isPageScrollEnabled = false;
-          setBodyScroll(false);
-          pause = false;
+        if (window.scrollY === 0) {
+          // Если мы в начале страницы и скроллим вниз, разрешаем обычный скролл
+          isPageScrollEnabled = true;
+          setBodyScroll(true);
+          return;
         }
       }
-      mainFunc(e, siteSlides, navItems);
+
+      // Случай 2: Мы на последнем слайде и скроллим вверх - возвращаемся к предыдущему слайду
+      // Только если мы в верхней точке страницы
+      if (
+        windPos === siteSlides.length - 1 &&
+        isScrollingUp &&
+        window.scrollY === 0
+      ) {
+        isPageScrollEnabled = false;
+        setBodyScroll(false);
+        pause = false;
+
+        // Переходим на предыдущий слайд
+        if (windPos > 0) {
+          setPosition(windPos - 1, siteSlides, navItems);
+        }
+        return;
+      }
+
+      // Стандартная обработка для остальных случаев
+      // Только если мы в верхней точке страницы
+      if (window.scrollY === 0) {
+        mainFunc(e, siteSlides, navItems);
+      }
     };
     window.addEventListener('wheel', handleWheel, {
       passive: false,
@@ -629,6 +707,30 @@ document.addEventListener('DOMContentLoaded', () => {
         isPageScrollEnabled = false;
         setBodyScroll(false);
         pause = false;
+      }
+
+      // Добавляем обработку возврата от футера
+      if (footer && siteSlider) {
+        const siteSlides = Array.from(
+          siteSlider.querySelectorAll('.site-screen'),
+        );
+        const nav = document.querySelector(
+          '.header__nav:not(.no-active)',
+        );
+        const navItems = nav
+          ? Array.from(
+              nav.querySelectorAll('li:not(.no-clickable)'),
+            )
+          : [];
+
+        // Определяем, возвращаемся ли мы от футера к слайдеру
+        // Это происходит, когда мы скроллим вверх и находимся в верхней части страницы
+        const isScrollingUp = lastScrollY > window.scrollY;
+        lastScrollY = window.scrollY;
+
+        if (isScrollingUp) {
+          handleReturnFromFooter(siteSlides, navItems);
+        }
       }
     });
     window.addEventListener('keydown', (e) => {
@@ -748,4 +850,200 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 300);
     });
   }
+
+  // Добавим обработчик для плавного перехода от футера к слайдеру
+  const smoothTransitionHandler = () => {
+    // Если мы скроллим вверх от футера и находимся близко к верху страницы
+    if (
+      footerVisible &&
+      lastScrollY > window.scrollY &&
+      window.scrollY < 100
+    ) {
+      // Обеспечиваем плавный переход к последнему слайду
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+
+      // Сбрасываем флаги скролла с задержкой
+      setTimeout(() => {
+        footerVisible = false;
+        isPageScrollEnabled = false;
+        setBodyScroll(false);
+
+        // Активируем последний слайд
+        const lastSlideIndex = siteSlides.length - 1;
+        setPosition(lastSlideIndex, siteSlides, navItems);
+      }, 300);
+    }
+
+    // Обновляем позицию скролла
+    lastScrollY = window.scrollY;
+  };
+
+  // Добавляем обработчик для плавного перехода
+  window.addEventListener(
+    'scroll',
+    smoothTransitionHandler,
+    { passive: true },
+  );
+});
+
+// Удалим дублирующуюся функцию resetScrollLocks и оставим только одну версию
+function resetScrollLocks() {
+  // Сбрасываем все флаги блокировки скролла
+  anim = false;
+  pause = false;
+  scrollLock = false;
+
+  // Если мы не в верхней точке страницы, всегда разрешаем стандартный скролл
+  if (window.scrollY > 0) {
+    isPageScrollEnabled = true;
+    setBodyScroll(true);
+    return;
+  }
+
+  // Если мы находимся в футере, разрешаем скролл страницы
+  if (footerVisible) {
+    isPageScrollEnabled = true;
+    setBodyScroll(true);
+  }
+  // Если мы на последнем слайде, но не в футере
+  else if (
+    windPos ===
+    document.querySelectorAll('.site-screen').length - 1
+  ) {
+    // Проверяем, является ли последний слайд длинным
+    const lastSlide =
+      document.querySelectorAll('.site-screen')[windPos];
+    if (isLongSlide(lastSlide)) {
+      isPageScrollEnabled = true;
+      setBodyScroll(true);
+    } else {
+      isPageScrollEnabled = false;
+      setBodyScroll(false);
+    }
+  }
+  // На любом другом слайде
+  else {
+    isPageScrollEnabled = false;
+    setBodyScroll(false);
+  }
+}
+
+// Модифицируем функцию handleReturnFromFooter для работы только при достижении верхней точки
+const handleReturnFromFooter = (siteSlides, navItems) => {
+  // Если мы не в верхней точке страницы, не активируем слайдер
+  if (window.scrollY > 0) {
+    return false;
+  }
+
+  if (!footerVisible || !isPageScrollEnabled) return false;
+
+  // Проверяем, находимся ли мы в зоне перехода (близко к верху страницы)
+  if (window.scrollY < window.innerHeight / 3) {
+    // Устанавливаем последний слайд активным
+    const lastSlideIndex = siteSlides.length - 1;
+
+    // Сбрасываем флаги скролла
+    isPageScrollEnabled = false;
+    footerVisible = false;
+    anim = true;
+
+    // Плавно прокручиваем страницу наверх
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+
+    // Устанавливаем правильные стили для последнего слайда
+    setTimeout(() => {
+      // Активируем последний слайд только если мы в верхней точке
+      if (window.scrollY === 0) {
+        setPosition(lastSlideIndex, siteSlides, navItems);
+      }
+
+      // Сбрасываем блокировки скролла
+      setTimeout(resetScrollLocks, 300);
+    }, 400);
+
+    return true;
+  }
+
+  return false;
+};
+
+// Добавим функцию для проверки и исправления стилей при переходе между футером и последним слайдом
+function ensureProperTransition() {
+  const siteSlider = document.querySelector('.site-slider');
+  if (!siteSlider) return;
+
+  const siteSlides = Array.from(
+    siteSlider.querySelectorAll('.site-screen'),
+  );
+  if (siteSlides.length === 0) return;
+
+  const lastSlide = siteSlides[siteSlides.length - 1];
+
+  // Проверяем, находимся ли мы на последнем слайде
+  if (windPos === siteSlides.length - 1) {
+    // Если мы видим футер, устанавливаем правильные стили для прокрутки
+    if (footerVisible) {
+      lastSlide.style.position = 'relative';
+      lastSlide.style.height = 'auto';
+      siteSlider.style.height = 'auto';
+      isPageScrollEnabled = true;
+      setBodyScroll(true);
+    }
+    // Если мы в начале последнего слайда (футер не виден)
+    else if (window.scrollY === 0) {
+      // Если слайд длинный, разрешаем скролл внутри него
+      if (isLongSlide(lastSlide)) {
+        lastSlide.style.position = 'relative';
+        lastSlide.style.height = 'auto';
+        siteSlider.style.height = 'auto';
+      } else {
+        // Иначе устанавливаем стандартные стили слайда
+        lastSlide.style.position = 'absolute';
+        lastSlide.style.height = '100%';
+        siteSlider.style.height = '100vh';
+      }
+    }
+  }
+}
+
+// Вызываем функцию проверки стилей при скролле
+window.addEventListener('scroll', () => {
+  // Запускаем с небольшой задержкой для стабильности
+  requestAnimationFrame(ensureProperTransition);
+});
+
+// Добавляем обработчик для проверки позиции скролла
+window.addEventListener('scroll', () => {
+  // Если мы не в верхней точке страницы, всегда разрешаем стандартный скролл
+  if (window.scrollY > 0) {
+    isPageScrollEnabled = true;
+    setBodyScroll(true);
+  }
+  // Если мы вернулись в верхнюю точку и находимся на последнем слайде
+  else if (
+    window.scrollY === 0 &&
+    windPos ===
+      document.querySelectorAll('.site-screen').length - 1
+  ) {
+    // Проверяем, нужно ли активировать слайдер
+    if (!footerVisible) {
+      isPageScrollEnabled = false;
+      setBodyScroll(false);
+    }
+  }
+});
+
+// Добавляем периодический сброс блокировок для предотвращения "застревания" скролла
+setInterval(resetScrollLocks, 2000);
+
+// Добавляем обработчик для сброса блокировок при клике
+document.addEventListener('click', () => {
+  // Небольшая задержка для завершения других операций
+  setTimeout(resetScrollLocks, 300);
 });
